@@ -27,4 +27,7 @@ export class ImageHelper {
         ],
 
     }
+    static CLOUD = [
+        'assets/img/5_background/layers/4_clouds/1.png'
+    ]
 }
