@@ -7,7 +7,7 @@ export class Cloud extends MovableObject{
     width = 500;
 
     constructor(){
-        super().loadImage(ImageHelper.CLOUD[0]);
+        super().loadImage(ImageHelper.BACKGROUND.clouds[0]);
         this.x = Math.random() * 500;
     }
 
