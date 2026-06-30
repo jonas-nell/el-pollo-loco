@@ -44,6 +44,9 @@ export class ImageHelper {
         orangebg: [
             `assets/img/5_background/layers/3_third_layer/1.png`,
             `assets/img/5_background/layers/3_third_layer/2.png`
+        ],
+        heavenbg: [
+            `assets/img/5_background/layers/air.png`
         ]
     }
 }

@@ -9,6 +9,7 @@ export class World {
     enemies = [new Chicken(), new Chicken(), new Chicken()];
     clouds = [new Cloud()];
     backgroundObjects = [
+        new BackgroundObject(ImageHelper.BACKGROUND.heavenbg[0], 0),
         new BackgroundObject(ImageHelper.BACKGROUND.orangebg[0], 0),
         new BackgroundObject(ImageHelper.BACKGROUND.redbg[0], 0),
         new BackgroundObject(ImageHelper.BACKGROUND.cactusbg[0], 0),
