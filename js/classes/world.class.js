@@ -7,14 +7,17 @@ import { ImageHelper } from "./imgHelper.class.js";
 export class World {
     character = new Character();
     enemies = [new Chicken(), new Chicken(), new Chicken()];
-    clouds = [new Cloud];
-    backgroundObjects = [new BackgroundObject(ImageHelper.BACKGROUND.orangebg[0], 0, 80)];
+    clouds = [new Cloud()];
+    backgroundObjects = [
+        new BackgroundObject(ImageHelper.BACKGROUND.orangebg[0], 0),
+        new BackgroundObject(ImageHelper.BACKGROUND.redbg[0], 0),
+        new BackgroundObject(ImageHelper.BACKGROUND.cactusbg[0], 0),
+    ];
     canvas;
     ctx;
 
-
-    constructor(canvas){
-        this.ctx = canvas.getContext('2d');
+    constructor(canvas) {
+        this.ctx = canvas.getContext("2d");
         this.canvas = canvas;
         this.draw();
     }
@@ -22,21 +25,21 @@ export class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        this.addToMap(this.character);
         this.addObjectsToMap(this.backgroundObjects);
-        this.addObjectsToMap(this.enemies);
         this.addObjectsToMap(this.clouds);
+        this.addToMap(this.character);
+        this.addObjectsToMap(this.enemies);
 
         requestAnimationFrame(() => this.draw());
     }
 
-    addObjectsToMap(objects){
-        objects.forEach(o =>{
+    addObjectsToMap(objects) {
+        objects.forEach((o) => {
             this.addToMap(o);
         });
     }
 
-    addToMap(mo){
+    addToMap(mo) {
         this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
     }
 }
