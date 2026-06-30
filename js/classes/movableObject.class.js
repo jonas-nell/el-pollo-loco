@@ -1,8 +1,8 @@
 export class MovableObject{
     x = 120;
-    y = 250;
+    y = 280;
     img;
-    height = 100;
+    height = 150;
     width = 100;
 
     loadImage(path) {
