@@ -7,7 +7,6 @@ export class Character extends MovableObject {
     y = 155;
     IMAGES_WALKING = ImageHelper.PEPE.walk;
 
-    currentImage = 0;
 
     constructor() {
         super().loadImage(ImageHelper.PEPE.idle[0]);
