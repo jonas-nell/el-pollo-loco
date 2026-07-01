@@ -5,6 +5,7 @@ import { MovableObject } from "./movableObject.class.js";
 export class Character extends MovableObject {
     height = 280;
     y = 155;
+    speed = 6;
     IMAGES_WALKING = ImageHelper.PEPE.walk;
     world;
 
@@ -16,16 +17,28 @@ export class Character extends MovableObject {
     }
 
     animate() {
-        IntervalHub.startInterval(() => {
 
+        IntervalHub.startInterval(() =>{
             if(this.world.keyboard.RIGHT){
+                this.x += this.speed;
+            }
+
+            if(this.world.keyboard.LEFT){
+                this.x -= this.speed;
+            }
+
+        }, 1000/60);
+
+        IntervalHub.startInterval(() => {
+            if(this.world.keyboard.RIGHT){
+                //walk animation
                 let i = this.currentImage % this.IMAGES_WALKING.length;
                 let path = this.IMAGES_WALKING[i];
                 this.img = this.imageCache[path];
                 this.currentImage++;
             }
 
-        }, 120);
+        }, 90);
     }
 
     jump() {}
