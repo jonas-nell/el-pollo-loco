@@ -27,4 +27,26 @@ export class ImageHelper {
         ],
 
     }
+    static BACKGROUND = {
+        clouds: [
+            `assets/img/5_background/layers/4_clouds/1.png`,
+            `assets/img/5_background/layers/4_clouds/2.png`
+        ],
+        cactusbg: [
+            `assets/img/5_background/layers/1_first_layer/1.png`,
+            `assets/img/5_background/layers/1_first_layer/2.png`
+
+        ],
+        redbg: [
+            `assets/img/5_background/layers/2_second_layer/1.png`,
+            `assets/img/5_background/layers/2_second_layer/2.png`
+        ],
+        orangebg: [
+            `assets/img/5_background/layers/3_third_layer/1.png`,
+            `assets/img/5_background/layers/3_third_layer/2.png`
+        ],
+        heavenbg: [
+            `assets/img/5_background/layers/air.png`
+        ]
+    }
 }
