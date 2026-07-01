@@ -7,6 +7,7 @@ export class Cloud extends MovableObject{
     height = 250;
     width = 500;
 
+
     constructor(){
         super().loadImage(ImageHelper.BACKGROUND.clouds[0]);
         this.x = Math.random() * 500;
@@ -14,7 +15,6 @@ export class Cloud extends MovableObject{
     }
 
     animate(){
-        IntervalHub.startInterval(() => this.x -= .15, 1000 / 60);
+        this.moveLeft();
     }
-
 }

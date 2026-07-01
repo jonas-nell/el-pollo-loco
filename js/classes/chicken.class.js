@@ -14,10 +14,13 @@ export class Chicken extends MovableObject {
         this.loadImages(ImageHelper.CHICKEN.walk);
 
         this.x = 200 + Math.random() * 500;
+        this.speed = 0.15 + Math.random() * 0.4;
         this.animate();
     }
 
     animate() {
+        this.moveLeft();
+
         IntervalHub.startInterval(() => {
             let i = this.currentImage % this.IMAGES_WALKING.length;
             let path = this.IMAGES_WALKING[i];

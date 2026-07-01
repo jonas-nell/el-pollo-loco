@@ -1,3 +1,5 @@
+import { IntervalHub } from "./interal-hub.class.js";
+
 export class MovableObject {
     x = 120;
     y = 280;
@@ -6,6 +8,7 @@ export class MovableObject {
     width = 100;
     imageCache = {};
     currentImage = 0;
+    speed = 0.15;
 
     loadImage(path) {
         this.img = new Image();
@@ -24,5 +27,7 @@ export class MovableObject {
         console.log("moving right");
     }
 
-    moveLeft() {}
+    moveLeft(){
+        IntervalHub.startInterval(() => this.x -= this.speed, 1000 / 60);
+    }
 }
