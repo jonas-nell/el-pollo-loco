@@ -6,6 +6,7 @@ export class Character extends MovableObject {
     height = 280;
     y = 155;
     IMAGES_WALKING = ImageHelper.PEPE.walk;
+    world;
 
 
     constructor() {
@@ -16,10 +17,14 @@ export class Character extends MovableObject {
 
     animate() {
         IntervalHub.startInterval(() => {
-            let i = this.currentImage % this.IMAGES_WALKING.length;
-            let path = this.IMAGES_WALKING[i];
-            this.img = this.imageCache[path];
-            this.currentImage++;
+
+            if(this.world.keyboard.RIGHT){
+                let i = this.currentImage % this.IMAGES_WALKING.length;
+                let path = this.IMAGES_WALKING[i];
+                this.img = this.imageCache[path];
+                this.currentImage++;
+            }
+
         }, 120);
     }
 
