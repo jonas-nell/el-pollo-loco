@@ -3,34 +3,13 @@ import { Character } from "./character.class.js";
 import { Chicken } from "./chicken.class.js";
 import { Cloud } from "./cloud.class.js";
 import { ImageHelper } from "./imgHelper.class.js";
+import { level1 } from "../levels/level1.js";
 
 export class World {
     character = new Character();
-    enemies = [new Chicken(), new Chicken(), new Chicken()];
-    clouds = [new Cloud()];
-    backgroundObjects = [
-        new BackgroundObject(ImageHelper.BACKGROUND.heavenbg[0], -719),
-        new BackgroundObject(ImageHelper.BACKGROUND.orangebg[1], -719),
-        new BackgroundObject(ImageHelper.BACKGROUND.redbg[1], -719),
-        new BackgroundObject(ImageHelper.BACKGROUND.cactusbg[1], -719),
-        
-        new BackgroundObject(ImageHelper.BACKGROUND.heavenbg[0], 0),
-        new BackgroundObject(ImageHelper.BACKGROUND.orangebg[0], 0),
-        new BackgroundObject(ImageHelper.BACKGROUND.redbg[0], 0),
-        new BackgroundObject(ImageHelper.BACKGROUND.cactusbg[0], 0),
-        new BackgroundObject(ImageHelper.BACKGROUND.heavenbg[0], 719),
-        new BackgroundObject(ImageHelper.BACKGROUND.orangebg[1], 719),
-        new BackgroundObject(ImageHelper.BACKGROUND.redbg[1], 719),
-        new BackgroundObject(ImageHelper.BACKGROUND.cactusbg[1], 719),
-        new BackgroundObject(ImageHelper.BACKGROUND.heavenbg[0], 719*2),
-        new BackgroundObject(ImageHelper.BACKGROUND.orangebg[0], 719*2),
-        new BackgroundObject(ImageHelper.BACKGROUND.redbg[0], 719*2),
-        new BackgroundObject(ImageHelper.BACKGROUND.cactusbg[0], 719*2),
-        new BackgroundObject(ImageHelper.BACKGROUND.heavenbg[0], 719*3),
-        new BackgroundObject(ImageHelper.BACKGROUND.orangebg[1], 719*3),
-        new BackgroundObject(ImageHelper.BACKGROUND.redbg[1], 719*3),
-        new BackgroundObject(ImageHelper.BACKGROUND.cactusbg[1], 719*3),
-    ];
+    enemies = level1.enemies;
+    clouds = level1.clouds;
+    backgroundObjects = level1.backgroundObjects;
     canvas;
     ctx;
     keyboard;
