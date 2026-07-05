@@ -21,7 +21,15 @@ export class ImageHelper {
             `assets/img/2_character_pepe/2_walk/W-26.png`
         ],
         jump: [
-
+            `assets/img/2_character_pepe/3_jump/J-31.png`,
+            `assets/img/2_character_pepe/3_jump/J-32.png`,
+            `assets/img/2_character_pepe/3_jump/J-33.png`,
+            `assets/img/2_character_pepe/3_jump/J-34.png`,
+            `assets/img/2_character_pepe/3_jump/J-35.png`,
+            `assets/img/2_character_pepe/3_jump/J-36.png`,
+            `assets/img/2_character_pepe/3_jump/J-37.png`,
+            `assets/img/2_character_pepe/3_jump/J-38.png`,
+            `assets/img/2_character_pepe/3_jump/J-39.png`
         ]
     }
     static CHICKEN = {
@@ -32,6 +40,16 @@ export class ImageHelper {
         ],
 
     }
+
+    static BOSS = {
+        walk: [
+            `assets/img/4_enemie_boss_chicken/1_walk/G1.png`,
+            `assets/img/4_enemie_boss_chicken/1_walk/G2.png`,
+            `assets/img/4_enemie_boss_chicken/1_walk/G3.png`,
+            `assets/img/4_enemie_boss_chicken/1_walk/G4.png`
+        ]
+    }
+
     static BACKGROUND = {
         clouds: [
             `assets/img/5_background/layers/4_clouds/1.png`,
