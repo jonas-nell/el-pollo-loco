@@ -8,19 +8,24 @@ export class Character extends MovableObject {
     y = 0;
     speed = 6;
     IMAGES_WALKING = ImageHelper.PEPE.walk;
+    IMAGES_JUMPING = ImageHelper.PEPE.jump;
     world;
 
     constructor() {
         super();
         this.loadImage(ImageHelper.PEPE.idle[0]);
-        this.loadImages(ImageHelper.PEPE.walk);
+        this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_JUMPING);
         this.animate();
         this.applyGravity();
     }
 
     animate() {
         IntervalHub.startInterval(() => {
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            if (
+                this.world.keyboard.RIGHT &&
+                this.x < this.world.level.level_end_x
+            ) {
                 this.x += this.speed;
                 this.otherDirection = false;
             }
@@ -33,9 +38,13 @@ export class Character extends MovableObject {
         }, 1000 / 60);
 
         IntervalHub.startInterval(() => {
-            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                //walk animation
-                this.playAnimation(this.IMAGES_WALKING);
+            if (this.isAboveGround()) {
+                this.playAnimation(this.IMAGES_JUMPING);
+            } else {
+                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                    //walk animation
+                    this.playAnimation(this.IMAGES_WALKING);
+                }
             }
         }, 90);
     }
