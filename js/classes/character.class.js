@@ -26,14 +26,19 @@ export class Character extends MovableObject {
                 this.world.keyboard.RIGHT &&
                 this.x < this.world.level.level_end_x
             ) {
-                this.x += this.speed;
                 this.otherDirection = false;
+                this.moveRight();
             }
 
             if (this.world.keyboard.LEFT && this.x > -300) {
-                this.x -= this.speed;
                 this.otherDirection = true;
+                this.moveLeft();
             }
+
+            if(this.world.keyboard.UP && !this.isAboveGround()){
+                this.jump();
+            }
+
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
 
@@ -48,6 +53,4 @@ export class Character extends MovableObject {
             }
         }, 90);
     }
-
-    jump() {}
 }

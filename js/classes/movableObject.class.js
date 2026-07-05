@@ -34,16 +34,16 @@ export class MovableObject {
     }
 
     moveRight() {
-        console.log("moving right");
+        this.x += this.speed;
     }
 
     moveLeft() {
-        IntervalHub.startInterval(() => (this.x -= this.speed), 1000 / 60);
+        this.x -= this.speed;
     }
 
     applyGravity() {
         IntervalHub.startInterval(() => {
-            if (this.isAboveGround()) {
+            if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
@@ -52,5 +52,9 @@ export class MovableObject {
 
     isAboveGround() {
         return this.y < 155;
+    }
+
+    jump(){
+        this.speedY = 30;
     }
 }

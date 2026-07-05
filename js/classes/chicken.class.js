@@ -19,7 +19,7 @@ export class Chicken extends MovableObject {
     }
 
     animate() {
-        this.moveLeft();
+        IntervalHub.startInterval(() => (this.moveLeft()), 1000 / 60);
 
         IntervalHub.startInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);
