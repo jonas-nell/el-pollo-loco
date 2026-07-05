@@ -5,15 +5,17 @@ import { Level } from "./level.class.js";
 
 export class Character extends MovableObject {
     height = 280;
-    y = 155;
+    y = 0;
     speed = 6;
     IMAGES_WALKING = ImageHelper.PEPE.walk;
     world;
 
     constructor() {
-        super().loadImage(ImageHelper.PEPE.idle[0]);
+        super();
+        this.loadImage(ImageHelper.PEPE.idle[0]);
         this.loadImages(ImageHelper.PEPE.walk);
         this.animate();
+        this.applyGravity();
     }
 
     animate() {
