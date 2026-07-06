@@ -26,7 +26,8 @@ export class World {
     checkCollisions = () => {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)){
-                console.log('collision detected');
+                this.character.hit();
+                console.log('collision detected', enemy, this.character.health);
                 
             }
         });

@@ -12,6 +12,7 @@ export class MovableObject {
     otherDirection = false;
     speedY = 0;
     acceleration = 2.5;
+    health = 100;
 
     border = false;
 
@@ -79,5 +80,16 @@ export class MovableObject {
             this.x < mo.x + mo.width &&
             this.y < mo.y + mo.height
         );
+    }
+
+    hit(){
+        this.health -= 5;
+        if(this.health < 0){
+            this.health = 0;
+        }
+    }
+
+    isDead(){
+        return this.health == 0;
     }
 }
