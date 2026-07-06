@@ -13,6 +13,7 @@ export class MovableObject {
     speedY = 0;
     acceleration = 2.5;
     health = 100;
+    lastHit = 0;
 
     border = false;
 
@@ -86,10 +87,18 @@ export class MovableObject {
         this.health -= 5;
         if(this.health < 0){
             this.health = 0;
+        } else{
+            this.lastHit = new Date().getTime();
         }
     }
 
     isDead(){
         return this.health == 0;
+    }
+
+    isHurt(){
+        let timepassed = new Date().getTime() - this.lastHit;
+        timepassed = timepassed / 1000;
+        return timepassed < 1;
     }
 }
