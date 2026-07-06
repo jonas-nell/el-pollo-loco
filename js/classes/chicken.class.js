@@ -8,6 +8,8 @@ export class Chicken extends MovableObject {
     width = 80;
     IMAGES_WALKING = ImageHelper.CHICKEN.walk;
 
+    border = true;
+
 
     constructor() {
         super().loadImage(ImageHelper.CHICKEN.walk[0]);

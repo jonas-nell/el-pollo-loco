@@ -8,6 +8,8 @@ export class Endboss extends MovableObject {
     width = 250;
     y = 60;
 
+    border = true;
+
     IMAGES_WALKING = ImageHelper.BOSS.walk;
 
     constructor() {

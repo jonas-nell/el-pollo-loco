@@ -11,6 +11,8 @@ export class Character extends MovableObject {
     IMAGES_JUMPING = ImageHelper.PEPE.jump;
     world;
 
+    border = true;
+
     constructor() {
         super();
         this.loadImage(ImageHelper.PEPE.idle[0]);

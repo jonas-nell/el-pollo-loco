@@ -13,6 +13,8 @@ export class MovableObject {
     speedY = 0;
     acceleration = 2.5;
 
+    border = false;
+
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
@@ -24,6 +26,18 @@ export class MovableObject {
             img.src = path;
             this.imageCache[path] = img;
         });
+    }
+
+    draw(ctx) {
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    }
+
+    drawFrame(ctx) {
+        ctx.beginPath();
+        ctx.lineWidth = "5";
+        ctx.strokeStyle = "blue";
+        ctx.rect(this.x, this.y, this.width, this.height);
+        ctx.stroke();
     }
 
     playAnimation(images) {
@@ -54,7 +68,16 @@ export class MovableObject {
         return this.y < 155;
     }
 
-    jump(){
+    jump() {
         this.speedY = 30;
+    }
+
+    isColliding(mo) {
+        return (
+            this.x + this.width > mo.x &&
+            this.y + this.height > mo.y &&
+            this.x < mo.x + mo.width &&
+            this.y < mo.y + mo.height
+        );
     }
 }
