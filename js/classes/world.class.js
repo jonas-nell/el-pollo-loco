@@ -31,6 +31,8 @@ export class World {
     run = () => {
         this.checkCollisions();
         this.checkThrowObjects();
+        this.checkBottleCollisions();
+        this.checkBottleGround();
     }
 
     checkThrowObjects(){
@@ -105,5 +107,23 @@ export class World {
     flipImageBack(mo){
         mo.x = mo.x * -1;
         this.ctx.restore();
+    }
+
+    checkBottleCollisions(){
+        this.throwableObjects.forEach((bottle) => {
+            this.level.enemies.forEach((enemy) => {
+                if(bottle.isColliding(enemy)){
+                    bottle.break();
+                }
+            });
+        });
+    }
+
+    checkBottleGround(){
+        this.throwableObjects.forEach((bottle) => {
+            if(bottle.y >= bottle.groundLevel){
+                bottle.break();
+            }
+        });
     }
 }
