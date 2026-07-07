@@ -9,13 +9,19 @@ export class Character extends MovableObject {
     speed = 6;
     IMAGES_WALKING = ImageHelper.PEPE.walk;
     IMAGES_JUMPING = ImageHelper.PEPE.jump;
+    IMAGES_DEAD = ImageHelper.PEPE.dead;
+    IMAGES_HURT = ImageHelper.PEPE.hurt;
     world;
+
+    border = true;
 
     constructor() {
         super();
         this.loadImage(ImageHelper.PEPE.idle[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
+        this.loadImages(this.IMAGES_DEAD);
+        this.loadImages(this.IMAGES_HURT);
         this.animate();
         this.applyGravity();
     }
@@ -43,7 +49,13 @@ export class Character extends MovableObject {
         }, 1000 / 60);
 
         IntervalHub.startInterval(() => {
-            if (this.isAboveGround()) {
+            if (this.isDead()){
+                this.playAnimation(this.IMAGES_DEAD)
+            }
+            else if (this.isHurt()){
+                this.playAnimation(this.IMAGES_HURT)
+            }
+            else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
