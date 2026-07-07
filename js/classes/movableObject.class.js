@@ -7,6 +7,7 @@ export class MovableObject extends DrawableObject {
     otherDirection = false;
     speedY = 0;
     acceleration = 2.5;
+    groundLevel = 155;
     health = 100;
     lastHit = 0;
 
@@ -45,7 +46,7 @@ export class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        return this.y < 155;
+        return this.y < this.groundLevel;
     }
 
     jump() {
