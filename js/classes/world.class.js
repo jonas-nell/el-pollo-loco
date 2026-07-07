@@ -33,6 +33,7 @@ export class World {
         this.checkThrowObjects();
         this.checkBottleCollisions();
         this.checkBottleGround();
+        this.removeFinishedBottles();
     }
 
     checkThrowObjects(){
@@ -125,5 +126,11 @@ export class World {
                 bottle.break();
             }
         });
+    }
+
+    removeFinishedBottles(){
+        this.throwableObjects = this.throwableObjects.filter(
+            bottle => !bottle.isFinished
+        );
     }
 }

@@ -10,6 +10,7 @@ export class MovableObject extends DrawableObject {
     groundLevel = 155;
     health = 100;
     lastHit = 0;
+    isFinished = false;
 
     border = false;
 
@@ -26,6 +27,17 @@ export class MovableObject extends DrawableObject {
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
+    }
+
+    playAnimationOnce(images){
+        let i = this.currentImage;
+        if(i < images.length){
+            let path = images[i];
+            this.img = this.imageCache[path];
+            this.currentImage++;
+        } else {
+            this.isFinished = true;
+        }
     }
 
     moveRight() {
