@@ -63,12 +63,14 @@ export class MovableObject extends DrawableObject {
     }
 
     hit(){
-        this.health -= 5;
+        if (this.isHurt()){
+            return;
+        }
+        this.lastHit = new Date().getTime();
+        this.health -= 10;
         if(this.health < 0){
             this.health = 0;
-        } else{
-            this.lastHit = new Date().getTime();
-        }
+        } 
     }
 
     isDead(){
@@ -78,6 +80,6 @@ export class MovableObject extends DrawableObject {
     isHurt(){
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000;
-        return timepassed < 1;
+        return timepassed < 0.5;
     }
 }

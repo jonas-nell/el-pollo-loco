@@ -25,7 +25,7 @@ export class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        IntervalHub.startInterval(this.run, 200);
+        IntervalHub.startInterval(this.run, 16);
     }
 
     run = () => {
@@ -35,8 +35,7 @@ export class World {
 
     checkThrowObjects(){
         if(this.keyboard.E){
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
-            this.throwableObjects.push(bottle);
+            this.character.throwBottle();
         }
     }
 

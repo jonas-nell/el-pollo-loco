@@ -7,22 +7,23 @@ export class ThrowableObject extends MovableObject{
     height = 75;
     width = 60;
     groundLevel = 360;
+    border = true;
 
     constructor(x, y){
         super();
         this.loadImage(ImageHelper.BOTTLE.rotation[0]);
         this.x = x;
         this.y = y;
-        this.throw();
+        this.throw();        
+    }
+    
+    
+    throw(){
+        this.applyGravity();
         IntervalHub.startInterval(this.bottleHorizontal, 25);
     }
 
-
-    throw(){
-        this.applyGravity();
-    }
-
     bottleHorizontal = () => {
-        this.x += 10
+        this.x += 10;
     }
 }
