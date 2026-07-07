@@ -5,6 +5,7 @@ import { Cloud } from "./cloud.class.js";
 import { ImageHelper } from "./imgHelper.class.js";
 import { level1 } from "../levels/level1.js";
 import { IntervalHub } from "./interal-hub.class.js";
+import { StatusBar } from "./status-bar.class.js";
 
 export class World {
     character = new Character();
@@ -13,6 +14,7 @@ export class World {
     ctx;
     keyboard;
     camera_x = 0;
+    statusBar = new StatusBar;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
@@ -27,8 +29,7 @@ export class World {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)){
                 this.character.hit();
-                console.log('collision detected', enemy, this.character.health);
-                
+                this.statusBar.setPercentage(this.character.health);                
             }
         });
     }
@@ -44,7 +45,12 @@ export class World {
 
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
-        this.addToMap(this.character);
+
+        this.ctx.translate(-this.camera_x, 0);
+        this.addToMap(this.statusBar);
+        this.ctx.translate(this.camera_x, 0);
+
+        this.addToMap(this.character);        
         this.addObjectsToMap(this.level.enemies);
 
         this.ctx.translate(-this.camera_x, 0);
