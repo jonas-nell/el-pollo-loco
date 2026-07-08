@@ -29,6 +29,7 @@ export class World {
     }
 
     run = () => {
+        this.checkChickenJump();
         this.checkCollisions();
         this.checkThrowObjects();
         this.checkBottleCollisions();
@@ -150,6 +151,19 @@ export class World {
         this.level.enemies = this.level.enemies.filter(
             enemy => !enemy.isFinished
         );
+    }
+
+    checkChickenJump(){
+        this.level.enemies.forEach((enemy) => {
+            if (
+                this.character.speedY < 0 &&
+                this.character.isColliding(enemy) &&
+                this.character.y + this.character.height < enemy.y + 30
+            ) {
+                enemy.hit();
+                this.character.jump();
+            }
+        });
     }
 
 }
