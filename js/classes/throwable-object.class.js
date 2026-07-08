@@ -1,3 +1,4 @@
+import { Character } from "./character.class.js";
 import { ImageHelper } from "./imgHelper.class.js";
 import { IntervalHub } from "./interal-hub.class.js";
 import { MovableObject } from "./movableObject.class.js";
@@ -16,8 +17,9 @@ export class ThrowableObject extends MovableObject{
 
     border = true;
 
-    constructor(x, y){
+    constructor(x, y, otherDirection){
         super();
+        this.otherDirection = otherDirection;
         this.loadImage(this.IMAGES_ROTATION[0]);
         this.loadImages(this.IMAGES_ROTATION);
         this.loadImages(this.IMAGES_SPLASH);
@@ -51,7 +53,11 @@ export class ThrowableObject extends MovableObject{
 
     bottleHorizontal = () => {
         if(!this.isBroken){
-            this.x += 8;
+            if(this.otherDirection){
+                this.x -= 8;
+            } else {
+                this.x += 8;
+            }
         }
     }
 
