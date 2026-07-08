@@ -12,6 +12,7 @@ export class Endboss extends MovableObject {
     width = 250;
     y = 60;
     health = 30;
+    speed = 2;
     isDying = false;
     deathTimer = 0;
     isHurtState = false;
@@ -19,6 +20,7 @@ export class Endboss extends MovableObject {
     hurtFrameTimer = 0;
     isAlerting = false;
     hasAlerted = false;
+    isRunning = false;
 
     border = true;
 
@@ -31,6 +33,7 @@ export class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_ALERT);
         this.x = 2450;
         this.animate();
+        this.move();
     }
 
     animate() {
@@ -91,6 +94,7 @@ export class Endboss extends MovableObject {
         this.hurtFrameTimer = new Date().getTime();
         this.currentImageOnce = 0;
         this.playAnimationOnce(this.IMAGES_HURT);
+        this.isRunning = true;
     }
 
     die(){
@@ -98,6 +102,7 @@ export class Endboss extends MovableObject {
         this.isDying = true;
         this.deathTimer = new Date().getTime();
         this.currentImageOnce = 0;
+        this.speed = 0;
     }
 
     alert(){
@@ -105,5 +110,13 @@ export class Endboss extends MovableObject {
         this.isAlerting = true;
         this.hasAlerted = true;
         this.currentImageOnce = 0;
+    }
+
+    move(){
+        IntervalHub.startInterval(() => {
+            if(this.isRunning){
+                this.moveLeft();
+            }
+        }, 1000 / 60);
     }
 }
