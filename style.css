@@ -1,12 +1,26 @@
-html, body{
+/* rye-regular - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: "Rye";
+    font-style: normal;
+    font-weight: 400;
+    src: url("./assets/fonts/rye-v17-latin-regular.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+html,
+body {
     height: 100%;
 }
 
-body{
+h1 {
+    font-family: "Rye", serif;
+}
+
+body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: url('./assets/img/bg.jpg');
+    background: url("./assets/img/bg.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
