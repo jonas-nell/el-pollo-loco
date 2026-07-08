@@ -12,7 +12,6 @@ export class ThrowableObject extends MovableObject{
     groundLevel = 360;
     isBroken = false;
     rotationImage = 0;
-    splashImage = 0;
 
 
     border = true;
@@ -39,11 +38,8 @@ export class ThrowableObject extends MovableObject{
     }
 
     playSplashAnimation(){
-        if(this.splashImage < this.IMAGES_SPLASH.length){
-            let path = this.IMAGES_SPLASH[this.splashImage];
-            this.img = this.imageCache[path];
-            this.splashImage++;
-        } else {
+        this.playAnimationOnce(this.IMAGES_SPLASH);
+        if(this.currentImageOnce >= this.IMAGES_SPLASH.length){
             this.isFinished = true;
         }
     }
@@ -64,5 +60,6 @@ export class ThrowableObject extends MovableObject{
 
         this.isBroken = true;
         this.speedY = 0;
+        this.currentImageOnce = 0;
     }
 }

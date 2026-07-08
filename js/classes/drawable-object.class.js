@@ -2,6 +2,7 @@ export class DrawableObject {
     img;
     imageCache = {};
     currentImage = 0;
+    currentImageOnce = 0;
     x = 120;
     y = 280;
     height = 150;

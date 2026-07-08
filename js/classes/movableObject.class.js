@@ -30,13 +30,10 @@ export class MovableObject extends DrawableObject {
     }
 
     playAnimationOnce(images){
-        let i = this.currentImage;
+        let i = this.currentImageOnce;
         if(i < images.length){
-            let path = images[i];
-            this.img = this.imageCache[path];
-            this.currentImage++;
-        } else {
-            this.isFinished = true;
+            this.img = this.imageCache[images[i]];
+            this.currentImageOnce++;
         }
     }
 
