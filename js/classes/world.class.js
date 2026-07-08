@@ -45,7 +45,7 @@ export class World {
 
     checkCollisions = () => {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)){
+            if (!enemy.isDying && this.character.isColliding(enemy)){
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.health);                
             }
