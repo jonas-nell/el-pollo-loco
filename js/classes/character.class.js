@@ -72,8 +72,9 @@ export class Character extends MovableObject {
         if (!this.canThrow) return;
 
         let bottle = new ThrowableObject(
-            this.x + 100,
-            this.y + 100
+            this.x + this.width / 2,
+            this.y + 100,
+            this.otherDirection
         );
 
         this.world.throwableObjects.push(bottle);

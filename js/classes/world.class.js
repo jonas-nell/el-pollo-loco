@@ -34,6 +34,7 @@ export class World {
         this.checkBottleCollisions();
         this.checkBottleGround();
         this.removeFinishedBottles();
+        this.removeDeadEnemies();
     }
 
     checkThrowObjects(){
@@ -113,8 +114,9 @@ export class World {
     checkBottleCollisions(){
         this.throwableObjects.forEach((bottle) => {
             this.level.enemies.forEach((enemy) => {
-                if(bottle.isColliding(enemy)){
+                if(!bottle.isBroken && bottle.isColliding(enemy)){
                     bottle.break();
+                    enemy.hit();
                 }
             });
         });
@@ -133,4 +135,11 @@ export class World {
             bottle => !bottle.isFinished
         );
     }
+
+    removeDeadEnemies(){
+        this.level.enemies = this.level.enemies.filter(
+            enemy => !enemy.isFinished
+        );
+    }
+
 }
