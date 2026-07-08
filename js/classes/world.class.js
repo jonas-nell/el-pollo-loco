@@ -114,7 +114,7 @@ export class World {
     checkBottleCollisions(){
         this.throwableObjects.forEach((bottle) => {
             this.level.enemies.forEach((enemy) => {
-                if(bottle.isColliding(enemy)){
+                if(!bottle.isBroken && bottle.isColliding(enemy)){
                     bottle.break();
                     enemy.hit();
                 }
