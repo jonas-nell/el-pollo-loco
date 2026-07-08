@@ -1,7 +1,15 @@
+html, body{
+    height: 100%;
+}
+
 body{
     display: flex;
     flex-direction: column;
     align-items: center;
+    background: url('./assets/img/bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 canvas {
