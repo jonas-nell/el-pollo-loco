@@ -12,7 +12,7 @@ export class Endboss extends MovableObject {
     width = 250;
     y = 60;
     health = 30;
-    speed = 2;
+    speed = 4;
     isDying = false;
     deathTimer = 0;
     isHurtState = false;
