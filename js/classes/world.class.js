@@ -35,6 +35,7 @@ export class World {
         this.checkBottleGround();
         this.removeFinishedBottles();
         this.removeDeadEnemies();
+        this.checkEndbossAlert();
     }
 
     checkThrowObjects(){
@@ -50,6 +51,15 @@ export class World {
                 this.statusBar.setPercentage(this.character.health);                
             }
         });
+    }
+
+    checkEndbossAlert(){
+        let endboss = this.level.endboss;
+        if(!endboss) return;
+        let distance = Math.abs(this.character.x - endboss.x);
+        if(distance < 500){
+            endboss.alert();
+        }
     }
 
     setWorld() {

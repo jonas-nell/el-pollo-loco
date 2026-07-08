@@ -5,8 +5,10 @@ import { Endboss } from "../classes/endboss.class.js";
 import { ImageHelper } from "../classes/imgHelper.class.js";
 import { Level } from "../classes/level.class.js";
 
+const endboss = new Endboss();
+
 export const level1 = new Level(
-    [new Chicken(), new Chicken(), new Chicken(), new Endboss()],
+    [new Chicken(), new Chicken(), new Chicken(), endboss],
     [new Cloud()],
     [
         new BackgroundObject(ImageHelper.BACKGROUND.heavenbg[0], -719),
@@ -30,4 +32,5 @@ export const level1 = new Level(
         new BackgroundObject(ImageHelper.BACKGROUND.redbg[1], 719 * 3),
         new BackgroundObject(ImageHelper.BACKGROUND.cactusbg[1], 719 * 3),
     ],
+    endboss
 );
