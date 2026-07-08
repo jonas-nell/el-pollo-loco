@@ -4,6 +4,7 @@ export class Keyboard {
     static UP = false;
     static DOWN = false;
     static SPACE = false;
+    static E = false;
 
     constructor() {
         this.registerKeyboardEvents();
@@ -27,8 +28,12 @@ export class Keyboard {
                 this.DOWN = true;
             }
 
-            if (e.code === " ") {
+            if (e.code === "Space") {
                 this.SPACE = true;
+            }
+
+            if (e.code === "KeyE"){
+                this.E = true;
             }
         });
 
@@ -49,8 +54,11 @@ export class Keyboard {
                 this.DOWN = false;
             }
 
-            if (e.code === " ") {
+            if (e.code === "Space") {
                 this.SPACE = false;
+            }
+            if (e.code === "KeyE"){
+                this.E = false;
             }
         });
     }

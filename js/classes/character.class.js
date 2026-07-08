@@ -2,6 +2,7 @@ import { ImageHelper } from "./imgHelper.class.js";
 import { IntervalHub } from "./interal-hub.class.js";
 import { MovableObject } from "./movableObject.class.js";
 import { Level } from "./level.class.js";
+import { ThrowableObject } from "./throwable-object.class.js";
 
 export class Character extends MovableObject {
     height = 280;
@@ -12,6 +13,7 @@ export class Character extends MovableObject {
     IMAGES_DEAD = ImageHelper.PEPE.dead;
     IMAGES_HURT = ImageHelper.PEPE.hurt;
     world;
+    canThrow = true;
 
     border = true;
 
@@ -65,4 +67,20 @@ export class Character extends MovableObject {
             }
         }, 90);
     }
+
+    throwBottle(){
+        if (!this.canThrow) return;
+
+        let bottle = new ThrowableObject(
+            this.x + 100,
+            this.y + 100
+        );
+
+        this.world.throwableObjects.push(bottle);
+        this.canThrow = false;
+        setTimeout(() => {
+            this.canThrow = true;
+        }, 500);
+    }
+    
 }

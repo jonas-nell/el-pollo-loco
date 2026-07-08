@@ -7,8 +7,10 @@ export class MovableObject extends DrawableObject {
     otherDirection = false;
     speedY = 0;
     acceleration = 2.5;
+    groundLevel = 155;
     health = 100;
     lastHit = 0;
+    isFinished = false;
 
     border = false;
 
@@ -25,6 +27,14 @@ export class MovableObject extends DrawableObject {
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
+    }
+
+    playAnimationOnce(images){
+        let i = this.currentImageOnce;
+        if(i < images.length){
+            this.img = this.imageCache[images[i]];
+            this.currentImageOnce++;
+        }
     }
 
     moveRight() {
@@ -45,7 +55,7 @@ export class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        return this.y < 155;
+        return this.y < this.groundLevel;
     }
 
     jump() {
@@ -62,12 +72,14 @@ export class MovableObject extends DrawableObject {
     }
 
     hit(){
-        this.health -= 5;
+        if (this.isHurt()){
+            return;
+        }
+        this.lastHit = new Date().getTime();
+        this.health -= 10;
         if(this.health < 0){
             this.health = 0;
-        } else{
-            this.lastHit = new Date().getTime();
-        }
+        } 
     }
 
     isDead(){
@@ -77,6 +89,6 @@ export class MovableObject extends DrawableObject {
     isHurt(){
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000;
-        return timepassed < 1;
+        return timepassed < 0.5;
     }
 }

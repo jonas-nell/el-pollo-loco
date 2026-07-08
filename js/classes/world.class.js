@@ -6,6 +6,8 @@ import { ImageHelper } from "./imgHelper.class.js";
 import { level1 } from "../levels/level1.js";
 import { IntervalHub } from "./interal-hub.class.js";
 import { StatusBar } from "./status-bar.class.js";
+import { ThrowableObject } from "./throwable-object.class.js";
+import { Keyboard } from "./keyboard.class.js";
 
 export class World {
     character = new Character();
@@ -15,6 +17,7 @@ export class World {
     keyboard;
     camera_x = 0;
     statusBar = new StatusBar;
+    throwableObjects = [];
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
@@ -22,7 +25,21 @@ export class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        IntervalHub.startInterval(this.checkCollisions, 200);
+        IntervalHub.startInterval(this.run, 16);
+    }
+
+    run = () => {
+        this.checkCollisions();
+        this.checkThrowObjects();
+        this.checkBottleCollisions();
+        this.checkBottleGround();
+        this.removeFinishedBottles();
+    }
+
+    checkThrowObjects(){
+        if(this.keyboard.E){
+            this.character.throwBottle();
+        }
     }
 
     checkCollisions = () => {
@@ -52,6 +69,7 @@ export class World {
 
         this.addToMap(this.character);        
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.throwableObjects);
 
         this.ctx.translate(-this.camera_x, 0);
 
@@ -90,5 +108,29 @@ export class World {
     flipImageBack(mo){
         mo.x = mo.x * -1;
         this.ctx.restore();
+    }
+
+    checkBottleCollisions(){
+        this.throwableObjects.forEach((bottle) => {
+            this.level.enemies.forEach((enemy) => {
+                if(bottle.isColliding(enemy)){
+                    bottle.break();
+                }
+            });
+        });
+    }
+
+    checkBottleGround(){
+        this.throwableObjects.forEach((bottle) => {
+            if(bottle.y >= bottle.groundLevel){
+                bottle.break();
+            }
+        });
+    }
+
+    removeFinishedBottles(){
+        this.throwableObjects = this.throwableObjects.filter(
+            bottle => !bottle.isFinished
+        );
     }
 }
