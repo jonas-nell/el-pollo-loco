@@ -185,6 +185,9 @@ export class ImageHelper {
             `assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png`,
             `assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png`,
             `assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png`
+        ],
+        onGround:[
+            `assets/img/6_salsa_bottle/2_salsa_bottle_on_ground.png`
         ]
     }
 }

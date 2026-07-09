@@ -40,6 +40,8 @@ export class World {
         this.removeFinishedBottles();
         this.removeDeadEnemies();
         this.checkEndbossAlert();
+        this.checkBottlePickup();
+        this.removePickedUpBottles();
     }
 
     checkThrowObjects(){
@@ -95,6 +97,7 @@ export class World {
         this.addToMap(this.character);        
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
+        this.addObjectsToMap(this.level.bottles);
 
         this.ctx.translate(-this.camera_x, 0);
 
@@ -179,6 +182,21 @@ export class World {
                 this.character.jump();
             }
         });
+    }
+
+    checkBottlePickup(){
+        this.level.bottles.forEach((bottle) => {
+            if(this.character.isColliding(bottle)){
+                this.character.bottles++;
+                bottle.isFinished = true;
+            }
+        });
+    }
+
+    removePickedUpBottles(){
+        this.level.bottles = this.level.bottles.filter(
+            bottle => !bottle.isFinished
+        );
     }
 
 }
