@@ -42,6 +42,8 @@ export class World {
         this.checkEndbossAlert();
         this.checkBottlePickup();
         this.removePickedUpBottles();
+        this.checkCoinPickup();
+        this.removePickedUpCoins();
     }
 
     checkThrowObjects(){
@@ -98,6 +100,7 @@ export class World {
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.bottles);
+        this.addObjectsToMap(this.level.coins);
 
         this.ctx.translate(-this.camera_x, 0);
 
@@ -196,6 +199,21 @@ export class World {
     removePickedUpBottles(){
         this.level.bottles = this.level.bottles.filter(
             bottle => !bottle.isFinished
+        );
+    }
+
+    checkCoinPickup(){
+        this.level.coins.forEach((coin) => {
+            if(this.character.isColliding(coin)){
+                this.character.coins++;
+                coin.isFinished = true;
+            }
+        });
+    }
+
+    removePickedUpCoins(){
+        this.level.coins = this.level.coins.filter(
+            coin => !coin.isFinished
         );
     }
 

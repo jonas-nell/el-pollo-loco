@@ -2,6 +2,7 @@ import { BackgroundObject } from "../classes/background-object.class.js";
 import { Bottle } from "../classes/bottle.class.js";
 import { Chicken } from "../classes/chicken.class.js";
 import { Cloud } from "../classes/cloud.class.js";
+import { Coin } from "../classes/coin.class.js";
 import { Endboss } from "../classes/endboss.class.js";
 import { ImageHelper } from "../classes/imgHelper.class.js";
 import { Level } from "../classes/level.class.js";
@@ -34,5 +35,6 @@ export const level1 = new Level(
         new BackgroundObject(ImageHelper.BACKGROUND.cactusbg[1], 719 * 3),
     ],
     endboss,
-    [new Bottle(500, 360), new Bottle(800, 360)]
+    [new Bottle(500, 360), new Bottle(800, 360)],
+    [new Coin(360, 150)]
 );
