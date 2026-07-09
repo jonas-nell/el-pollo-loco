@@ -17,7 +17,8 @@ export class World {
     keyboard;
     camera_x = 0;
     healthBar = new StatusBar(ImageHelper.STATUSBAR.health, 25, -5);
-    bossHealthBar = new StatusBar(ImageHelper.STATUSBAR.boss, 460, 0)
+    bossHealthBar = new StatusBar(ImageHelper.STATUSBAR.boss, 460, 0);
+    bottleBar = new StatusBar(ImageHelper.STATUSBAR.bottle, 25, 70);
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
@@ -39,6 +40,8 @@ export class World {
         this.removeFinishedBottles();
         this.removeDeadEnemies();
         this.checkEndbossAlert();
+        this.checkBottlePickup();
+        this.removePickedUpBottles();
     }
 
     checkThrowObjects(){
@@ -84,11 +87,17 @@ export class World {
         this.bossHealthBar.setPercentage(
             this.level.endboss.health / 30 * 100
         );
+        this.addToMap(this.bottleBar);
+        this.bottleBar.setPercentage(
+            this.character.bottles / 5 * 100
+        );
+
         this.ctx.translate(this.camera_x, 0);
 
         this.addToMap(this.character);        
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
+        this.addObjectsToMap(this.level.bottles);
 
         this.ctx.translate(-this.camera_x, 0);
 
@@ -173,6 +182,21 @@ export class World {
                 this.character.jump();
             }
         });
+    }
+
+    checkBottlePickup(){
+        this.level.bottles.forEach((bottle) => {
+            if(this.character.isColliding(bottle)){
+                this.character.bottles++;
+                bottle.isFinished = true;
+            }
+        });
+    }
+
+    removePickedUpBottles(){
+        this.level.bottles = this.level.bottles.filter(
+            bottle => !bottle.isFinished
+        );
     }
 
 }

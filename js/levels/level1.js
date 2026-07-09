@@ -1,4 +1,5 @@
 import { BackgroundObject } from "../classes/background-object.class.js";
+import { Bottle } from "../classes/bottle.class.js";
 import { Chicken } from "../classes/chicken.class.js";
 import { Cloud } from "../classes/cloud.class.js";
 import { Endboss } from "../classes/endboss.class.js";
@@ -32,5 +33,6 @@ export const level1 = new Level(
         new BackgroundObject(ImageHelper.BACKGROUND.redbg[1], 719 * 3),
         new BackgroundObject(ImageHelper.BACKGROUND.cactusbg[1], 719 * 3),
     ],
-    endboss
+    endboss,
+    [new Bottle(500, 360), new Bottle(800, 360)]
 );

@@ -24,6 +24,7 @@ export class Character extends MovableObject {
     speed = 6;
     world;
     canThrow = true;
+    bottles = 2;
     lastAction = new Date().getTime();
 
     border = true;
@@ -89,10 +90,10 @@ export class Character extends MovableObject {
     }
 
     throwBottle(){
+        if (!this.canThrow || this.bottles <= 0) return;
         this.lastAction = new Date().getTime();
         const frame = this.getRealFrame();
-        if (!this.canThrow) return;
-
+        
         let bottle = new ThrowableObject(
             frame.x + frame.width - 125 / 2,
             frame.y + 25,
@@ -100,6 +101,11 @@ export class Character extends MovableObject {
         );
 
         this.world.throwableObjects.push(bottle);
+        this.bottles--;
+        this.world.bottleBar.setPercentage(
+            this.bottles / 5 * 100
+        );
+
         this.canThrow = false;
         setTimeout(() => {
             this.canThrow = true;
