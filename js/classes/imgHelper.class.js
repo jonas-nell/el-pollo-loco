@@ -170,7 +170,7 @@ export class ImageHelper {
         ]
     }
 
-    static BOTTLE ={
+    static BOTTLE = {
         rotation: [
             `assets/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png`,
             `assets/img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png`,
@@ -188,6 +188,12 @@ export class ImageHelper {
         ],
         onGround:[
             `assets/img/6_salsa_bottle/2_salsa_bottle_on_ground.png`
+        ]
+    }
+
+    static COIN = {
+        coin: [
+            `assets/img/8_coin/coin_2.png`
         ]
     }
 }
