@@ -16,7 +16,8 @@ export class World {
     ctx;
     keyboard;
     camera_x = 0;
-    statusBar = new StatusBar;
+    healthBar = new StatusBar(ImageHelper.STATUSBAR.health, 25, -5);
+    bossHealthBar = new StatusBar(ImageHelper.STATUSBAR.boss, 460, 0)
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
@@ -25,6 +26,7 @@ export class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
+        this.bossHealthBar.visible = false;
         IntervalHub.startInterval(this.run, 16);
     }
 
@@ -49,7 +51,7 @@ export class World {
         this.level.enemies.forEach((enemy) => {
             if (!enemy.isDying && this.character.isColliding(enemy)){
                 this.character.hit();
-                this.statusBar.setPercentage(this.character.health);                
+                this.healthBar.setPercentage(this.character.health);                
             }
         });
     }
@@ -60,6 +62,7 @@ export class World {
         let distance = Math.abs(this.character.x - endboss.x);
         if(distance < 500){
             endboss.alert();
+            this.bossHealthBar.visible = true;
         }
     }
 
@@ -76,7 +79,11 @@ export class World {
         this.addObjectsToMap(this.level.clouds);
 
         this.ctx.translate(-this.camera_x, 0);
-        this.addToMap(this.statusBar);
+        this.addToMap(this.healthBar);
+        this.addToMap(this.bossHealthBar);
+        this.bossHealthBar.setPercentage(
+            this.level.endboss.health / 30 * 100
+        );
         this.ctx.translate(this.camera_x, 0);
 
         this.addToMap(this.character);        
@@ -95,6 +102,8 @@ export class World {
     }
 
     addToMap(mo) {
+        if (mo.visible === false) return;
+
         if (mo.otherDirection) {
             this.flipImage(mo);
         }
