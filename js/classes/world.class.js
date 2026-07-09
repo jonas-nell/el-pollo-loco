@@ -19,6 +19,7 @@ export class World {
     healthBar = new StatusBar(ImageHelper.STATUSBAR.health, 25, -5);
     bossHealthBar = new StatusBar(ImageHelper.STATUSBAR.boss, 460, 0);
     bottleBar = new StatusBar(ImageHelper.STATUSBAR.bottle, 25, 70);
+    coinBar = new StatusBar(ImageHelper.STATUSBAR.coin, 460, 70);
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
@@ -92,6 +93,10 @@ export class World {
         this.addToMap(this.bottleBar);
         this.bottleBar.setPercentage(
             this.character.bottles / 5 * 100
+        );
+        this.addToMap(this.coinBar);
+        this.coinBar.setPercentage(
+            this.character.coins / 10 * 100
         );
 
         this.ctx.translate(this.camera_x, 0);

@@ -36,5 +36,5 @@ export const level1 = new Level(
     ],
     endboss,
     [new Bottle(500, 360), new Bottle(800, 360)],
-    [new Coin(360, 150)]
+    [new Coin(360, 150), new Coin(400, 150)]
 );
