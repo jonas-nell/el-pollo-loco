@@ -5,13 +5,21 @@ import { Level } from "./level.class.js";
 import { ThrowableObject } from "./throwable-object.class.js";
 
 export class Character extends MovableObject {
-    height = 280;
-    y = 0;
-    speed = 6;
     IMAGES_WALKING = ImageHelper.PEPE.walk;
     IMAGES_JUMPING = ImageHelper.PEPE.jump;
     IMAGES_DEAD = ImageHelper.PEPE.dead;
     IMAGES_HURT = ImageHelper.PEPE.hurt;
+
+    offset = {
+        top: 40,
+        right: 10,
+        bottom: 10,
+        left: 10
+    }
+
+    height = 280;
+    y = 0;
+    speed = 6;
     world;
     canThrow = true;
 

@@ -3,6 +3,13 @@ import { IntervalHub } from "./interal-hub.class.js";
 
 export class MovableObject extends DrawableObject {
 
+    offset = {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0
+    }
+
     speed = 0.15;
     otherDirection = false;
     speedY = 0;
@@ -50,6 +57,11 @@ export class MovableObject extends DrawableObject {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
+
+                if (this.y > this.groundLevel){
+                    this.y = this.groundLevel;
+                    this.speedY = 0;
+                }
             }
         }, 1000 / 25);
     }
