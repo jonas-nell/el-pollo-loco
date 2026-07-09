@@ -11,10 +11,10 @@ export class Character extends MovableObject {
     IMAGES_HURT = ImageHelper.PEPE.hurt;
 
     offset = {
-        top: 40,
-        right: 10,
-        bottom: 10,
-        left: 10
+        top: 120,
+        right: 25,
+        bottom: 15,
+        left: 25
     }
 
     height = 280;
@@ -77,11 +77,12 @@ export class Character extends MovableObject {
     }
 
     throwBottle(){
+        const frame = this.getRealFrame();
         if (!this.canThrow) return;
 
         let bottle = new ThrowableObject(
-            this.x + this.width / 2,
-            this.y + 100,
+            frame.x + frame.width - 150 / 2,
+            frame.y + 50,
             this.otherDirection
         );
 

@@ -25,8 +25,22 @@ export class MovableObject extends DrawableObject {
         ctx.beginPath();
         ctx.lineWidth = "5";
         ctx.strokeStyle = "blue";
-        ctx.rect(this.x, this.y, this.width, this.height);
+        ctx.rect(
+            this.x + this.offset.left,
+            this.y + this.offset.top,
+            this.width - this.offset.left - this.offset.right,
+            this.height - this.offset.top - this.offset.bottom
+        );
         ctx.stroke();
+    }
+
+    getRealFrame(){
+        return {
+            x: this.x + this.offset.left,
+            y: this.y + this.offset.top,
+            width: this.width - this.offset.left - this.offset.right,
+            height: this.height - this.offset.top - this.offset.bottom
+        };
     }
 
     playAnimation(images) {
@@ -75,11 +89,13 @@ export class MovableObject extends DrawableObject {
     }
 
     isColliding(mo) {
+        const myFrame = this.getRealFrame();
+        const otherFrame = mo.getRealFrame();
         return (
-            this.x + this.width > mo.x &&
-            this.y + this.height > mo.y &&
-            this.x < mo.x + mo.width &&
-            this.y < mo.y + mo.height
+            myFrame.x + myFrame.width > otherFrame.x &&
+            myFrame.y + myFrame.height > otherFrame.y &&
+            myFrame.x < otherFrame.x + otherFrame.width &&
+            myFrame.y < otherFrame.y + otherFrame.height
         );
     }
 
