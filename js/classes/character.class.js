@@ -9,6 +9,8 @@ export class Character extends MovableObject {
     IMAGES_JUMPING = ImageHelper.PEPE.jump;
     IMAGES_DEAD = ImageHelper.PEPE.dead;
     IMAGES_HURT = ImageHelper.PEPE.hurt;
+    IMAGES_IDLE = ImageHelper.PEPE.idle;
+    IMAGES_LONG_IDLE = ImageHelper.PEPE.longIdle;
 
     offset = {
         top: 120,
@@ -22,6 +24,7 @@ export class Character extends MovableObject {
     speed = 6;
     world;
     canThrow = true;
+    lastAction = new Date().getTime();
 
     border = true;
 
@@ -32,6 +35,8 @@ export class Character extends MovableObject {
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_LONG_IDLE);
         this.animate();
         this.applyGravity();
     }
@@ -42,16 +47,19 @@ export class Character extends MovableObject {
                 this.world.keyboard.RIGHT &&
                 this.x < this.world.level.level_end_x
             ) {
+                this.lastAction = new Date().getTime();
                 this.otherDirection = false;
                 this.moveRight();
             }
 
             if (this.world.keyboard.LEFT && this.x > -300) {
+                this.lastAction = new Date().getTime();
                 this.otherDirection = true;
                 this.moveLeft();
             }
 
             if((this.world.keyboard.UP || this.world.keyboard.SPACE) && !this.isAboveGround()){
+                this.lastAction = new Date().getTime();
                 this.jump();
             }
 
@@ -60,23 +68,28 @@ export class Character extends MovableObject {
 
         IntervalHub.startInterval(() => {
             if (this.isDead()){
-                this.playAnimation(this.IMAGES_DEAD)
+                this.playAnimation(this.IMAGES_DEAD);
             }
             else if (this.isHurt()){
-                this.playAnimation(this.IMAGES_HURT)
+                this.playAnimation(this.IMAGES_HURT);
             }
             else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
-            } else {
-                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                    //walk animation
-                    this.playAnimation(this.IMAGES_WALKING);
-                }
+            }
+            else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                this.playAnimation(this.IMAGES_WALKING);
+            }
+            else if (this.isIdleLong()){
+                this.playAnimation(this.IMAGES_LONG_IDLE);
+            }
+            else {
+                this.playAnimation(this.IMAGES_IDLE);
             }
         }, 90);
     }
 
     throwBottle(){
+        this.lastAction = new Date().getTime();
         const frame = this.getRealFrame();
         if (!this.canThrow) return;
 
@@ -91,6 +104,10 @@ export class Character extends MovableObject {
         setTimeout(() => {
             this.canThrow = true;
         }, 500);
+    }
+
+    isIdleLong(){
+        return new Date().getTime() - this.lastAction > 5000;
     }
     
 }
