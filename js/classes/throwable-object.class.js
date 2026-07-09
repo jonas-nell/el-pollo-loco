@@ -7,6 +7,13 @@ export class ThrowableObject extends MovableObject{
     IMAGES_ROTATION = ImageHelper.BOTTLE.rotation;
     IMAGES_SPLASH = ImageHelper.BOTTLE.splash;
 
+        offset = {
+        top: 10,
+        right: 5,
+        bottom: 10,
+        left: 5
+    }
+
     speedY = 30;
     height = 75;
     width = 60;

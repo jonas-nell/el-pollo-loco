@@ -5,6 +5,14 @@ import { MovableObject } from "./movableObject.class.js";
 export class Chicken extends MovableObject {
     IMAGES_WALKING = ImageHelper.CHICKEN.walk;
     IMAGES_DEAD = ImageHelper.CHICKEN.dead;
+
+        offset = {
+        top: 5,
+        right: 3,
+        bottom: 6,
+        left: 2
+    }
+
     y = 360;
     height = 70;
     width = 80;

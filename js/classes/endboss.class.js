@@ -8,6 +8,13 @@ export class Endboss extends MovableObject {
     IMAGES_HURT = ImageHelper.BOSS.hurt;
     IMAGES_DEAD = ImageHelper.BOSS.dead;
 
+    offset = {
+        top: 68,
+        right: 20,
+        bottom: 14,
+        left: 20
+    }
+
     height = 400;
     width = 250;
     y = 60;

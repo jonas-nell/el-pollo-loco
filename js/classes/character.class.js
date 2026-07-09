@@ -5,13 +5,21 @@ import { Level } from "./level.class.js";
 import { ThrowableObject } from "./throwable-object.class.js";
 
 export class Character extends MovableObject {
-    height = 280;
-    y = 0;
-    speed = 6;
     IMAGES_WALKING = ImageHelper.PEPE.walk;
     IMAGES_JUMPING = ImageHelper.PEPE.jump;
     IMAGES_DEAD = ImageHelper.PEPE.dead;
     IMAGES_HURT = ImageHelper.PEPE.hurt;
+
+    offset = {
+        top: 120,
+        right: 25,
+        bottom: 15,
+        left: 25
+    }
+
+    height = 280;
+    y = 0;
+    speed = 6;
     world;
     canThrow = true;
 
@@ -69,11 +77,12 @@ export class Character extends MovableObject {
     }
 
     throwBottle(){
+        const frame = this.getRealFrame();
         if (!this.canThrow) return;
 
         let bottle = new ThrowableObject(
-            this.x + this.width / 2,
-            this.y + 100,
+            frame.x + frame.width - 125 / 2,
+            frame.y + 25,
             this.otherDirection
         );
 

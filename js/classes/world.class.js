@@ -158,7 +158,7 @@ export class World {
             if (
                 this.character.speedY < 0 &&
                 this.character.isColliding(enemy) &&
-                this.character.y + this.character.height < enemy.y + 30
+                this.character.getRealFrame().y + this.character.getRealFrame().height < enemy.getRealFrame().y + 30
             ) {
                 enemy.hit();
                 this.character.jump();
