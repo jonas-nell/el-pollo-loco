@@ -2,16 +2,19 @@ import { DrawableObject } from "./drawable-object.class.js";
 import { ImageHelper } from "./imgHelper.class.js";
 
 export class StatusBar extends DrawableObject{
-    IMAGES = ImageHelper.STATUSBAR.health;
     percentage = 100;
     x = 25;
     y = 0;
     width = 230;
     height = 65;
+    visible = true;
 
 
-    constructor(){
+    constructor(images, x, y){
         super();
+        this.IMAGES = images;
+        this.x = x;
+        this.y = y;
         this.loadImages(this.IMAGES);
         this.setPercentage(100);
     }
