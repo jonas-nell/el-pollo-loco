@@ -25,7 +25,8 @@ export const level1 = new Level(
         //third segment
         new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 3), new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 3), new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 3),
 
-        endboss],
+        endboss
+    ],
     generateClouds(segmentCount),
     generateBackground(segmentCount),
     endboss,
