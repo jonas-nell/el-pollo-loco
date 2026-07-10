@@ -1,5 +1,6 @@
 import { BackgroundObject } from "../classes/background-object.class.js";
 import { Bottle } from "../classes/bottle.class.js";
+import { ChickenSmall } from "../classes/chicken-small.class.js";
 import { Chicken } from "../classes/chicken.class.js";
 import { Cloud } from "../classes/cloud.class.js";
 import { Coin } from "../classes/coin.class.js";
@@ -10,7 +11,7 @@ import { Level } from "../classes/level.class.js";
 const endboss = new Endboss();
 
 export const level1 = new Level(
-    [new Chicken(), new Chicken(), new Chicken(), endboss],
+    [new Chicken(), new Chicken(), new Chicken(), new ChickenSmall(), endboss],
     [new Cloud()],
     [
         new BackgroundObject(ImageHelper.BACKGROUND.heavenbg[0], -719),
