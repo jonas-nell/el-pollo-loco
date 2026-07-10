@@ -23,11 +23,11 @@ export class Chicken extends MovableObject {
     border = true;
 
 
-    constructor() {
+    constructor(minX, maxX) {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
-        this.x = 200 + Math.random() * 500;
+        this.x = minX + Math.random() * (maxX - minX);
         this.speed = 0.15 + Math.random() * 0.4;
         this.animate();
     }

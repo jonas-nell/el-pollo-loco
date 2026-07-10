@@ -14,9 +14,18 @@ import { generateClouds } from "./level-generation/cloud-generator.js";
 
 const endboss = new Endboss();
 const segmentCount = 5;
+const SEGMENT_WIDTH = 719;
 
 export const level1 = new Level(
-    [new Chicken(), new Chicken(), new Chicken(), new ChickenSmall(), endboss],
+    [
+        //first segment
+        new Chicken(400, SEGMENT_WIDTH), new Chicken(400, SEGMENT_WIDTH),
+        //second segment
+        new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 2), new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 2), new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 2),
+        //third segment
+        new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 3), new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 3), new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 3),
+
+        endboss],
     generateClouds(segmentCount),
     generateBackground(segmentCount),
     endboss,

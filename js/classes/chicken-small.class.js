@@ -19,8 +19,8 @@ export class ChickenSmall extends Chicken{
     speed = 0.2 + Math.random() * 0.4;
     border = true;
 
-    constructor(){
-        super();
+    constructor(minX, maxX){
+        super(minX, maxX);
         this.loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
