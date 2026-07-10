@@ -1,4 +1,4 @@
-import { Bottle } from "./classes/bottle.class.js";
+import { Bottle } from "../../classes/bottle.class.js";
 
 export function generateBottles(segmentCount){
     let bottles = [];

@@ -1,5 +1,5 @@
-import { BackgroundObject } from "./classes/background-object.class.js";
-import { ImageHelper } from "./classes/imgHelper.class.js";
+import { BackgroundObject } from "../../classes/background-object.class.js";
+import { ImageHelper } from "../../classes/imgHelper.class.js";
 
 export function generateBackground(segmentCount){
     let background = [];
