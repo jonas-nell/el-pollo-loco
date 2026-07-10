@@ -10,13 +10,14 @@ import { Endboss } from "../classes/endboss.class.js";
 import { ImageHelper } from "../classes/imgHelper.class.js";
 import { Level } from "../classes/level.class.js";
 import { generateCoins } from "./level-generation/coin-generator.js";
+import { generateClouds } from "./level-generation/cloud-generator.js";
 
 const endboss = new Endboss();
 const segmentCount = 5;
 
 export const level1 = new Level(
     [new Chicken(), new Chicken(), new Chicken(), new ChickenSmall(), endboss],
-    [new Cloud()],
+    generateClouds(segmentCount),
     generateBackground(segmentCount),
     endboss,
     generateBottles(segmentCount),
