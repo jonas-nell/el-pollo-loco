@@ -6,7 +6,6 @@ export function generateBackground(segmentCount){
     const BACKGROUND_WIDTH = 719;
 
     for(let i = -1; i < segmentCount; i++){
-
         let x = i * BACKGROUND_WIDTH;
         background.push(
             new BackgroundObject(ImageHelper.BACKGROUND.heavenbg[0], x),

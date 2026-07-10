@@ -1,4 +1,5 @@
 import { generateBackground } from "../background-generator.js";
+import { generateBottles } from "../bottle-generator.js";
 import { BackgroundObject } from "../classes/background-object.class.js";
 import { Bottle } from "../classes/bottle.class.js";
 import { ChickenSmall } from "../classes/chicken-small.class.js";
@@ -17,7 +18,7 @@ export const level1 = new Level(
     [new Cloud()],
     generateBackground(segmentCount),
     endboss,
-    [new Bottle(500, 360), new Bottle(800, 360)],
+    generateBottles(segmentCount),
     [new Coin(360, 150), new Coin(400, 150)],
     (segmentCount * 719) - 719
 );
