@@ -1,3 +1,5 @@
+import { generateBackground } from "./level-generation/background-generator.js";
+import { generateBottles } from "./level-generation/bottle-generator.js";
 import { BackgroundObject } from "../classes/background-object.class.js";
 import { Bottle } from "../classes/bottle.class.js";
 import { ChickenSmall } from "../classes/chicken-small.class.js";
@@ -7,35 +9,28 @@ import { Coin } from "../classes/coin.class.js";
 import { Endboss } from "../classes/endboss.class.js";
 import { ImageHelper } from "../classes/imgHelper.class.js";
 import { Level } from "../classes/level.class.js";
+import { generateCoins } from "./level-generation/coin-generator.js";
+import { generateClouds } from "./level-generation/cloud-generator.js";
 
 const endboss = new Endboss();
+const segmentCount = 5;
+const SEGMENT_WIDTH = 719;
 
 export const level1 = new Level(
-    [new Chicken(), new Chicken(), new Chicken(), new ChickenSmall(), endboss],
-    [new Cloud()],
     [
-        new BackgroundObject(ImageHelper.BACKGROUND.heavenbg[0], -719),
-        new BackgroundObject(ImageHelper.BACKGROUND.orangebg[1], -719),
-        new BackgroundObject(ImageHelper.BACKGROUND.redbg[1], -719),
-        new BackgroundObject(ImageHelper.BACKGROUND.cactusbg[1], -719),
-        new BackgroundObject(ImageHelper.BACKGROUND.heavenbg[0], 0),
-        new BackgroundObject(ImageHelper.BACKGROUND.orangebg[0], 0),
-        new BackgroundObject(ImageHelper.BACKGROUND.redbg[0], 0),
-        new BackgroundObject(ImageHelper.BACKGROUND.cactusbg[0], 0),
-        new BackgroundObject(ImageHelper.BACKGROUND.heavenbg[0], 719),
-        new BackgroundObject(ImageHelper.BACKGROUND.orangebg[1], 719),
-        new BackgroundObject(ImageHelper.BACKGROUND.redbg[1], 719),
-        new BackgroundObject(ImageHelper.BACKGROUND.cactusbg[1], 719),
-        new BackgroundObject(ImageHelper.BACKGROUND.heavenbg[0], 719 * 2),
-        new BackgroundObject(ImageHelper.BACKGROUND.orangebg[0], 719 * 2),
-        new BackgroundObject(ImageHelper.BACKGROUND.redbg[0], 719 * 2),
-        new BackgroundObject(ImageHelper.BACKGROUND.cactusbg[0], 719 * 2),
-        new BackgroundObject(ImageHelper.BACKGROUND.heavenbg[0], 719 * 3),
-        new BackgroundObject(ImageHelper.BACKGROUND.orangebg[1], 719 * 3),
-        new BackgroundObject(ImageHelper.BACKGROUND.redbg[1], 719 * 3),
-        new BackgroundObject(ImageHelper.BACKGROUND.cactusbg[1], 719 * 3),
+        //first segment
+        new Chicken(400, SEGMENT_WIDTH), new Chicken(400, SEGMENT_WIDTH),
+        //second segment
+        new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 2), new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 2), new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 2),
+        //third segment
+        new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 3), new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 3), new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 3),
+
+        endboss
     ],
+    generateClouds(segmentCount),
+    generateBackground(segmentCount),
     endboss,
-    [new Bottle(500, 360), new Bottle(800, 360)],
-    [new Coin(360, 150), new Coin(400, 150)]
+    generateBottles(segmentCount),
+    generateCoins(segmentCount),
+    (segmentCount * 719) - 719
 );
