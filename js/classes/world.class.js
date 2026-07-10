@@ -19,6 +19,7 @@ export class World {
     healthBar = new StatusBar(ImageHelper.STATUSBAR.health, 25, -5);
     bossHealthBar = new StatusBar(ImageHelper.STATUSBAR.boss, 460, 0);
     bottleBar = new StatusBar(ImageHelper.STATUSBAR.bottle, 25, 70);
+    coinBar = new StatusBar(ImageHelper.STATUSBAR.coin, 460, 70);
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
@@ -42,6 +43,8 @@ export class World {
         this.checkEndbossAlert();
         this.checkBottlePickup();
         this.removePickedUpBottles();
+        this.checkCoinPickup();
+        this.removePickedUpCoins();
     }
 
     checkThrowObjects(){
@@ -91,6 +94,10 @@ export class World {
         this.bottleBar.setPercentage(
             this.character.bottles / 5 * 100
         );
+        this.addToMap(this.coinBar);
+        this.coinBar.setPercentage(
+            this.character.coins / 10 * 100
+        );
 
         this.ctx.translate(this.camera_x, 0);
 
@@ -98,6 +105,7 @@ export class World {
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.bottles);
+        this.addObjectsToMap(this.level.coins);
 
         this.ctx.translate(-this.camera_x, 0);
 
@@ -196,6 +204,21 @@ export class World {
     removePickedUpBottles(){
         this.level.bottles = this.level.bottles.filter(
             bottle => !bottle.isFinished
+        );
+    }
+
+    checkCoinPickup(){
+        this.level.coins.forEach((coin) => {
+            if(this.character.isColliding(coin)){
+                this.character.coins++;
+                coin.isFinished = true;
+            }
+        });
+    }
+
+    removePickedUpCoins(){
+        this.level.coins = this.level.coins.filter(
+            coin => !coin.isFinished
         );
     }
 

@@ -25,6 +25,7 @@ export class Character extends MovableObject {
     world;
     canThrow = true;
     bottles = 2;
+    coins = 0;
     lastAction = new Date().getTime();
 
     border = true;
