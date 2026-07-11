@@ -29,3 +29,17 @@ body {
 canvas {
     background-color: black;
 }
+
+.d-none{
+    display: none;
+}
+
+#startScreen{
+    height: 480px;
+    width: 720px;
+    background-image: url("./assets/img/9_intro_outro_screens/start/startscreen_2.png");
+    background-size: cover;
+    background-position: 75% center;
+    background-repeat: no-repeat;
+    
+}
