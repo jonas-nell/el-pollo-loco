@@ -63,5 +63,22 @@ canvas {
 .dialog-wrapper{
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 16px;
+}
+
+.end-dialog{
+    width: 720px;
+    height: 480px;
+    padding: 0;
+    border: none;
+    overflow: hidden;
+    border-radius: 16px;
+    background: transparent;
+}
+
+.end-dialog img{
+    width: 90%;
+    height: 60%;
+    object-fit: cover;
 }
