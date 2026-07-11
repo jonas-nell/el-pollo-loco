@@ -19,16 +19,13 @@ export class Game{
     keyboard;
     state = GAME_STATES.MENU;
 
-    levels = [
-        level1,
-        level2,
-        level3
-    ];
+    levels = this.createLevels();
     currentLevelIndex = 0;
 
     constructor(){
         this.keyboard = new Keyboard();
         this.initStartScreen();
+        this.initDialogButtons();
     }
 
     initStartScreen(){
@@ -53,7 +50,7 @@ export class Game{
         this.showCanvas();
         const canvas = document.getElementById("canvas");
         this.character = new Character();
-        this.world = new World(canvas, this.keyboard, this, this.levels[this.currentLevelIndex], this.character);
+        this.world = new World(canvas, this.keyboard, this, this.levels[this.currentLevelIndex](), this.character);
     }
     
     hideStartScreen(){
@@ -77,14 +74,16 @@ export class Game{
         this.world.stop();
         this.currentLevelIndex++;
 
-        this.character.x = this.levels[this.currentLevelIndex].spawnX;
-        this.character.y = this.levels[this.currentLevelIndex].spawnY;
+        const nextLevel = this.levels[this.currentLevelIndex]();
+
+        this.character.x = nextLevel.spawnX;
+        this.character.y = nextLevel.spawnY;
 
         this.world = new World(
             document.getElementById("canvas"),
             this.keyboard,
             this,
-            this.levels[this.currentLevelIndex],
+            this.levels[this.currentLevelIndex](),
             this.character
         );
     }
@@ -107,4 +106,87 @@ export class Game{
         this.hideCanvas();
         gameOverDialog.showModal();
     }
+
+    restartGame(){
+        if(this.world){
+            this.world.stop();
+        }
+        IntervalHub.stopAllIntervals();
+
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        this.currentLevelIndex = 0;
+        this.state = GAME_STATES.PLAYING;
+
+        document.getElementById("gameOverDialog").close();
+        document.getElementById("victoryDialog").close();
+
+        this.showCanvas();
+        this.character = new Character();
+        
+        this.world = new World(
+            canvas,
+            this.keyboard,
+            this,
+            this.levels[this.currentLevelIndex](),
+            this.character
+        );
+    }
+
+    backToMenu(){
+        if(this.world){
+            this.world.stop();
+        }
+        IntervalHub.stopAllIntervals();
+
+        this.currentLevelIndex = 0;
+        this.state = GAME_STATES.MENU;
+
+        document.getElementById("gameOverDialog").close();
+        document.getElementById("victoryDialog").close();
+
+        this.hideCanvas();
+        this.showStartScreen();
+        
+        const startDialog = document.getElementById("startDialog");
+        startDialog.showModal();
+        startDialog.classList.add("visible");
+    }
+
+    initDialogButtons(){
+        const playAgainButtons = document.querySelectorAll(
+            "#victoryDialog button:first-of-type, #gameOverDialog button:first-of-type"
+        );
+        const menuButtons = document.querySelectorAll(
+            "#victoryDialog button:last-of-type, #gameOverDialog button:last-of-type"
+        );
+
+        playAgainButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                this.restartGame();
+            });
+        });
+
+        menuButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                this.backToMenu();
+            });
+        });
+    }
+
+    showStartScreen(){
+        document.getElementById("startScreen").classList.remove("d-none");
+    }
+
+    createLevels(){
+        return [
+            level1,
+            level2,
+            level3,
+        ];
+    }
 }
+
+
+// create createWorld helper
