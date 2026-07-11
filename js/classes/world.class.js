@@ -48,6 +48,7 @@ export class World {
         this.checkCoinPickup();
         this.removePickedUpCoins();
         this.checkLevelCompleted();
+        this.checkEndbossEscape();
         if(this.character.isFinished){
             this.game.gameOver();
         }
@@ -63,6 +64,7 @@ export class World {
         this.level.enemies.forEach((enemy) => {
             if (!enemy.isDying && this.character.isColliding(enemy)){
                 this.character.hit();
+
                 
                 if (this.character.health <= 0){
                     this.character.die();
@@ -247,6 +249,14 @@ export class World {
         if(bossDefeated && allCoinsCollected){
             this.levelCompleted = true;
             this.game.nextLevel();
+        }
+    }
+
+    checkEndbossEscape(){
+        const endboss = this.level.endboss;
+        if (!endboss) return;
+        if (endboss.x < 0){
+            this.game.gameOver();
         }
     }
 }
