@@ -1,10 +1,11 @@
-import { ChickenSmall } from "../classes/chicken-small.class";
-import { Chicken } from "../classes/chicken.class";
-import { Level } from "../classes/level.class";
-import { generateBackground } from "./level-generation/background-generator";
-import { generateBottles } from "./level-generation/bottle-generator";
-import { generateClouds } from "./level-generation/cloud-generator";
-import { generateCoins } from "./level-generation/coin-generator";
+import { ChickenSmall } from "../classes/chicken-small.class.js";
+import { Chicken } from "../classes/chicken.class.js";
+import { Endboss } from "../classes/endboss.class.js";
+import { Level } from "../classes/level.class.js";
+import { generateBackground } from "./level-generation/background-generator.js";
+import { generateBottles } from "./level-generation/bottle-generator.js";
+import { generateClouds } from "./level-generation/cloud-generator.js";
+import { generateCoins } from "./level-generation/coin-generator.js";
 
 const endboss = new Endboss();
 const segmentCount = 6;

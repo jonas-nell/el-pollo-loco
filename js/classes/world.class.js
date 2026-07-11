@@ -1,18 +1,15 @@
 import { BackgroundObject } from "./background-object.class.js";
-import { Character } from "./character.class.js";
-import { Chicken } from "./chicken.class.js";
-import { Cloud } from "./cloud.class.js";
 import { ImageHelper } from "./imgHelper.class.js";
-import { level1 } from "../levels/level1.js";
 import { IntervalHub } from "./interal-hub.class.js";
 import { StatusBar } from "./status-bar.class.js";
-import { ThrowableObject } from "./throwable-object.class.js";
-import { Keyboard } from "./keyboard.class.js";
 
 export class World {
+    worldInterval;
+    animationFrame;
+    running = true;
     game;
     level;
-    character = new Character();
+    character;
     canvas;
     ctx;
     keyboard;
@@ -23,16 +20,18 @@ export class World {
     coinBar = new StatusBar(ImageHelper.STATUSBAR.coin, 460, 70);
     throwableObjects = [];
 
-    constructor(canvas, keyboard, game, level) {
+    constructor(canvas, keyboard, game, level, character) {
         this.ctx = canvas.getContext("2d");
-        this.game = game;
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.game = game;
         this.level = level;
-        this.draw();
+        this.character = character;
+        this.healthBar.setPercentage(this.character.health);
         this.setWorld();
+        this.draw();
         this.bossHealthBar.visible = false;
-        IntervalHub.startInterval(this.run, 16);
+        this.worldInterval = IntervalHub.startInterval(this.run, 16);
     }
 
     run = () => {
@@ -80,6 +79,7 @@ export class World {
     }
 
     draw() {
+        if(!this.running) return;
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.ctx.translate(this.camera_x, 0);
@@ -112,7 +112,7 @@ export class World {
 
         this.ctx.translate(-this.camera_x, 0);
 
-        requestAnimationFrame(() => this.draw());
+        this.animationFrame = requestAnimationFrame(() => this.draw());
     }
 
     addObjectsToMap(objects) {
@@ -223,5 +223,11 @@ export class World {
         this.level.coins = this.level.coins.filter(
             coin => !coin.isFinished
         );
+    }
+
+    stop(){
+        this.running = false;
+        IntervalHub.stopInterval(this.worldInterval);
+        cancelAnimationFrame(this.animationFrame);
     }
 }

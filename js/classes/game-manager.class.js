@@ -1,6 +1,7 @@
 import { level1 } from "../levels/level1.js";
 import { level2 } from "../levels/level2.js";
 import { level3 } from "../levels/level3.js";
+import { Character } from "./character.class.js";
 import { Keyboard } from "./keyboard.class.js";
 import { World } from "./world.class.js";
 
@@ -12,6 +13,7 @@ const GAME_STATES = {
 };
 
 export class Game{
+    character;
     world;
     keyboard;
     state = GAME_STATES.MENU;
@@ -43,12 +45,14 @@ export class Game{
     }
 
     start(){
+        
         this.state = GAME_STATES.PLAYING;
         document.getElementById("startDialog").close();
         this.hideStartScreen();
         this.showCanvas();
-        const canvas = document.getElementById("canvas");        
-        this.world = new World(canvas, this.keyboard, this, this.levels[this.currentLevelIndex]);
+        const canvas = document.getElementById("canvas");
+        this.character = new Character();
+        this.world = new World(canvas, this.keyboard, this, this.levels[this.currentLevelIndex], this.character);
     }
     
     hideStartScreen(){
@@ -57,5 +61,19 @@ export class Game{
 
     showCanvas(){
         document.getElementById("canvas").classList.remove("d-none");
+    }
+
+    nextLevel(){
+        
+        this.world.stop();
+        this.currentLevelIndex++;
+
+        this.world = new World(
+            document.getElementById("canvas"),
+            this.keyboard,
+            this,
+            this.levels[this.currentLevelIndex],
+            this.character
+        );
     }
 }
