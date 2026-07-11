@@ -48,6 +48,9 @@ export class World {
         this.checkCoinPickup();
         this.removePickedUpCoins();
         this.checkLevelCompleted();
+        if(this.character.isFinished){
+            this.game.gameOver();
+        }
     }
 
     checkThrowObjects(){
@@ -60,7 +63,10 @@ export class World {
         this.level.enemies.forEach((enemy) => {
             if (!enemy.isDying && this.character.isColliding(enemy)){
                 this.character.hit();
-                this.healthBar.setPercentage(this.character.health);                
+                
+                if (this.character.health <= 0){
+                    this.character.die();
+                }
             }
         });
     }

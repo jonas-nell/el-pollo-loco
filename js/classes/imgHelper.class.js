@@ -212,6 +212,9 @@ export class ImageHelper {
         ],
         victoryScreen: [
             `assets/img/You won, you lost/You won A.png`
+        ],
+        gameOverScreen: [
+            `assets/img/You won, you lost/Game Over.png`
         ]
     }
 }

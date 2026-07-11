@@ -97,6 +97,14 @@ export class Game{
         IntervalHub.stopAllIntervals();
         this.hideCanvas();
         victoryDialog.showModal();
+    }
 
+    gameOver(){
+        const gameOverDialog = document.getElementById("gameOverDialog");
+        this.state = GAME_STATES.GAME_OVER;
+        this.world.stop();
+        IntervalHub.stopAllIntervals();
+        this.hideCanvas();
+        gameOverDialog.showModal();
     }
 }
