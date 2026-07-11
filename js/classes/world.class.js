@@ -4,6 +4,7 @@ import { IntervalHub } from "./interal-hub.class.js";
 import { StatusBar } from "./status-bar.class.js";
 
 export class World {
+    levelCompleted = false;
     worldInterval;
     animationFrame;
     running = true;
@@ -27,7 +28,6 @@ export class World {
         this.game = game;
         this.level = level;
         this.character = character;
-        this.healthBar.setPercentage(this.character.health);
         this.setWorld();
         this.draw();
         this.bossHealthBar.visible = false;
@@ -47,6 +47,7 @@ export class World {
         this.removePickedUpBottles();
         this.checkCoinPickup();
         this.removePickedUpCoins();
+        this.checkLevelCompleted();
     }
 
     checkThrowObjects(){
@@ -88,6 +89,7 @@ export class World {
         this.addObjectsToMap(this.level.clouds);
 
         this.ctx.translate(-this.camera_x, 0);
+        this.healthBar.setPercentage(this.character.health);
         this.addToMap(this.healthBar);
         this.addToMap(this.bossHealthBar);
         this.bossHealthBar.setPercentage(
@@ -229,5 +231,16 @@ export class World {
         this.running = false;
         IntervalHub.stopInterval(this.worldInterval);
         cancelAnimationFrame(this.animationFrame);
+    }
+
+    checkLevelCompleted(){
+        if (this.levelCompleted) return;
+        const bossDefeated = this.level.endboss.isFinished;
+        const allCoinsCollected = this.level.coins.length === 0;
+
+        if(bossDefeated && allCoinsCollected){
+            this.levelCompleted = true;
+            this.game.nextLevel();
+        }
     }
 }

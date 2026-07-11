@@ -2,6 +2,7 @@ import { level1 } from "../levels/level1.js";
 import { level2 } from "../levels/level2.js";
 import { level3 } from "../levels/level3.js";
 import { Character } from "./character.class.js";
+import { IntervalHub } from "./interal-hub.class.js";
 import { Keyboard } from "./keyboard.class.js";
 import { World } from "./world.class.js";
 
@@ -63,10 +64,21 @@ export class Game{
         document.getElementById("canvas").classList.remove("d-none");
     }
 
+    hideCanvas(){
+        document.getElementById("canvas").classList.add("d-none");
+    }
+
     nextLevel(){
-        
+        if (this.currentLevelIndex >= this.levels.length - 1){
+            this.winGame();
+            return;
+        }
+
         this.world.stop();
         this.currentLevelIndex++;
+
+        this.character.x = this.levels[this.currentLevelIndex].spawnX;
+        this.character.y = this.levels[this.currentLevelIndex].spawnY;
 
         this.world = new World(
             document.getElementById("canvas"),
@@ -75,5 +87,16 @@ export class Game{
             this.levels[this.currentLevelIndex],
             this.character
         );
+    }
+
+    winGame(){
+        const victoryDialog = document.getElementById("victoryDialog");
+
+        this.state = GAME_STATES.VICTORY;
+        this.world.stop();
+        IntervalHub.stopAllIntervals();
+        this.hideCanvas();
+        victoryDialog.showModal();
+
     }
 }

@@ -209,6 +209,9 @@ export class ImageHelper {
     static GAME_SCREENS = {
         startScreen: [
             `assets/img/9_intro_outro_screens/start/startscreen_2.png`
+        ],
+        victoryScreen: [
+            `assets/img/You won, you lost/You won A.png`
         ]
     }
 }

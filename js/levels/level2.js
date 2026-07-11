@@ -29,5 +29,7 @@ export const level2= new Level(
     endboss,
     generateBottles(segmentCount),
     generateCoins(segmentCount),
-    (segmentCount * 719) - 719
+    (segmentCount * 719) - 719,
+    0,
+    80
 );
