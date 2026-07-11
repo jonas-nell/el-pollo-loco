@@ -9,7 +9,7 @@
 
 html,
 body {
-    height: 100%;
+    height: 100dvh;
 }
 
 h1 {
@@ -28,4 +28,57 @@ body {
 
 canvas {
     background-color: black;
+    border-radius:  16px;
+    border: 1px solid rgb(121, 34, 2);
+    box-shadow: 14px 12px 40px -10px rgba(0,0,0,0.5);
+}
+
+.d-none{
+    display: none;
+}
+
+#startScreen{
+    height: 480px;
+    width: 720px;
+    background-image: url("./assets/img/9_intro_outro_screens/start/startscreen_2.png");
+    background-size: cover;
+    background-position: 75% center;
+    background-repeat: no-repeat;
+    border-radius:  16px;
+    border: 1px solid rgb(121, 34, 2);
+    box-shadow: 16px 12px 60px -10px rgba(0,0,0,0.5);
+}
+
+#startDialog{
+    opacity: 0;
+    transition: opacity 1s ease;
+    bottom: 20%;
+    background-color: grey;
+}
+
+#startDialog.visible{
+    opacity: 1;
+}
+
+.dialog-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.end-dialog{
+    width: 720px;
+    height: 480px;
+    padding: 0;
+    border: none;
+    overflow: hidden;
+    border-radius: 16px;
+    background: transparent;
+}
+
+.end-dialog img{
+    width: 90%;
+    height: 60%;
+    object-fit: cover;
 }

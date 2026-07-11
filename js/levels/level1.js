@@ -12,25 +12,30 @@ import { Level } from "../classes/level.class.js";
 import { generateCoins } from "./level-generation/coin-generator.js";
 import { generateClouds } from "./level-generation/cloud-generator.js";
 
-const endboss = new Endboss();
 const segmentCount = 5;
 const SEGMENT_WIDTH = 719;
 
-export const level1 = new Level(
-    [
-        //first segment
-        new Chicken(400, SEGMENT_WIDTH), new Chicken(400, SEGMENT_WIDTH),
-        //second segment
-        new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 2), new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 2), new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 2),
-        //third segment
-        new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 3), new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 3), new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 3),
+export function level1(){
+    const endboss = new Endboss();
 
-        endboss
-    ],
-    generateClouds(segmentCount),
-    generateBackground(segmentCount),
-    endboss,
-    generateBottles(segmentCount),
-    generateCoins(segmentCount),
-    (segmentCount * 719) - 719
-);
+    return new Level(
+        [
+            //first segment
+            new Chicken(400, SEGMENT_WIDTH), new Chicken(400, SEGMENT_WIDTH),
+            //second segment
+            new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 2), new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 2), new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 2),
+            //third segment
+            new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 3), new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 3), new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 3),
+        
+            endboss
+        ],
+        generateClouds(segmentCount),
+        generateBackground(segmentCount),
+        endboss,
+        generateBottles(segmentCount),
+        generateCoins(segmentCount),
+        (segmentCount * 719) - 719,
+        0,
+        80,
+        );
+}

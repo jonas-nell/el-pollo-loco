@@ -1,17 +1,16 @@
 import { BackgroundObject } from "./background-object.class.js";
-import { Character } from "./character.class.js";
-import { Chicken } from "./chicken.class.js";
-import { Cloud } from "./cloud.class.js";
 import { ImageHelper } from "./imgHelper.class.js";
-import { level1 } from "../levels/level1.js";
 import { IntervalHub } from "./interal-hub.class.js";
 import { StatusBar } from "./status-bar.class.js";
-import { ThrowableObject } from "./throwable-object.class.js";
-import { Keyboard } from "./keyboard.class.js";
 
 export class World {
-    character = new Character();
-    level = level1;
+    levelCompleted = false;
+    worldInterval;
+    animationFrame;
+    running = true;
+    game;
+    level;
+    character;
     canvas;
     ctx;
     keyboard;
@@ -22,14 +21,17 @@ export class World {
     coinBar = new StatusBar(ImageHelper.STATUSBAR.coin, 460, 70);
     throwableObjects = [];
 
-    constructor(canvas, keyboard) {
+    constructor(canvas, keyboard, game, level, character) {
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas;
         this.keyboard = keyboard;
-        this.draw();
+        this.game = game;
+        this.level = level;
+        this.character = character;
         this.setWorld();
+        this.draw();
         this.bossHealthBar.visible = false;
-        IntervalHub.startInterval(this.run, 16);
+        this.worldInterval = IntervalHub.startInterval(this.run, 16);
     }
 
     run = () => {
@@ -45,6 +47,11 @@ export class World {
         this.removePickedUpBottles();
         this.checkCoinPickup();
         this.removePickedUpCoins();
+        this.checkLevelCompleted();
+        this.checkEndbossEscape();
+        if(this.character.isFinished){
+            this.game.gameOver();
+        }
     }
 
     checkThrowObjects(){
@@ -57,7 +64,11 @@ export class World {
         this.level.enemies.forEach((enemy) => {
             if (!enemy.isDying && this.character.isColliding(enemy)){
                 this.character.hit();
-                this.healthBar.setPercentage(this.character.health);                
+
+                
+                if (this.character.health <= 0){
+                    this.character.die();
+                }
             }
         });
     }
@@ -77,6 +88,7 @@ export class World {
     }
 
     draw() {
+        if(!this.running) return;
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.ctx.translate(this.camera_x, 0);
@@ -85,6 +97,7 @@ export class World {
         this.addObjectsToMap(this.level.clouds);
 
         this.ctx.translate(-this.camera_x, 0);
+        this.healthBar.setPercentage(this.character.health);
         this.addToMap(this.healthBar);
         this.addToMap(this.bossHealthBar);
         this.bossHealthBar.setPercentage(
@@ -109,7 +122,7 @@ export class World {
 
         this.ctx.translate(-this.camera_x, 0);
 
-        requestAnimationFrame(() => this.draw());
+        this.animationFrame = requestAnimationFrame(() => this.draw());
     }
 
     addObjectsToMap(objects) {
@@ -222,4 +235,28 @@ export class World {
         );
     }
 
+    stop(){
+        this.running = false;
+        IntervalHub.stopInterval(this.worldInterval);
+        cancelAnimationFrame(this.animationFrame);
+    }
+
+    checkLevelCompleted(){
+        if (this.levelCompleted) return;
+        const bossDefeated = this.level.endboss.isFinished;
+        const allCoinsCollected = this.level.coins.length === 0;
+
+        if(bossDefeated && allCoinsCollected){
+            this.levelCompleted = true;
+            this.game.nextLevel();
+        }
+    }
+
+    checkEndbossEscape(){
+        const endboss = this.level.endboss;
+        if (!endboss) return;
+        if (endboss.x < 0){
+            this.game.gameOver();
+        }
+    }
 }

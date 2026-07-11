@@ -19,6 +19,7 @@ export class Character extends MovableObject {
         left: 25
     }
 
+    dead = false;
     height = 280;
     y = 0;
     speed = 6;
@@ -69,8 +70,10 @@ export class Character extends MovableObject {
         }, 1000 / 60);
 
         IntervalHub.startInterval(() => {
-            if (this.isDead()){
-                this.playAnimation(this.IMAGES_DEAD);
+            if (this.dead){
+                this.playAnimationOnce(this.IMAGES_DEAD, () => {
+                    this.isFinished = true;
+                });
             }
             else if (this.isHurt()){
                 this.playAnimation(this.IMAGES_HURT);
@@ -91,6 +94,7 @@ export class Character extends MovableObject {
     }
 
     throwBottle(){
+        if (this.dead) return;
         if (!this.canThrow || this.bottles <= 0) return;
         this.lastAction = new Date().getTime();
         const frame = this.getRealFrame();
@@ -117,4 +121,11 @@ export class Character extends MovableObject {
         return new Date().getTime() - this.lastAction > 5000;
     }
     
+    die(){
+        if (this.dead) return;
+
+        this.dead = true;
+        this.speed = 0;
+        this.speedY = 0;
+    }
 }

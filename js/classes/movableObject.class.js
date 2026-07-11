@@ -50,19 +50,25 @@ export class MovableObject extends DrawableObject {
         this.currentImage++;
     }
 
-    playAnimationOnce(images){
+    playAnimationOnce(images, onFinished = null){
         let i = this.currentImageOnce;
         if(i < images.length){
             this.img = this.imageCache[images[i]];
             this.currentImageOnce++;
+
+            if (this.currentImageOnce === images.length && onFinished){
+                onFinished();
+            }
         }
     }
 
     moveRight() {
+        if (this.isDead()) return;
         this.x += this.speed;
     }
 
     moveLeft() {
+        if (this.isDead()) return;
         this.x -= this.speed;
     }
 
@@ -85,6 +91,7 @@ export class MovableObject extends DrawableObject {
     }
 
     jump() {
+        if (this.isDead()) return;
         this.speedY = 30;
     }
 
@@ -111,7 +118,7 @@ export class MovableObject extends DrawableObject {
     }
 
     isDead(){
-        return this.health == 0;
+        return this.health == 0 || this.dead;
     }
 
     isHurt(){
