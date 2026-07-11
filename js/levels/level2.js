@@ -10,7 +10,7 @@ const endboss = new Endboss();
 const segmentCount = 6;
 const SEGMENT_WIDTH = 719;
 
-export const level1 = new Level(
+export const level2= new Level(
     [
         //first segment
         new ChickenSmall(400, SEGMENT_WIDTH), new ChickenSmall(400, SEGMENT_WIDTH),

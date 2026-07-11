@@ -10,8 +10,9 @@ import { ThrowableObject } from "./throwable-object.class.js";
 import { Keyboard } from "./keyboard.class.js";
 
 export class World {
+    game;
+    level;
     character = new Character();
-    level = level1;
     canvas;
     ctx;
     keyboard;
@@ -22,10 +23,12 @@ export class World {
     coinBar = new StatusBar(ImageHelper.STATUSBAR.coin, 460, 70);
     throwableObjects = [];
 
-    constructor(canvas, keyboard) {
+    constructor(canvas, keyboard, game, level) {
         this.ctx = canvas.getContext("2d");
+        this.game = game;
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.level = level;
         this.draw();
         this.setWorld();
         this.bossHealthBar.visible = false;
@@ -221,5 +224,4 @@ export class World {
             coin => !coin.isFinished
         );
     }
-
 }
