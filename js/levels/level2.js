@@ -11,7 +11,7 @@ const segmentCount = 6;
 const SEGMENT_WIDTH = 719;
 
 export function level2(){
-    const endboss = new Endboss();
+    const endboss = new Endboss((segmentCount - 1) * SEGMENT_WIDTH + 50);
 
     return new Level(
         [

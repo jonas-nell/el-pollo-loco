@@ -32,13 +32,13 @@ export class Endboss extends MovableObject {
     border = true;
 
 
-    constructor() {
+    constructor(x) {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_ALERT);
-        this.x = 2450;
+        this.x = x;
         this.animate();
         this.move();
     }
