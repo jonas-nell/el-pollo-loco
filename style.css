@@ -133,3 +133,44 @@ kbd {
 .controls-table span {
     margin: 0 4px;
 }
+
+#gameContainer {
+    position: relative;
+    display: inline-block;
+}
+
+#fullscreenButton {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+
+    width: 40px;
+    height: 40px;
+
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+#fullscreenButton img {
+    width: 100%;
+    height: 100%;
+}
+
+#fullscreenButton:hover {
+    transform: scale(1.1);
+}
+
+:fullscreen canvas {
+    width: 100dvw;
+    height: auto;
+    max-height: 100dvh;
+}
+
+#gameContainer:fullscreen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}

@@ -10,68 +10,73 @@
 </head>
 <body>
     <h1>El Pollo Loco</h1>
-    <div id="startScreen">
-        <dialog id="startDialog">
+    <div id="gameContainer">
+        <div id="startScreen">
+            <dialog id="startDialog">
+                <div class="dialog-wrapper">
+                    <button id="playButton">PLAY</button>
+                    <button id="instructionsButton">INSTRUCTIONS</button>
+                    <button>SETTINGS</button>
+                </div>
+            </dialog>
+        </div>
+        <dialog id="victoryDialog" class="end-dialog">
             <div class="dialog-wrapper">
-                <button id="playButton">PLAY</button>
-                <button id="instructionsButton">INSTRUCTIONS</button>
-                <button>SETTINGS</button>
+                <img src="./assets/img/You won, you lost/You won A.png" alt="">
+                <button>PLAY AGAIN</button>
+                <button>MENU</button>
             </div>
         </dialog>
+        <dialog id="gameOverDialog" class="end-dialog">
+            <div class="dialog-wrapper">
+                <img src="./assets/img/You won, you lost/Game Over.png" alt="">
+                <button>PLAY AGAIN</button>
+                <button>MENU</button>
+            </div>
+        </dialog>
+        <dialog id="instructionsDialog">
+            <h2>How to Play</h2>
+            <table class="controls-table">
+                <tr>
+                    <td>Move Left</td>
+                    <td>
+                        <kbd>A</kbd>
+                        <span>or</span>
+                        <kbd>←</kbd>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Move Right</td>
+                    <td>
+                        <kbd>D</kbd>
+                        <span>or</span>
+                        <kbd>→</kbd>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Jump</td>
+                    <td>
+                        <kbd>W</kbd>
+                        <span>or</span>
+                        <kbd>↑</kbd>
+                        <span>or</span>
+                        <kbd>Space</kbd>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Throw Bottle</td>
+                    <td>
+                    <kbd>E</kbd>
+                    </td>
+                </tr>
+            </table>
+            <Button id="closeInstructions">Back</Button>
+        </dialog>
+        <canvas id="canvas" class="d-none" width="720" height="480">
+        </canvas>
+        <button id="fullscreenButton" class="d-none">
+            <img src="./assets/img/full-screen.png" alt="">
+        </button>
     </div>
-    <dialog id="victoryDialog" class="end-dialog">
-        <div class="dialog-wrapper">
-            <img src="./assets/img/You won, you lost/You won A.png" alt="">
-            <button>PLAY AGAIN</button>
-            <button>MENU</button>
-        </div>
-    </dialog>
-    <dialog id="gameOverDialog" class="end-dialog">
-        <div class="dialog-wrapper">
-            <img src="./assets/img/You won, you lost/Game Over.png" alt="">
-            <button>PLAY AGAIN</button>
-            <button>MENU</button>
-        </div>
-    </dialog>
-    <dialog id="instructionsDialog">
-        <h2>How to Play</h2>
-        <table class="controls-table">
-            <tr>
-                <td>Move Left</td>
-                <td>
-                    <kbd>A</kbd>
-                    <span>or</span>
-                    <kbd>←</kbd>
-                </td>
-            </tr>
-            <tr>
-                <td>Move Right</td>
-                <td>
-                    <kbd>D</kbd>
-                    <span>or</span>
-                    <kbd>→</kbd>
-                </td>
-            </tr>
-            <tr>
-                <td>Jump</td>
-                <td>
-                    <kbd>W</kbd>
-                    <span>or</span>
-                    <kbd>↑</kbd>
-                    <span>or</span>
-                    <kbd>Space</kbd>
-                </td>
-            </tr>
-            <tr>
-                <td>Throw Bottle</td>
-                <td>
-                <kbd>E</kbd>
-                </td>
-            </tr>
-        </table>
-        <Button id="closeInstructions">Back</Button>
-    </dialog>
-    <canvas id="canvas" class="d-none" width="720" height="480">
-    </canvas>
 </body>
 </html>

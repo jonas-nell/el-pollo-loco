@@ -27,6 +27,7 @@ export class Game{
         this.initStartScreen();
         this.initInstructionsDialog();
         this.initDialogButtons();
+        this.initFullscreenButton();
     }
 
     initStartScreen(){
@@ -49,6 +50,7 @@ export class Game{
         document.getElementById("startDialog").close();
         this.hideStartScreen();
         this.showCanvas();
+        this.showFullscreenButton();
         const canvas = document.getElementById("canvas");
         this.character = new Character();
         this.world = new World(canvas, this.keyboard, this, this.levels[this.currentLevelIndex](), this.character);
@@ -96,6 +98,7 @@ export class Game{
         this.world.stop();
         IntervalHub.stopAllIntervals();
         this.hideCanvas();
+        this.hideFullscreenButton();
         victoryDialog.showModal();
     }
 
@@ -105,6 +108,7 @@ export class Game{
         this.world.stop();
         IntervalHub.stopAllIntervals();
         this.hideCanvas();
+        this.hideFullscreenButton();
         gameOverDialog.showModal();
     }
 
@@ -124,6 +128,7 @@ export class Game{
         document.getElementById("victoryDialog").close();
 
         this.showCanvas();
+        this.showFullscreenButton
         this.character = new Character();
         
         this.world = new World(
@@ -148,6 +153,7 @@ export class Game{
         document.getElementById("victoryDialog").close();
 
         this.hideCanvas();
+        this.hideFullscreenButton();
         this.showStartScreen();
         
         const startDialog = document.getElementById("startDialog");
@@ -201,6 +207,32 @@ export class Game{
             dialog.close();
         });
     }
+
+    initFullscreenButton() {
+        const button = document.getElementById("fullscreenButton");
+
+        button.addEventListener("click", () => {
+            this.toggleFullscreen();
+        });
+    }
+
+    toggleFullscreen() {
+        const gameContainer = document.getElementById("gameContainer");
+
+        if (!document.fullscreenElement) {
+            gameContainer.requestFullscreen();
+        } else {
+            document.exitFullscreen();
+        }
+    }
+    showFullscreenButton() {
+        document.getElementById("fullscreenButton").classList.remove("d-none");
+    }
+
+    hideFullscreenButton() {
+        document.getElementById("fullscreenButton").classList.add("d-none");
+    }
+
 }
 
 
