@@ -183,7 +183,7 @@ canvas {
 
 .end-dialog{
     position: fixed;
-    top: 60%; /*50 in fullscreen */
+    top: 60%;
     left: 50%;
     translate: -50% -50%;
 
@@ -204,24 +204,32 @@ canvas {
         text-shadow: 2px 2px 2px rgba(0,0,0,0.2);
     }
 }
+
+:fullscreen canvas{
+    width: 100dvw;
+    height: 100dvh;
+}
+
+:fullscreen #startScreen{
+    width: 100dvw;
+    height: 100dvh;
+}
+
+:fullscreen #startMenu{
+    max-width: 40%;
+    max-height: 50%;
+}
+
+:fullscreen .end-dialog{
+    background-image: url('./assets/img/bg.jpg');
+    top: 50%;
+}
+
+:fullscreen #instructionsDialog{
+    top: 50%;
+}
     
     /* 
-
-
-
-
-
-
-
-
-
-
-
-:fullscreen canvas {
-    width: 100dvw;
-    height: auto;
-    max-height: 100dvh;
-}
 
 #gameContainer:fullscreen {
     display: flex;
