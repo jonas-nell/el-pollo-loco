@@ -4,6 +4,7 @@ import { level3 } from "../levels/level3.js";
 import { Character } from "./character.class.js";
 import { IntervalHub } from "./interval-hub.class.js";
 import { Keyboard } from "./keyboard.class.js";
+import { SoundHub } from "./sound-hub.class.js";
 import { World } from "./world.class.js";
 
 const GAME_STATES = {
@@ -28,6 +29,7 @@ export class Game{
         this.initInstructionsDialog();
         this.initDialogButtons();
         this.initFullscreenButton();
+        SoundHub.initVolumes();
     }
 
     initStartScreen(){

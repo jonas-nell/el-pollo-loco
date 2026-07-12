@@ -17,6 +17,14 @@ export class SoundHub {
         coin: new Audio(`assets/audio/collectibles/collectSound.wav`)
     }
 
+    static initVolumes(){
+        SoundHub.CHARACTER.damage.volume = 0.2;
+        SoundHub.CHARACTER.dead.volume = 0.2;
+        SoundHub.CHARACTER.jump.volume = 0.15;
+        SoundHub.CHARACTER.run.volume = 0.04;
+        SoundHub.CHARACTER.snoring.volume = 0.12;
+    }
+
 
     static get allSounds() {
         return[
@@ -27,7 +35,6 @@ export class SoundHub {
     }
 
     static playOne(sound){
-        sound.volume = 0.2;
         sound.currentTime = 0;
         sound.play();
     }
