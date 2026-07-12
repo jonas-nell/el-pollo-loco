@@ -183,7 +183,7 @@ canvas {
 
 .end-dialog{
     position: fixed;
-    top: 60%; /*50 in fullscreen */
+    top: 60%;
     left: 50%;
     translate: -50% -50%;
 
@@ -204,65 +204,27 @@ canvas {
         text-shadow: 2px 2px 2px rgba(0,0,0,0.2);
     }
 }
-    
-    /* 
 
-
-
-
-
-
-
-
-
-
-
-:fullscreen canvas {
-    width: 100dvw;
-    height: auto;
-    max-height: 100dvh;
-}
-
-#gameContainer:fullscreen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-}
-
-:fullscreen #startScreen {
+:fullscreen canvas{
     width: 100dvw;
     height: 100dvh;
 }
 
-:fullscreen .end-dialog {
-    aspect-ratio: 3 / 2;
-    width: min(100dvw, 150dvh);
-    height: auto;
-    max-height: 100dvh;
+:fullscreen #startScreen{
+    width: 100dvw;
+    height: 100dvh;
 }
 
-:fullscreen #instructionsDialog {
-    width: 60dvw;
-    max-width: none;
-    padding: 4dvh 4dvw;
+:fullscreen #startMenu{
+    max-width: 40%;
+    max-height: 50%;
 }
 
-:fullscreen #instructionsDialog h2 {
-    font-size: clamp(24px, 3dvw, 48px);
+:fullscreen .end-dialog{
+    background-image: url('./assets/img/bg.jpg');
+    top: 50%;
 }
 
-:fullscreen .controls-table td {
-    font-size: clamp(16px, 2dvw, 32px);
+:fullscreen #instructionsDialog{
+    top: 50%;
 }
-
-:fullscreen kbd {
-    font-size: clamp(14px, 1.6dvw, 28px);
-    padding: 1dvh 1.5dvw;
-}
-
-:fullscreen #closeInstructions {
-    font-size: clamp(16px, 2dvw, 32px);
-    padding: 1.5dvh 3dvw;
-} */

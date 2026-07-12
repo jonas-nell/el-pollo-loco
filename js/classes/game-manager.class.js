@@ -154,7 +154,7 @@ export class Game{
         document.getElementById("victoryDialog").close();
 
         this.hideCanvas();
-        this.hideFullscreenButton();
+        this.showFullscreenButton();
         this.showStartScreen();
         this.showH1();
         
