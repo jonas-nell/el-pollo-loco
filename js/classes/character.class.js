@@ -1,6 +1,6 @@
-import { ImageHelper } from "./imgHelper.class.js";
-import { IntervalHub } from "./interal-hub.class.js";
-import { MovableObject } from "./movableObject.class.js";
+import { ImageHelper } from "./img-helper.class.js";
+import { IntervalHub } from "./interval-hub.class.js";
+import { MovableObject } from "./movable-object.class.js";
 import { Level } from "./level.class.js";
 import { ThrowableObject } from "./throwable-object.class.js";
 

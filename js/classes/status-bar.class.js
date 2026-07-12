@@ -1,5 +1,5 @@
 import { DrawableObject } from "./drawable-object.class.js";
-import { ImageHelper } from "./imgHelper.class.js";
+import { ImageHelper } from "./img-helper.class.js";
 
 export class StatusBar extends DrawableObject{
     percentage = 100;

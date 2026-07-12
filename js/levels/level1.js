@@ -7,7 +7,7 @@ import { Chicken } from "../classes/chicken.class.js";
 import { Cloud } from "../classes/cloud.class.js";
 import { Coin } from "../classes/coin.class.js";
 import { Endboss } from "../classes/endboss.class.js";
-import { ImageHelper } from "../classes/imgHelper.class.js";
+import { ImageHelper } from "../classes/img-helper.class.js";
 import { Level } from "../classes/level.class.js";
 import { generateCoins } from "./level-generation/coin-generator.js";
 import { generateClouds } from "./level-generation/cloud-generator.js";
@@ -16,7 +16,7 @@ const segmentCount = 5;
 const SEGMENT_WIDTH = 719;
 
 export function level1(){
-    const endboss = new Endboss();
+    const endboss = new Endboss((segmentCount - 1) * SEGMENT_WIDTH + 50);
 
     return new Level(
         [

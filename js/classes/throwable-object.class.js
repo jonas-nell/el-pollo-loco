@@ -1,7 +1,7 @@
 import { Character } from "./character.class.js";
-import { ImageHelper } from "./imgHelper.class.js";
-import { IntervalHub } from "./interal-hub.class.js";
-import { MovableObject } from "./movableObject.class.js";
+import { ImageHelper } from "./img-helper.class.js";
+import { IntervalHub } from "./interval-hub.class.js";
+import { MovableObject } from "./movable-object.class.js";
 
 export class ThrowableObject extends MovableObject{
     IMAGES_ROTATION = ImageHelper.BOTTLE.rotation;
