@@ -128,7 +128,7 @@ export class Game{
         document.getElementById("victoryDialog").close();
 
         this.showCanvas();
-        this.showFullscreenButton
+        this.showFullscreenButton();
         this.character = new Character();
         
         this.world = new World(
