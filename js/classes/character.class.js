@@ -3,6 +3,7 @@ import { IntervalHub } from "./interval-hub.class.js";
 import { MovableObject } from "./movable-object.class.js";
 import { Level } from "./level.class.js";
 import { ThrowableObject } from "./throwable-object.class.js";
+import { SoundHub } from "./sound-hub.class.js";
 
 export class Character extends MovableObject {
     IMAGES_WALKING = ImageHelper.PEPE.walk;
@@ -127,5 +128,7 @@ export class Character extends MovableObject {
         this.dead = true;
         this.speed = 0;
         this.speedY = 0;
+
+        SoundHub.playOne(SoundHub.CHARACTER.dead);
     }
 }
