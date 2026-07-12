@@ -31,12 +31,11 @@ export class Game{
     }
 
     initStartScreen(){
-        const startDialog = document.getElementById("startDialog");
+        const startMenu = document.getElementById("startMenu");
         const playButton = document.getElementById("playButton");
 
         setTimeout(() => {
-            startDialog.showModal();
-            startDialog.classList.add("visible")
+            startMenu.classList.add("visible");
         }, 3000);
 
         playButton.addEventListener("click", () => {
@@ -44,10 +43,9 @@ export class Game{
         });
     }
 
-    start(){
-        
+    start(){        
         this.state = GAME_STATES.PLAYING;
-        document.getElementById("startDialog").close();
+        document.getElementById("startMenu").classList.remove("visible");
         this.hideStartScreen();
         this.showCanvas();
         this.showFullscreenButton();
@@ -156,9 +154,7 @@ export class Game{
         this.hideFullscreenButton();
         this.showStartScreen();
         
-        const startDialog = document.getElementById("startDialog");
-        startDialog.showModal();
-        startDialog.classList.add("visible");
+        document.getElementById("startMenu").classList.add("visible");
     }
 
     initDialogButtons(){
