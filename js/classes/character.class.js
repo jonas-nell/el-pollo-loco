@@ -30,6 +30,7 @@ export class Character extends MovableObject {
     coins = 0;
     lastAction = new Date().getTime();
     isWalkingSound = false;
+    isSnoring = false;
 
     border = true;
 
@@ -55,6 +56,7 @@ export class Character extends MovableObject {
                 this.lastAction = new Date().getTime();
                 this.otherDirection = false;
                 this.moveRight();
+                this.stopSnoringSound();
                 this.startWalkingSound();
             }
 
@@ -62,12 +64,14 @@ export class Character extends MovableObject {
                 this.lastAction = new Date().getTime();
                 this.otherDirection = true;
                 this.moveLeft();
+                this.stopSnoringSound();
                 this.startWalkingSound();
             }
 
             if((this.world.keyboard.UP || this.world.keyboard.SPACE) && !this.isAboveGround()){
                 this.lastAction = new Date().getTime();
                 this.jump();
+                this.stopSnoringSound();
                 SoundHub.playOne(SoundHub.CHARACTER.jump);
             }
 
@@ -95,6 +99,7 @@ export class Character extends MovableObject {
             }
             else if (this.isIdleLong()){
                 this.playAnimation(this.IMAGES_LONG_IDLE);
+                this.startSnoringSound();
             }
             else {
                 this.playAnimation(this.IMAGES_IDLE);
@@ -155,6 +160,20 @@ export class Character extends MovableObject {
         if (this.isWalkingSound) {
             SoundHub.stopLoop(SoundHub.CHARACTER.run);
             this.isWalkingSound = false;
+        }
+    }
+
+    startSnoringSound(){
+        if (!this.isSnoringSound) {
+            SoundHub.playLoop(SoundHub.CHARACTER.snoring);
+            this.isSnoringSound = true;
+        }
+    }
+
+stopSnoringSound(){
+        if (this.isSnoringSound) {
+            SoundHub.stopLoop(SoundHub.CHARACTER.snoring);
+            this.isSnoringSound = false;
         }
     }
 
