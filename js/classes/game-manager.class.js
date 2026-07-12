@@ -25,6 +25,7 @@ export class Game{
     constructor(){
         this.keyboard = new Keyboard();
         this.initStartScreen();
+        this.initInstructionsDialog();
         this.initDialogButtons();
     }
 
@@ -185,6 +186,20 @@ export class Game{
             level2,
             level3,
         ];
+    }
+
+    initInstructionsDialog() {
+        const dialog = document.getElementById("instructionsDialog");
+        const openButton = document.getElementById("instructionsButton");
+        const closeButton = document.getElementById("closeInstructions");
+
+        openButton.addEventListener("click", () => {
+            dialog.showModal();
+        });
+
+        closeButton.addEventListener("click", () => {
+            dialog.close();
+        });
     }
 }
 
