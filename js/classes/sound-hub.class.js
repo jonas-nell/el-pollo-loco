@@ -41,4 +41,18 @@ export class SoundHub {
     static pauseOne(sound){
         sound.pause();
     }
+
+    static playLoop(sound){
+        sound.loop = true;
+
+        if (sound.paused){
+            sound.currentTime = 0;
+            sound.play();
+        }
+    }
+
+    static stopLoop(sound){
+        sound.pause();
+        sound.currentTime = 0;
+    }
 }

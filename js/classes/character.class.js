@@ -29,6 +29,7 @@ export class Character extends MovableObject {
     bottles = 2;
     coins = 0;
     lastAction = new Date().getTime();
+    isWalkingSound = false;
 
     border = true;
 
@@ -54,18 +55,24 @@ export class Character extends MovableObject {
                 this.lastAction = new Date().getTime();
                 this.otherDirection = false;
                 this.moveRight();
+                this.startWalkingSound();
             }
 
             if (this.world.keyboard.LEFT && this.x > -300) {
                 this.lastAction = new Date().getTime();
                 this.otherDirection = true;
                 this.moveLeft();
+                this.startWalkingSound();
             }
 
             if((this.world.keyboard.UP || this.world.keyboard.SPACE) && !this.isAboveGround()){
                 this.lastAction = new Date().getTime();
                 this.jump();
                 SoundHub.playOne(SoundHub.CHARACTER.jump);
+            }
+
+            if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT) {
+                this.stopWalkingSound();
             }
 
             this.world.camera_x = -this.x + 100;
@@ -137,10 +144,19 @@ export class Character extends MovableObject {
         SoundHub.playOne(SoundHub.CHARACTER.damage);
     }
 
-//     hit(){
-//         SoundHub.playOne(SoundHub.CHARACTER.damage);
-//         super.hit();
-//     }
+    startWalkingSound(){
+        if (!this.isWalkingSound) {
+            SoundHub.playLoop(SoundHub.CHARACTER.run);
+            this.isWalkingSound = true;
+        }
+    }
 
-// }
+    stopWalkingSound(){
+        if (this.isWalkingSound) {
+            SoundHub.stopLoop(SoundHub.CHARACTER.run);
+            this.isWalkingSound = false;
+        }
+    }
+
+
 }
