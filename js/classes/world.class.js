@@ -1,6 +1,7 @@
 import { BackgroundObject } from "./background-object.class.js";
 import { ImageHelper } from "./img-helper.class.js";
 import { IntervalHub } from "./interval-hub.class.js";
+import { SoundHub } from "./sound-hub.class.js";
 import { StatusBar } from "./status-bar.class.js";
 
 export class World {
@@ -201,6 +202,7 @@ export class World {
             ) {
                 enemy.hit();
                 this.character.jump();
+                SoundHub.playOne(SoundHub.CHARACTER.jump);
             }
         });
     }

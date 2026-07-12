@@ -65,6 +65,7 @@ export class Character extends MovableObject {
             if((this.world.keyboard.UP || this.world.keyboard.SPACE) && !this.isAboveGround()){
                 this.lastAction = new Date().getTime();
                 this.jump();
+                SoundHub.playOne(SoundHub.CHARACTER.jump);
             }
 
             this.world.camera_x = -this.x + 100;
@@ -131,4 +132,15 @@ export class Character extends MovableObject {
 
         SoundHub.playOne(SoundHub.CHARACTER.dead);
     }
+
+    playHitSound(){
+        SoundHub.playOne(SoundHub.CHARACTER.damage);
+    }
+
+//     hit(){
+//         SoundHub.playOne(SoundHub.CHARACTER.damage);
+//         super.hit();
+//     }
+
+// }
 }

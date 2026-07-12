@@ -1,5 +1,6 @@
 import { DrawableObject } from "./drawable-object.class.js";
 import { IntervalHub } from "./interval-hub.class.js";
+import { SoundHub } from "./sound-hub.class.js";
 
 export class MovableObject extends DrawableObject {
 
@@ -112,6 +113,7 @@ export class MovableObject extends DrawableObject {
         }
         this.lastHit = new Date().getTime();
         this.health -= 10;
+        this.playHitSound();
         if(this.health < 0){
             this.health = 0;
         } 
@@ -125,5 +127,8 @@ export class MovableObject extends DrawableObject {
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000;
         return timepassed < 0.5;
+    }
+
+    playHitSound(){
     }
 }
