@@ -1,6 +1,6 @@
 import { BackgroundObject } from "./background-object.class.js";
-import { ImageHelper } from "./imgHelper.class.js";
-import { IntervalHub } from "./interal-hub.class.js";
+import { ImageHelper } from "./img-helper.class.js";
+import { IntervalHub } from "./interval-hub.class.js";
 import { StatusBar } from "./status-bar.class.js";
 
 export class World {

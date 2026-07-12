@@ -7,7 +7,7 @@ import { Chicken } from "../classes/chicken.class.js";
 import { Cloud } from "../classes/cloud.class.js";
 import { Coin } from "../classes/coin.class.js";
 import { Endboss } from "../classes/endboss.class.js";
-import { ImageHelper } from "../classes/imgHelper.class.js";
+import { ImageHelper } from "../classes/img-helper.class.js";
 import { Level } from "../classes/level.class.js";
 import { generateCoins } from "./level-generation/coin-generator.js";
 import { generateClouds } from "./level-generation/cloud-generator.js";

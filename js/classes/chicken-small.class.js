@@ -1,6 +1,6 @@
 import { Chicken } from "./chicken.class.js";
-import { ImageHelper } from "./imgHelper.class.js";
-import { IntervalHub } from "./interal-hub.class.js";
+import { ImageHelper } from "./img-helper.class.js";
+import { IntervalHub } from "./interval-hub.class.js";
 
 export class ChickenSmall extends Chicken{
     IMAGES_WALKING = ImageHelper.CHICKEN_SMALL.walk;

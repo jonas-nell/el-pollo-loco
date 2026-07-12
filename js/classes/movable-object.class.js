@@ -1,5 +1,5 @@
 import { DrawableObject } from "./drawable-object.class.js";
-import { IntervalHub } from "./interal-hub.class.js";
+import { IntervalHub } from "./interval-hub.class.js";
 
 export class MovableObject extends DrawableObject {
 

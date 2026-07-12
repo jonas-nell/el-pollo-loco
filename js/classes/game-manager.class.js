@@ -2,7 +2,7 @@ import { level1 } from "../levels/level1.js";
 import { level2 } from "../levels/level2.js";
 import { level3 } from "../levels/level3.js";
 import { Character } from "./character.class.js";
-import { IntervalHub } from "./interal-hub.class.js";
+import { IntervalHub } from "./interval-hub.class.js";
 import { Keyboard } from "./keyboard.class.js";
 import { World } from "./world.class.js";
 

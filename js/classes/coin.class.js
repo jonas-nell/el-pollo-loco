@@ -1,5 +1,5 @@
-import { ImageHelper } from "./imgHelper.class.js";
-import { MovableObject } from "./movableObject.class.js";
+import { ImageHelper } from "./img-helper.class.js";
+import { MovableObject } from "./movable-object.class.js";
 
 export class Coin extends MovableObject{
     offset = {
