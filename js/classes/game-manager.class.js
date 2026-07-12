@@ -97,6 +97,7 @@ export class Game{
         IntervalHub.stopAllIntervals();
         this.hideCanvas();
         this.hideFullscreenButton();
+        this.hideH1();
         victoryDialog.showModal();
     }
 
@@ -107,6 +108,7 @@ export class Game{
         IntervalHub.stopAllIntervals();
         this.hideCanvas();
         this.hideFullscreenButton();
+        this.hideH1();
         gameOverDialog.showModal();
     }
 
@@ -127,6 +129,7 @@ export class Game{
 
         this.showCanvas();
         this.showFullscreenButton();
+        this.showH1();
         this.character = new Character();
         
         this.world = new World(
@@ -153,6 +156,7 @@ export class Game{
         this.hideCanvas();
         this.hideFullscreenButton();
         this.showStartScreen();
+        this.showH1();
         
         document.getElementById("startMenu").classList.add("visible");
     }
@@ -227,6 +231,14 @@ export class Game{
 
     hideFullscreenButton() {
         document.getElementById("fullscreenButton").classList.add("d-none");
+    }
+
+    hideH1(){
+        document.getElementById("h1").classList.add("d-none");
+    }
+
+    showH1(){
+        document.getElementById("h1").classList.remove("d-none");
     }
 
 }
