@@ -25,16 +25,17 @@ export class Game{
     constructor(){
         this.keyboard = new Keyboard();
         this.initStartScreen();
+        this.initInstructionsDialog();
         this.initDialogButtons();
+        this.initFullscreenButton();
     }
 
     initStartScreen(){
-        const startDialog = document.getElementById("startDialog");
+        const startMenu = document.getElementById("startMenu");
         const playButton = document.getElementById("playButton");
 
         setTimeout(() => {
-            startDialog.showModal();
-            startDialog.classList.add("visible")
+            startMenu.classList.add("visible");
         }, 3000);
 
         playButton.addEventListener("click", () => {
@@ -42,12 +43,12 @@ export class Game{
         });
     }
 
-    start(){
-        
+    start(){        
         this.state = GAME_STATES.PLAYING;
-        document.getElementById("startDialog").close();
+        document.getElementById("startMenu").classList.remove("visible");
         this.hideStartScreen();
         this.showCanvas();
+        this.showFullscreenButton();
         const canvas = document.getElementById("canvas");
         this.character = new Character();
         this.world = new World(canvas, this.keyboard, this, this.levels[this.currentLevelIndex](), this.character);
@@ -95,6 +96,8 @@ export class Game{
         this.world.stop();
         IntervalHub.stopAllIntervals();
         this.hideCanvas();
+        this.hideFullscreenButton();
+        this.hideH1();
         victoryDialog.showModal();
     }
 
@@ -104,6 +107,8 @@ export class Game{
         this.world.stop();
         IntervalHub.stopAllIntervals();
         this.hideCanvas();
+        this.hideFullscreenButton();
+        this.hideH1();
         gameOverDialog.showModal();
     }
 
@@ -123,6 +128,8 @@ export class Game{
         document.getElementById("victoryDialog").close();
 
         this.showCanvas();
+        this.showFullscreenButton();
+        this.showH1();
         this.character = new Character();
         
         this.world = new World(
@@ -147,11 +154,11 @@ export class Game{
         document.getElementById("victoryDialog").close();
 
         this.hideCanvas();
+        this.hideFullscreenButton();
         this.showStartScreen();
+        this.showH1();
         
-        const startDialog = document.getElementById("startDialog");
-        startDialog.showModal();
-        startDialog.classList.add("visible");
+        document.getElementById("startMenu").classList.add("visible");
     }
 
     initDialogButtons(){
@@ -186,6 +193,54 @@ export class Game{
             level3,
         ];
     }
+
+    initInstructionsDialog() {
+        const dialog = document.getElementById("instructionsDialog");
+        const openButton = document.getElementById("instructionsButton");
+        const closeButton = document.getElementById("closeInstructions");
+
+        openButton.addEventListener("click", () => {
+            dialog.showModal();
+        });
+
+        closeButton.addEventListener("click", () => {
+            dialog.close();
+        });
+    }
+
+    initFullscreenButton() {
+        const button = document.getElementById("fullscreenButton");
+
+        button.addEventListener("click", () => {
+            this.toggleFullscreen();
+        });
+    }
+
+    toggleFullscreen() {
+        const gameContainer = document.getElementById("gameContainer");
+
+        if (!document.fullscreenElement) {
+            gameContainer.requestFullscreen();
+        } else {
+            document.exitFullscreen();
+        }
+    }
+    showFullscreenButton() {
+        document.getElementById("fullscreenButton").classList.remove("d-none");
+    }
+
+    hideFullscreenButton() {
+        document.getElementById("fullscreenButton").classList.add("d-none");
+    }
+
+    hideH1(){
+        document.getElementById("h1").classList.add("d-none");
+    }
+
+    showH1(){
+        document.getElementById("h1").classList.remove("d-none");
+    }
+
 }
 
 

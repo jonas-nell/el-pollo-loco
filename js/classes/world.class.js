@@ -16,9 +16,9 @@ export class World {
     keyboard;
     camera_x = 0;
     healthBar = new StatusBar(ImageHelper.STATUSBAR.health, 25, -5);
-    bossHealthBar = new StatusBar(ImageHelper.STATUSBAR.boss, 460, 0);
+    bossHealthBar = new StatusBar(ImageHelper.STATUSBAR.boss, 440, 0);
     bottleBar = new StatusBar(ImageHelper.STATUSBAR.bottle, 25, 70);
-    coinBar = new StatusBar(ImageHelper.STATUSBAR.coin, 460, 70);
+    coinBar = new StatusBar(ImageHelper.STATUSBAR.coin, 440, 70);
     throwableObjects = [];
 
     constructor(canvas, keyboard, game, level, character) {

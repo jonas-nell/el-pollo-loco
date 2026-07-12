@@ -9,31 +9,76 @@
     <title>El Pollo Loco</title>
 </head>
 <body>
-    <h1>El Pollo Loco</h1>
-    <div id="startScreen">
-        <dialog id="startDialog">
+    <h1 id="h1">El Pollo Loco</h1>
+    <div id="gameContainer">
+        <div id="startScreen">
+            <div id="startMenu">
+                <div class="menu-wrapper">
+                    <button id="playButton">PLAY</button>
+                    <button id="instructionsButton">INSTRUCTIONS</button>
+                    <button>SETTINGS</button>
+                </div>
+            </div>
+        </div>
+        <dialog id="victoryDialog" class="end-dialog">
             <div class="dialog-wrapper">
-                <button id="playButton">PLAY</button>
-                <button>INSTRUCTIONS</button>
-                <button>SETTINGS</button>
+                <img src="./assets/img/You won, you lost/You won A.png" alt="">
+                <button>PLAY AGAIN</button>
+                <button>MENU</button>
             </div>
         </dialog>
+        <dialog id="gameOverDialog" class="end-dialog">
+            <div class="dialog-wrapper">
+                <img src="./assets/img/You won, you lost/Game Over.png" alt="">
+                <button>PLAY AGAIN</button>
+                <button>MENU</button>
+            </div>
+        </dialog>
+        <dialog id="instructionsDialog">
+            <div class="dialog-wrapper">
+                <h2>How to Play</h2>
+                <table class="controls-table">
+                    <tr>
+                        <td>Move Left</td>
+                        <td>
+                            <kbd>A</kbd>
+                            <span>or</span>
+                            <kbd>←</kbd>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Move Right</td>
+                        <td>
+                            <kbd>D</kbd>
+                            <span>or</span>
+                            <kbd>→</kbd>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Jump</td>
+                        <td>
+                            <kbd>W</kbd>
+                            <span>or</span>
+                            <kbd>↑</kbd>
+                            <span>or</span>
+                            <kbd>Space</kbd>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Throw Bottle</td>
+                        <td>
+                        <kbd>E</kbd>
+                        </td>
+                    </tr>
+                </table>
+                <Button id="closeInstructions">Back</Button>
+            </div>
+        </dialog>
+        <canvas id="canvas" class="d-none" width="720" height="480">
+        </canvas>
+        <button id="fullscreenButton">
+            <img src="./assets/img/full-screen.png" alt="">
+        </button>
     </div>
-    <dialog id="victoryDialog" class="end-dialog">
-        <div class="dialog-wrapper">
-            <img src="./assets/img/You won, you lost/You won A.png" alt="">
-            <button>PLAY AGAIN</button>
-            <button>MENU</button>
-        </div>
-    </dialog>
-    <dialog id="gameOverDialog" class="end-dialog">
-        <div class="dialog-wrapper">
-            <img src="./assets/img/You won, you lost/Game Over.png" alt="">
-            <button>PLAY AGAIN</button>
-            <button>MENU</button>
-        </div>
-    </dialog>
-    <canvas id="canvas" class="d-none" width="720" height="480">
-    </canvas>
 </body>
 </html>
