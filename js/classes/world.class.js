@@ -211,6 +211,7 @@ export class World {
         this.level.bottles.forEach((bottle) => {
             if(this.character.isColliding(bottle)){
                 this.character.bottles++;
+                SoundHub.playOne(SoundHub.COLLECTIBLES.bottle);
                 bottle.isFinished = true;
             }
         });
@@ -225,6 +226,7 @@ export class World {
     checkCoinPickup(){
         this.level.coins.forEach((coin) => {
             if(this.character.isColliding(coin)){
+                SoundHub.playOne(SoundHub.COLLECTIBLES.coin);
                 this.character.coins++;
                 coin.isFinished = true;
             }

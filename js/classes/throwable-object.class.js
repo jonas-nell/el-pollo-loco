@@ -2,6 +2,7 @@ import { Character } from "./character.class.js";
 import { ImageHelper } from "./img-helper.class.js";
 import { IntervalHub } from "./interval-hub.class.js";
 import { MovableObject } from "./movable-object.class.js";
+import { SoundHub } from "./sound-hub.class.js";
 
 export class ThrowableObject extends MovableObject{
     IMAGES_ROTATION = ImageHelper.BOTTLE.rotation;
@@ -71,6 +72,7 @@ export class ThrowableObject extends MovableObject{
     break(){
         if(this.isBroken) return;
 
+        SoundHub.playOne(SoundHub.COLLECTIBLES.bottleBreak);
         this.isBroken = true;
         this.speedY = 0;
         this.currentImageOnce = 0;

@@ -14,8 +14,10 @@ export class SoundHub {
 
     static COLLECTIBLES = {
         bottle: new Audio(`assets/audio/collectibles/bottleCollectSound.wav`),
-        coin: new Audio(`assets/audio/collectibles/collectSound.wav`)
+        coin: new Audio(`assets/audio/collectibles/collectSound.wav`),
+        bottleBreak: new Audio(`assets/audio/throwable/bottleBreak.mp3`)
     }
+
 
     static initVolumes(){
         SoundHub.CHARACTER.damage.volume = 0.2;
@@ -24,7 +26,10 @@ export class SoundHub {
         SoundHub.CHARACTER.run.volume = 0.04;
         SoundHub.CHARACTER.snoring.volume = 0.12;
         SoundHub.CHICKEN.dead1.volume = 0.4;
-        SoundHub.CHICKEN.dead2.volume = 1.6;
+        SoundHub.CHICKEN.dead2.volume = 1;
+        SoundHub.COLLECTIBLES.bottle.volume = 0.3;
+        SoundHub.COLLECTIBLES.coin.volume = 0.2;
+        SoundHub.COLLECTIBLES.bottleBreak.volume = 0.2;
     }
 
 
