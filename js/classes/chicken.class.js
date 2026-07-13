@@ -20,6 +20,7 @@ export class Chicken extends MovableObject {
     health = 10;
     isDying = false;
     deathTimer = 0;
+    activationRange = 720;
 
 
     constructor(minX, maxX) {
@@ -33,7 +34,10 @@ export class Chicken extends MovableObject {
 
     animate() {
         IntervalHub.startInterval(() => {
-            if(!this.isDying){
+            if(!this.isDying &&
+                this.world &&
+                Math.abs(this.world.character.x - this.x) < this.activationRange
+            ){
                 this.moveLeft();
             }
         }, 1000 / 60);
