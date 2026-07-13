@@ -1,5 +1,6 @@
 import { DrawableObject } from "./drawable-object.class.js";
 import { IntervalHub } from "./interval-hub.class.js";
+import { SoundHub } from "./sound-hub.class.js";
 
 export class MovableObject extends DrawableObject {
 
@@ -18,21 +19,6 @@ export class MovableObject extends DrawableObject {
     health = 100;
     lastHit = 0;
     isFinished = false;
-
-    border = false;
-
-    drawFrame(ctx) {
-        ctx.beginPath();
-        ctx.lineWidth = "5";
-        ctx.strokeStyle = "blue";
-        ctx.rect(
-            this.x + this.offset.left,
-            this.y + this.offset.top,
-            this.width - this.offset.left - this.offset.right,
-            this.height - this.offset.top - this.offset.bottom
-        );
-        ctx.stroke();
-    }
 
     getRealFrame(){
         return {
@@ -112,6 +98,7 @@ export class MovableObject extends DrawableObject {
         }
         this.lastHit = new Date().getTime();
         this.health -= 10;
+        this.playHitSound();
         if(this.health < 0){
             this.health = 0;
         } 
@@ -125,5 +112,8 @@ export class MovableObject extends DrawableObject {
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000;
         return timepassed < 0.5;
+    }
+
+    playHitSound(){
     }
 }

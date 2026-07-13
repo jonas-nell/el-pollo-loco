@@ -3,6 +3,7 @@ import { IntervalHub } from "./interval-hub.class.js";
 import { MovableObject } from "./movable-object.class.js";
 import { Level } from "./level.class.js";
 import { ThrowableObject } from "./throwable-object.class.js";
+import { SoundHub } from "./sound-hub.class.js";
 
 export class Character extends MovableObject {
     IMAGES_WALKING = ImageHelper.PEPE.walk;
@@ -28,8 +29,8 @@ export class Character extends MovableObject {
     bottles = 2;
     coins = 0;
     lastAction = new Date().getTime();
-
-    border = true;
+    isWalkingSound = false;
+    isSnoring = false;
 
     constructor() {
         super();
@@ -53,17 +54,27 @@ export class Character extends MovableObject {
                 this.lastAction = new Date().getTime();
                 this.otherDirection = false;
                 this.moveRight();
+                this.stopSnoringSound();
+                this.startWalkingSound();
             }
 
             if (this.world.keyboard.LEFT && this.x > -300) {
                 this.lastAction = new Date().getTime();
                 this.otherDirection = true;
                 this.moveLeft();
+                this.stopSnoringSound();
+                this.startWalkingSound();
             }
 
             if((this.world.keyboard.UP || this.world.keyboard.SPACE) && !this.isAboveGround()){
                 this.lastAction = new Date().getTime();
                 this.jump();
+                this.stopSnoringSound();
+                SoundHub.playOne(SoundHub.CHARACTER.jump);
+            }
+
+            if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT) {
+                this.stopWalkingSound();
             }
 
             this.world.camera_x = -this.x + 100;
@@ -86,6 +97,7 @@ export class Character extends MovableObject {
             }
             else if (this.isIdleLong()){
                 this.playAnimation(this.IMAGES_LONG_IDLE);
+                this.startSnoringSound();
             }
             else {
                 this.playAnimation(this.IMAGES_IDLE);
@@ -127,5 +139,41 @@ export class Character extends MovableObject {
         this.dead = true;
         this.speed = 0;
         this.speedY = 0;
+
+        SoundHub.playOne(SoundHub.CHARACTER.dead);
     }
+
+    playHitSound(){
+        SoundHub.playOne(SoundHub.CHARACTER.damage);
+    }
+
+    startWalkingSound(){
+        if (!this.isWalkingSound) {
+            SoundHub.playLoop(SoundHub.CHARACTER.run);
+            this.isWalkingSound = true;
+        }
+    }
+
+    stopWalkingSound(){
+        if (this.isWalkingSound) {
+            SoundHub.stopLoop(SoundHub.CHARACTER.run);
+            this.isWalkingSound = false;
+        }
+    }
+
+    startSnoringSound(){
+        if (!this.isSnoringSound) {
+            SoundHub.playLoop(SoundHub.CHARACTER.snoring);
+            this.isSnoringSound = true;
+        }
+    }
+
+stopSnoringSound(){
+        if (this.isSnoringSound) {
+            SoundHub.stopLoop(SoundHub.CHARACTER.snoring);
+            this.isSnoringSound = false;
+        }
+    }
+
+
 }

@@ -1,6 +1,7 @@
 import { ImageHelper } from "./img-helper.class.js";
 import { IntervalHub } from "./interval-hub.class.js";
 import { MovableObject } from "./movable-object.class.js";
+import { SoundHub } from "./sound-hub.class.js";
 
 export class Chicken extends MovableObject {
     IMAGES_WALKING = ImageHelper.CHICKEN.walk;
@@ -19,8 +20,6 @@ export class Chicken extends MovableObject {
     health = 10;
     isDying = false;
     deathTimer = 0;
-
-    border = true;
 
 
     constructor(minX, maxX) {
@@ -69,7 +68,9 @@ export class Chicken extends MovableObject {
         if(this.isDying) return;
 
         this.isDying = true;
+        this.offset.top = 50;
         this.deathTimer = new Date().getTime();
         this.currentImageOnce = 0;
+        SoundHub.playOne(SoundHub.CHICKEN.dead1);
     }
 }

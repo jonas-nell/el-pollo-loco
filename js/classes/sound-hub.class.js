@@ -1,0 +1,86 @@
+export class SoundHub {
+    static CHARACTER = {
+        damage: new Audio(`assets/audio/character/characterDamage.mp3`),
+        dead: new Audio(`assets/audio/character/characterDead.wav`),
+        jump: new Audio(`assets/audio/character/characterJump.wav`),
+        run: new Audio(`assets/audio/character/characterRun.mp3`),
+        snoring: new Audio(`assets/audio/character/characterSnoring.mp3`)
+    }
+    
+    static CHICKEN ={
+        dead1: new Audio(`assets/audio/chicken/chickenDead.mp3`),
+        dead2: new Audio(`assets/audio/chicken/chickenDead2.mp3`),
+        bossApproach: new Audio(`assets/audio/endboss/endbossApproach.wav`)
+    }
+
+    static COLLECTIBLES = {
+        bottle: new Audio(`assets/audio/collectibles/bottleCollectSound.wav`),
+        coin: new Audio(`assets/audio/collectibles/collectSound.wav`),
+        bottleBreak: new Audio(`assets/audio/throwable/bottleBreak.mp3`)
+    }
+    
+    static BGM = {
+        menuBgm: new Audio(`assets/audio/BGM/menu-bgm.ogg`),
+        levelBgm: new Audio(`assets/audio/BGM/level-bgm.mp3`),
+        gameOverBgm: new Audio(`assets/audio/BGM/game-over-bgm.ogg`),
+        victoryBgm: new Audio(`assets/audio/BGM/vicotry-bgm.mp3`)
+    }
+
+
+    static initVolumes(){
+        SoundHub.CHARACTER.damage.volume = 0.2;
+        SoundHub.CHARACTER.dead.volume = 0.2;
+        SoundHub.CHARACTER.jump.volume = 0.15;
+        SoundHub.CHARACTER.run.volume = 0.04;
+        SoundHub.CHARACTER.snoring.volume = 0.12;
+        SoundHub.CHICKEN.dead1.volume = 0.4;
+        SoundHub.CHICKEN.dead2.volume = 1;
+        SoundHub.COLLECTIBLES.bottle.volume = 0.3;
+        SoundHub.COLLECTIBLES.coin.volume = 0.1;
+        SoundHub.COLLECTIBLES.bottleBreak.volume = 0.2;
+        SoundHub.CHICKEN.bossApproach.volume = 0.7;
+        SoundHub.BGM.menuBgm.volume = 0.1;
+        SoundHub.BGM.levelBgm.volume = 0.2;
+        SoundHub.BGM.victoryBgm.volume = 0.25;
+        SoundHub.BGM.gameOverBgm.volume = 0.6;
+    }
+
+
+    static get allSounds() {
+        return[
+            ...Object.values(SoundHub.CHARACTER),
+            ...Object.values(SoundHub.CHICKEN),
+            ...Object.values(SoundHub.COLLECTIBLES),
+            ...Object.values(SoundHub.BGM)
+        ];
+    }
+
+    static playOne(sound){
+        sound.currentTime = 0;
+        sound.play();
+    }
+
+    static pauseAll() {
+        SoundHub.allSounds.forEach(sound => {
+            sound.pause();
+        });
+    }
+
+    static pauseOne(sound){
+        sound.pause();
+    }
+
+    static playLoop(sound){
+        sound.loop = true;
+
+        if (sound.paused){
+            sound.currentTime = 0;
+            sound.play();
+        }
+    }
+
+    static stopLoop(sound){
+        sound.pause();
+        sound.currentTime = 0;
+    }
+}

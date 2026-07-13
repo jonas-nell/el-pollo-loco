@@ -1,6 +1,7 @@
 import { ImageHelper } from "./img-helper.class.js";
 import { IntervalHub } from "./interval-hub.class.js";
 import { MovableObject } from "./movable-object.class.js";
+import { SoundHub } from "./sound-hub.class.js";
 
 export class Endboss extends MovableObject {
     IMAGES_WALKING = ImageHelper.BOSS.walk;
@@ -28,8 +29,6 @@ export class Endboss extends MovableObject {
     isAlerting = false;
     hasAlerted = false;
     isRunning = false;
-
-    border = true;
 
 
     constructor(x) {
@@ -110,6 +109,7 @@ export class Endboss extends MovableObject {
         this.deathTimer = new Date().getTime();
         this.currentImageOnce = 0;
         this.speed = 0;
+        SoundHub.playOne(SoundHub.CHICKEN.dead2);
     }
 
     alert(){
@@ -117,6 +117,7 @@ export class Endboss extends MovableObject {
         this.isAlerting = true;
         this.hasAlerted = true;
         this.currentImageOnce = 0;
+        SoundHub.playOne(SoundHub.CHICKEN.bossApproach);
     }
 
     move(){

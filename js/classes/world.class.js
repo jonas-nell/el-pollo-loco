@@ -1,6 +1,7 @@
 import { BackgroundObject } from "./background-object.class.js";
 import { ImageHelper } from "./img-helper.class.js";
 import { IntervalHub } from "./interval-hub.class.js";
+import { SoundHub } from "./sound-hub.class.js";
 import { StatusBar } from "./status-bar.class.js";
 
 export class World {
@@ -139,10 +140,6 @@ export class World {
         }
 
         mo.draw(this.ctx);
-        
-        if (mo.border){
-            mo.drawFrame(this.ctx);
-        }
 
         if (mo.otherDirection) {
             this.flipImageBack(mo);
@@ -201,6 +198,7 @@ export class World {
             ) {
                 enemy.hit();
                 this.character.jump();
+                SoundHub.playOne(SoundHub.CHARACTER.jump);
             }
         });
     }
@@ -209,6 +207,7 @@ export class World {
         this.level.bottles.forEach((bottle) => {
             if(this.character.isColliding(bottle)){
                 this.character.bottles++;
+                SoundHub.playOne(SoundHub.COLLECTIBLES.bottle);
                 bottle.isFinished = true;
             }
         });
@@ -223,6 +222,7 @@ export class World {
     checkCoinPickup(){
         this.level.coins.forEach((coin) => {
             if(this.character.isColliding(coin)){
+                SoundHub.playOne(SoundHub.COLLECTIBLES.coin);
                 this.character.coins++;
                 coin.isFinished = true;
             }

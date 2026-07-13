@@ -17,7 +17,6 @@ export class ChickenSmall extends Chicken{
     height = 60;
     width = 60;
     speed = 0.2 + Math.random() * 0.4;
-    border = true;
 
     constructor(minX, maxX){
         super(minX, maxX);
@@ -33,7 +32,7 @@ export class ChickenSmall extends Chicken{
 
         setTimeout(() => {
             if (!this.isDead()) {
-                this.speedY = 20 + Math.random() * 12; //random between 18 and 32
+                this.speedY = 20 + Math.random() * 9; 
                 this.startJumping();
             }
         }, delay);
