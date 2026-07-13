@@ -29,7 +29,9 @@ export class Game{
         this.initInstructionsDialog();
         this.initDialogButtons();
         this.initFullscreenButton();
+        this.initSoundbutton();
         SoundHub.initVolumes();
+        SoundHub.updateSounds();
     }
 
     initStartScreen(){
@@ -103,6 +105,7 @@ export class Game{
         IntervalHub.stopAllIntervals();
         this.hideCanvas();
         this.hideFullscreenButton();
+        this.hideSoundButton();
         this.hideH1();
         SoundHub.pauseAll();
         SoundHub.playLoop(SoundHub.BGM.victoryBgm);
@@ -116,6 +119,7 @@ export class Game{
         IntervalHub.stopAllIntervals();
         this.hideCanvas();
         this.hideFullscreenButton();
+        this.hideSoundButton();
         this.hideH1();
         SoundHub.pauseAll();
         SoundHub.playLoop(SoundHub.BGM.gameOverBgm);
@@ -170,6 +174,7 @@ export class Game{
 
         this.hideCanvas();
         this.showFullscreenButton();
+        this.showSoundButton();
         this.showStartScreen();
         this.showH1();
         
@@ -248,6 +253,14 @@ export class Game{
         document.getElementById("fullscreenButton").classList.add("d-none");
     }
 
+    hideSoundButton() {
+        document.getElementById("soundBtn").classList.add("d-none");
+    }
+
+    showSoundButton(){
+        document.getElementById("soundBtn").classList.remove("d-none");
+    }
+
     hideH1(){
         document.getElementById("h1").classList.add("d-none");
     }
@@ -256,6 +269,20 @@ export class Game{
         document.getElementById("h1").classList.remove("d-none");
     }
 
+    initSoundbutton(){
+        this.soundButton = document.getElementById("soundBtn");
+        this.soundIcon = this.soundButton.querySelector("img");
+
+        this.soundButton.addEventListener("click", () => {
+            SoundHub.toggleMute();
+            this.updateSoundIcon();
+        });
+        this.updateSoundIcon();
+    }
+
+    updateSoundIcon(){
+        this.soundIcon.src = SoundHub.isMuted ? "./assets/img/mute.png" : "./assets/img/sound.png";
+    }
 }
 
 
