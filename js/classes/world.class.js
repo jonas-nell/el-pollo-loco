@@ -192,13 +192,19 @@ export class World {
     checkChickenJump(){
         this.level.enemies.forEach((enemy) => {
             if (
-                this.character.speedY < 0 &&
-                this.character.isColliding(enemy) &&
-                this.character.getRealFrame().y + this.character.getRealFrame().height < enemy.getRealFrame().y + 30
+                this.character.speedY <= 0 &&
+                this.character.isColliding(enemy)
             ) {
-                enemy.hit();
-                this.character.jump();
-                SoundHub.playOne(SoundHub.CHARACTER.jump);
+                const characterBottom =
+                    this.character.getRealFrame().y +
+                    this.character.getRealFrame().height;
+                const enemyTop =
+                    enemy.getRealFrame().y;
+                if(characterBottom - enemyTop <= 25){
+                    enemy.hit();
+                    this.character.jump();
+                    SoundHub.playOne(SoundHub.CHARACTER.jump);
+                }
             }
         });
     }
