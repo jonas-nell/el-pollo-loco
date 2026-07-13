@@ -30,8 +30,6 @@ export class Endboss extends MovableObject {
     hasAlerted = false;
     isRunning = false;
 
-    border = true;
-
 
     constructor(x) {
         super().loadImage(this.IMAGES_WALKING[0]);
@@ -119,6 +117,7 @@ export class Endboss extends MovableObject {
         this.isAlerting = true;
         this.hasAlerted = true;
         this.currentImageOnce = 0;
+        SoundHub.playOne(SoundHub.CHICKEN.bossApproach);
     }
 
     move(){

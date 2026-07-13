@@ -20,21 +20,6 @@ export class MovableObject extends DrawableObject {
     lastHit = 0;
     isFinished = false;
 
-    border = false;
-
-    drawFrame(ctx) {
-        ctx.beginPath();
-        ctx.lineWidth = "5";
-        ctx.strokeStyle = "blue";
-        ctx.rect(
-            this.x + this.offset.left,
-            this.y + this.offset.top,
-            this.width - this.offset.left - this.offset.right,
-            this.height - this.offset.top - this.offset.bottom
-        );
-        ctx.stroke();
-    }
-
     getRealFrame(){
         return {
             x: this.x + this.offset.left,

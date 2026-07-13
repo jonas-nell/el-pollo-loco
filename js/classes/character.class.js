@@ -32,8 +32,6 @@ export class Character extends MovableObject {
     isWalkingSound = false;
     isSnoring = false;
 
-    border = true;
-
     constructor() {
         super();
         this.loadImage(ImageHelper.PEPE.idle[0]);

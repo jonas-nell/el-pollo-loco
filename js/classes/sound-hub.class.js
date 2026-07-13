@@ -9,7 +9,8 @@ export class SoundHub {
     
     static CHICKEN ={
         dead1: new Audio(`assets/audio/chicken/chickenDead.mp3`),
-        dead2: new Audio(`assets/audio/chicken/chickenDead2.mp3`)
+        dead2: new Audio(`assets/audio/chicken/chickenDead2.mp3`),
+        bossApproach: new Audio(`assets/audio/endboss/endbossApproach.wav`)
     }
 
     static COLLECTIBLES = {
@@ -28,8 +29,9 @@ export class SoundHub {
         SoundHub.CHICKEN.dead1.volume = 0.4;
         SoundHub.CHICKEN.dead2.volume = 1;
         SoundHub.COLLECTIBLES.bottle.volume = 0.3;
-        SoundHub.COLLECTIBLES.coin.volume = 0.2;
+        SoundHub.COLLECTIBLES.coin.volume = 0.1;
         SoundHub.COLLECTIBLES.bottleBreak.volume = 0.2;
+        SoundHub.CHICKEN.bossApproach.volume = 0.7;
     }
 
 

@@ -12,9 +12,6 @@ export class Bottle extends MovableObject{
     width = 90;
     height = 80;
 
-    border = true;
-
-
     constructor(x, y){
         super();
         this.loadImage(ImageHelper.BOTTLE.onGround);

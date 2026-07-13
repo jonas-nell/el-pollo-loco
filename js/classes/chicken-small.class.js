@@ -17,7 +17,6 @@ export class ChickenSmall extends Chicken{
     height = 60;
     width = 60;
     speed = 0.2 + Math.random() * 0.4;
-    border = true;
 
     constructor(minX, maxX){
         super(minX, maxX);

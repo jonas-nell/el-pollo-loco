@@ -140,10 +140,6 @@ export class World {
         }
 
         mo.draw(this.ctx);
-        
-        if (mo.border){
-            mo.drawFrame(this.ctx);
-        }
 
         if (mo.otherDirection) {
             this.flipImageBack(mo);

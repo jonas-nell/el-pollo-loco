@@ -11,9 +11,6 @@ export class Coin extends MovableObject{
     height = 90;
     width = 90;
 
-    border = true;
-
-
     constructor(x, y){
         super();
         this.loadImage(ImageHelper.COIN.coin);

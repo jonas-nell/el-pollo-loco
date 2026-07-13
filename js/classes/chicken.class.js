@@ -21,8 +21,6 @@ export class Chicken extends MovableObject {
     isDying = false;
     deathTimer = 0;
 
-    border = true;
-
 
     constructor(minX, maxX) {
         super().loadImage(this.IMAGES_WALKING[0]);
