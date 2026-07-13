@@ -56,8 +56,10 @@ export class SoundHub {
     }
 
     static playOne(sound){
-        sound.currentTime = 0;
-        sound.play();
+        if (!this.isMuted){
+            sound.currentTime = 0;
+            sound.play();
+        }
     }
 
     static pauseAll() {
@@ -72,6 +74,7 @@ export class SoundHub {
 
     static playLoop(sound){
         sound.loop = true;
+        sound.muted = this.isMuted;
 
         if (sound.paused){
             sound.currentTime = 0;
@@ -82,5 +85,19 @@ export class SoundHub {
     static stopLoop(sound){
         sound.pause();
         sound.currentTime = 0;
+    }
+
+    static isMuted = localStorage.getItem("soundMuted") === "true";
+
+    static toggleMute(){
+        this.isMuted = !this.isMuted;
+        localStorage.setItem("soundMuted", this.isMuted);
+        this.updateSounds();
+    }
+
+    static updateSounds(){
+        this.allSounds.forEach(sound => {
+            sound.muted = this.isMuted;
+        });
     }
 }

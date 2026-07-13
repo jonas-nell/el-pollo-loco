@@ -229,6 +229,16 @@ canvas {
     top: 50%;
 }
 
+#soundBtn{
+    position: absolute;
+    top: 56px;
+    right: 16px;
+
+    img {
+        height: 32px;
+    }
+}
+
 button:hover{
     cursor: pointer;
     transform: scale(1.1);
