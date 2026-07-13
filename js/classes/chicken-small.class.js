@@ -33,7 +33,7 @@ export class ChickenSmall extends Chicken{
 
         setTimeout(() => {
             if (!this.isDead()) {
-                this.speedY = 20 + Math.random() * 12; //random between 18 and 32
+                this.speedY = 20 + Math.random() * 9; 
                 this.startJumping();
             }
         }, delay);

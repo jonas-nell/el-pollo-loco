@@ -23,6 +23,8 @@ export class SoundHub {
         SoundHub.CHARACTER.jump.volume = 0.15;
         SoundHub.CHARACTER.run.volume = 0.04;
         SoundHub.CHARACTER.snoring.volume = 0.12;
+        SoundHub.CHICKEN.dead1.volume = 0.4;
+        SoundHub.CHICKEN.dead2.volume = 1.6;
     }
 
 
