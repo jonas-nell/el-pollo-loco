@@ -86,6 +86,10 @@ export class World {
 
     setWorld() {
         this.character.world = this;
+        this.level.enemies.forEach(enemy => {
+            enemy.world = this;
+        });
+        this.level.endboss.world = this;
     }
 
     draw() {
@@ -106,7 +110,7 @@ export class World {
         );
         this.addToMap(this.bottleBar);
         this.bottleBar.setPercentage(
-            this.character.bottles / 5 * 100
+            Math.min(this.character.bottles, 5) / 5 * 100
         );
         this.addToMap(this.coinBar);
         this.coinBar.setPercentage(
@@ -192,13 +196,19 @@ export class World {
     checkChickenJump(){
         this.level.enemies.forEach((enemy) => {
             if (
-                this.character.speedY < 0 &&
-                this.character.isColliding(enemy) &&
-                this.character.getRealFrame().y + this.character.getRealFrame().height < enemy.getRealFrame().y + 30
+                this.character.speedY <= 0 &&
+                this.character.isColliding(enemy)
             ) {
-                enemy.hit();
-                this.character.jump();
-                SoundHub.playOne(SoundHub.CHARACTER.jump);
+                const characterBottom =
+                    this.character.getRealFrame().y +
+                    this.character.getRealFrame().height;
+                const enemyTop =
+                    enemy.getRealFrame().y;
+                if(characterBottom - enemyTop <= 25){
+                    enemy.hit();
+                    this.character.jump();
+                    SoundHub.playOne(SoundHub.CHARACTER.jump);
+                }
             }
         });
     }
