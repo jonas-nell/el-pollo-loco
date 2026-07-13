@@ -23,7 +23,7 @@ export function level3(){
             //fourth segment
             new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 4), new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 4), new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 4), new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 4),
             //fifth segment
-            new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 5), new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 5), new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 5),
+            new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 5), new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 5), new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 5), new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 5),
     
             endboss
         ],
