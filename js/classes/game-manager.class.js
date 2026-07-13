@@ -40,13 +40,17 @@ export class Game{
             startMenu.classList.add("visible");
         }, 3000);
 
+        SoundHub.playLoop(SoundHub.BGM.menuBgm);
+
         playButton.addEventListener("click", () => {
             this.start();
         });
     }
 
-    start(){        
+    start(){   
         this.state = GAME_STATES.PLAYING;
+        SoundHub.stopLoop(SoundHub.BGM.menuBgm);
+        SoundHub.playLoop(SoundHub.BGM.levelBgm);
         document.getElementById("startMenu").classList.remove("visible");
         this.hideStartScreen();
         this.showCanvas();
@@ -100,6 +104,8 @@ export class Game{
         this.hideCanvas();
         this.hideFullscreenButton();
         this.hideH1();
+        SoundHub.pauseAll();
+        SoundHub.playLoop(SoundHub.BGM.victoryBgm);
         victoryDialog.showModal();
     }
 
@@ -111,6 +117,8 @@ export class Game{
         this.hideCanvas();
         this.hideFullscreenButton();
         this.hideH1();
+        SoundHub.pauseAll();
+        SoundHub.playLoop(SoundHub.BGM.gameOverBgm);
         gameOverDialog.showModal();
     }
 
@@ -128,6 +136,9 @@ export class Game{
 
         document.getElementById("gameOverDialog").close();
         document.getElementById("victoryDialog").close();
+        
+        SoundHub.pauseAll();
+        SoundHub.playLoop(SoundHub.BGM.levelBgm);
 
         this.showCanvas();
         this.showFullscreenButton();
@@ -154,6 +165,8 @@ export class Game{
 
         document.getElementById("gameOverDialog").close();
         document.getElementById("victoryDialog").close();
+        SoundHub.pauseAll();
+        SoundHub.playLoop(SoundHub.BGM.menuBgm);
 
         this.hideCanvas();
         this.showFullscreenButton();
