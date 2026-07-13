@@ -106,7 +106,7 @@ export class World {
         );
         this.addToMap(this.bottleBar);
         this.bottleBar.setPercentage(
-            this.character.bottles / 5 * 100
+            Math.min(this.character.bottles, 5) / 5 * 100
         );
         this.addToMap(this.coinBar);
         this.coinBar.setPercentage(

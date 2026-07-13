@@ -25,12 +25,13 @@ export class Character extends MovableObject {
     y = 0;
     speed = 6;
     world;
-    canThrow = true;
     bottles = 2;
     coins = 0;
     lastAction = new Date().getTime();
     isWalkingSound = false;
     isSnoring = false;
+    lastThrow = 0;
+    throwCooldown = 500;
 
     constructor() {
         super();
@@ -107,10 +108,16 @@ export class Character extends MovableObject {
 
     throwBottle(){
         if (this.dead) return;
-        if (!this.canThrow || this.bottles <= 0) return;
-        this.lastAction = new Date().getTime();
+
+        const now = Date.now();
+
+        if(this.bottles <= 0 || now - this.lastThrow < this.throwCooldown)
+            return;
+
+        this.lastThrow = now;
+
         const frame = this.getRealFrame();
-        
+
         let bottle = new ThrowableObject(
             frame.x + frame.width - 125 / 2,
             frame.y + 25,
@@ -119,14 +126,6 @@ export class Character extends MovableObject {
 
         this.world.throwableObjects.push(bottle);
         this.bottles--;
-        this.world.bottleBar.setPercentage(
-            this.bottles / 5 * 100
-        );
-
-        this.canThrow = false;
-        setTimeout(() => {
-            this.canThrow = true;
-        }, 500);
     }
 
     isIdleLong(){
