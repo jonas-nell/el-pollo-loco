@@ -277,36 +277,114 @@ button:hover{
     display: none;
 }
 
+#mobileControls{
+    display: none;
+}
+
 @media screen and (max-height: 600px) {
     body {
         gap: 0;
+        font-size: 18px;
     }
 
     #h1 {
         display: none;
     }
+
+    .end-dialog{
+        gap: 12px;
+        top: 50%;
+
+        img {
+            max-height: 55dvh;
+        }
+
+        button{
+            padding: 6px;
+            width: 150px;
+        }
+    }
+    
 }
 
 @media (orientation: portrait) and (max-width:900px){
 
     #gameContainer {
-        display:none;
+        display: none;
     }
 
     #rotateMessage {
-        display:flex;
+        display: flex;
 
-        position:fixed;
-        inset:0;
+        position: fixed;
+        inset: 0;
 
-        background:black;
-        color:white;
+        background: black;
+        color: white;
 
-        justify-content:center;
-        align-items:center;
+        justify-content: center;
+        align-items: center;
 
-        text-align:center;
-        z-index:999;
+        text-align: center;
+        z-index: 999;
     }
 
+}
+
+@media (hover:none) and (pointer:coarse) {
+
+    #mobileControls {
+        display: flex;
+        position: absolute;
+        inset: 0;
+
+        justify-content: space-between;
+        align-items: end;
+
+        padding: 20px;
+        pointer-events: none;
+    }
+
+    #mobileControls button {
+        pointer-events: auto;
+
+        width: 55px;
+        height: 55px;
+
+        border-radius: 50%;
+        border: 2px solid black;
+
+        background: rgba(219,181,8,0.7);
+
+        font-size: 32px;
+
+        touch-action: none;
+        user-select: none;
+    }
+
+    .movementButtons, .actionButtons {
+        display: flex;
+        gap: 12px;
+        pointer-events: auto;
+    }
+
+    .movementButtons{
+        justify-content: flex-end;
+    }
+
+    .actionButtons{
+        justify-content: flex-end;
+
+        img {
+            height: 50px;
+        }
+    }
+}
+
+#mobileControls button:active {
+    transform:scale(0.9);
+}
+
+#mobileControls.hidden {
+    display: none;
 }

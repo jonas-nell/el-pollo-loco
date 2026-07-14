@@ -4,6 +4,7 @@ import { level3 } from "../levels/level3.js";
 import { Character } from "./character.class.js";
 import { IntervalHub } from "./interval-hub.class.js";
 import { Keyboard } from "./keyboard.class.js";
+import { MobileControls } from "./mobile-controls.class.js";
 import { SoundHub } from "./sound-hub.class.js";
 import { World } from "./world.class.js";
 
@@ -25,6 +26,8 @@ export class Game{
 
     constructor(){
         this.keyboard = new Keyboard();
+        this.mobileControls = new MobileControls(this.keyboard);
+        this.setMobileControlsVisibility(false);
         this.initStartScreen();
         this.initInstructionsDialog();
         this.initDialogButtons();
@@ -57,6 +60,7 @@ export class Game{
         this.hideStartScreen();
         this.showCanvas();
         this.showFullscreenButton();
+        this.setMobileControlsVisibility(true);
         const canvas = document.getElementById("canvas");
         this.character = new Character();
         this.world = new World(canvas, this.keyboard, this, this.levels[this.currentLevelIndex](), this.character);
@@ -106,6 +110,7 @@ export class Game{
         this.hideCanvas();
         this.hideFullscreenButton();
         this.hideSoundButton();
+        this.setMobileControlsVisibility(false);
         this.hideH1();
         SoundHub.pauseAll();
         SoundHub.playLoop(SoundHub.BGM.victoryBgm);
@@ -120,6 +125,7 @@ export class Game{
         this.hideCanvas();
         this.hideFullscreenButton();
         this.hideSoundButton();
+        this.setMobileControlsVisibility(false);
         this.hideH1();
         SoundHub.pauseAll();
         SoundHub.playLoop(SoundHub.BGM.gameOverBgm);
@@ -146,6 +152,7 @@ export class Game{
 
         this.showCanvas();
         this.showFullscreenButton();
+        this.setMobileControlsVisibility(true);
         this.showH1();
         this.character = new Character();
         
@@ -175,6 +182,7 @@ export class Game{
         this.hideCanvas();
         this.showFullscreenButton();
         this.showSoundButton();
+        this.setMobileControlsVisibility(false);
         this.showStartScreen();
         this.showH1();
         
@@ -313,6 +321,18 @@ export class Game{
         closeSoundDialog.addEventListener("click", () => {
             soundDialog.close();
         })
+    }
+
+    setMobileControlsVisibility(show){
+        const mobileControls = document.getElementById("mobileControls");
+
+        if (!mobileControls) return;
+
+        if (show){
+            mobileControls.classList.remove("hidden");
+        } else {
+            mobileControls.classList.add("hidden");
+        }
     }
 }
 
