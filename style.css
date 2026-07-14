@@ -49,6 +49,9 @@ canvas {
     border-radius:  16px;
     border: 1px solid rgb(121, 34, 2);
     box-shadow: 14px 12px 40px -10px rgba(0,0,0,0.5);
+
+    width: min(720px, 100dvw, calc(100dvh * 1.5));
+    height: auto;
 }
 
 .d-none{
@@ -62,8 +65,8 @@ canvas {
 }
 
 #startScreen{
-    height: 480px;
-    width: 720px;
+    width: min(720px, 100dvw, calc(100dvh * 1.5));
+    aspect-ratio: 3 / 2;
     background-image: url("./assets/img/9_intro_outro_screens/start/startscreen_2.png");
     background-size: cover;
     background-position: 75% center;
@@ -206,13 +209,13 @@ canvas {
 }
 
 :fullscreen canvas{
-    width: 100dvw;
-    height: 100dvh;
+    width: min(100dvw, calc(100dvh * 1.5));
+    height: auto;
 }
 
 :fullscreen #startScreen{
     width: 100dvw;
-    height: 100dvh;
+    aspect-ratio: 3 / 2;
 }
 
 :fullscreen #startMenu{
@@ -268,4 +271,42 @@ button:hover{
     width: 50%;
     max-width: 680px;
     padding: 24px;
+}
+
+#rotateMessage{
+    display: none;
+}
+
+@media screen and (max-height: 600px) {
+    body {
+        gap: 0;
+    }
+
+    #h1 {
+        display: none;
+    }
+}
+
+@media (orientation: portrait) and (max-width:900px){
+
+    #gameContainer {
+        display:none;
+    }
+
+    #rotateMessage {
+        display:flex;
+
+        position:fixed;
+        inset:0;
+
+        background:black;
+        color:white;
+
+        justify-content:center;
+        align-items:center;
+
+        text-align:center;
+        z-index:999;
+    }
+
 }
