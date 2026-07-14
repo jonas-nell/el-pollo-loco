@@ -30,6 +30,7 @@ export class Game{
         this.initDialogButtons();
         this.initFullscreenButton();
         this.initSoundbutton();
+        this.initSoundDialog();
         SoundHub.initVolumes();
         SoundHub.updateSounds();
         this.initAudioUnlock();
@@ -289,6 +290,29 @@ export class Game{
             document.body.removeEventListener("click", unlockAudio);
         }
         document.body.addEventListener("click", unlockAudio);
+    }
+
+    initSoundDialog(){
+        const soundDialog = document.getElementById("soundDialog");
+        const closeSoundDialog = document.getElementById("closeSoundDialog");
+        const volumeSlider = document.getElementById("volumeSlider");
+        const soundSettingsButton = document.getElementById("soundSettings");
+
+        volumeSlider.value = SoundHub.masterVolume * 100;
+
+        volumeSlider.addEventListener("input", (event) => {
+            const volume = event.target.value / 100;
+
+            SoundHub.setMasterVolume(volume);
+        });
+
+        soundSettings.addEventListener("click", () => {
+            soundDialog.showModal();
+        })
+
+        closeSoundDialog.addEventListener("click", () => {
+            soundDialog.close();
+        })
     }
 }
 

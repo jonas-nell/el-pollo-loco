@@ -16,7 +16,7 @@
                 <div class="menu-wrapper">
                     <button id="playButton">PLAY</button>
                     <button id="instructionsButton">INSTRUCTIONS</button>
-                    <button>SETTINGS</button>
+                    <button id="soundSettings">SOUNDS</button>
                 </div>
             </div>
         </div>
@@ -37,6 +37,7 @@
         <dialog id="instructionsDialog">
             <div class="dialog-wrapper">
                 <h2>How to Play</h2>
+                <p>Collect all Coins & defeat the Boss</p>
                 <table class="controls-table">
                     <tr>
                         <td>Move Left</td>
@@ -72,6 +73,13 @@
                     </tr>
                 </table>
                 <Button id="closeInstructions">Back</Button>
+            </div>
+        </dialog>
+        <dialog id="soundDialog">
+            <div class="dialog-wrapper">
+                <h2>Master Sound</h2>
+                <input id="volumeSlider" type="range" min="0" max="100" value="100">
+                <button id="closeSoundDialog">CLOSE</button>
             </div>
         </dialog>
         <canvas id="canvas" class="d-none" width="720" height="480">

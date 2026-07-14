@@ -26,23 +26,37 @@ export class SoundHub {
         victoryBgm: new Audio(`assets/audio/BGM/vicotry-bgm.mp3`)
     }
 
+    static masterVolume = 1;
+
+    static initSound(sound, baseVolume){
+        sound.baseVolume = baseVolume;
+        sound.volume = baseVolume * this.masterVolume;
+    }
+
 
     static initVolumes(){
-        SoundHub.CHARACTER.damage.volume = 0.2;
-        SoundHub.CHARACTER.dead.volume = 0.2;
-        SoundHub.CHARACTER.jump.volume = 0.15;
-        SoundHub.CHARACTER.run.volume = 0.04;
-        SoundHub.CHARACTER.snoring.volume = 0.12;
-        SoundHub.CHICKEN.dead1.volume = 0.4;
-        SoundHub.CHICKEN.dead2.volume = 1;
-        SoundHub.COLLECTIBLES.bottle.volume = 0.3;
-        SoundHub.COLLECTIBLES.coin.volume = 0.1;
-        SoundHub.COLLECTIBLES.bottleBreak.volume = 0.2;
-        SoundHub.CHICKEN.bossApproach.volume = 0.7;
-        SoundHub.BGM.menuBgm.volume = 0.1;
-        SoundHub.BGM.levelBgm.volume = 0.2;
-        SoundHub.BGM.victoryBgm.volume = 0.25;
-        SoundHub.BGM.gameOverBgm.volume = 0.6;
+        const savedVolume = localStorage.getItem("masterVolume");
+
+        if (savedVolume !== null){
+            this.masterVolume = Number(savedVolume);
+        }
+
+        this.initSound(this.CHARACTER.damage, 0.2);
+        this.initSound(this.CHARACTER.dead, 0.15);
+        this.initSound(this.CHARACTER.jump, 0.15);
+        this.initSound(this.CHARACTER.run, 0.04);
+        this.initSound(this.CHARACTER.snoring, 0.12);
+        this.initSound(this.CHICKEN.dead1, 0.4);
+        this.initSound(this.CHICKEN.dead2, 1);
+        this.initSound(this.COLLECTIBLES.bottle, 0.3);
+        this.initSound(this.COLLECTIBLES.coin, 0.1);
+        this.initSound(this.COLLECTIBLES.bottleBreak, 0.2);
+        this.initSound(this.CHICKEN.bossApproach, 0.7);
+        this.initSound(this.BGM.menuBgm, 0.1);
+        this.initSound(this.BGM.levelBgm, 0.2);
+        this.initSound(this.BGM.victoryBgm, 0.25);
+        this.initSound(this.BGM.gameOverBgm, 0.6);
+        this.updateSounds();
     }
 
 
@@ -99,5 +113,15 @@ export class SoundHub {
         this.allSounds.forEach(sound => {
             sound.muted = this.isMuted;
         });
+    }
+
+    static setMasterVolume(volume){
+        this.masterVolume = volume;
+
+        this.allSounds.forEach(sound => {
+            sound.volume = sound.baseVolume * this.masterVolume;
+        });
+
+        localStorage.setItem("masterVolume", volume);
     }
 }
