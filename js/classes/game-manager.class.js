@@ -32,6 +32,7 @@ export class Game{
         this.initSoundbutton();
         SoundHub.initVolumes();
         SoundHub.updateSounds();
+        this.initAudioUnlock();
     }
 
     initStartScreen(){
@@ -41,8 +42,6 @@ export class Game{
         setTimeout(() => {
             startMenu.classList.add("visible");
         }, 3000);
-
-        SoundHub.playLoop(SoundHub.BGM.menuBgm);
 
         playButton.addEventListener("click", () => {
             this.start();
@@ -282,6 +281,14 @@ export class Game{
 
     updateSoundIcon(){
         this.soundIcon.src = SoundHub.isMuted ? "./assets/img/mute.png" : "./assets/img/sound.png";
+    }
+
+    initAudioUnlock(){
+        const unlockAudio = () => {
+            SoundHub.playLoop(SoundHub.BGM.menuBgm);
+            document.body.removeEventListener("click", unlockAudio);
+        }
+        document.body.addEventListener("click", unlockAudio);
     }
 }
 
