@@ -88,7 +88,6 @@ export class Endboss extends MovableObject {
 
     hit(){
         this.health -= 10;
-        console.log(this.health);
 
         if(this.health <= 0){
             this.health = 0;
