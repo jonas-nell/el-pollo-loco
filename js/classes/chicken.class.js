@@ -7,12 +7,12 @@ export class Chicken extends MovableObject {
     IMAGES_WALKING = ImageHelper.CHICKEN.walk;
     IMAGES_DEAD = ImageHelper.CHICKEN.dead;
 
-        offset = {
+    offset = {
         top: 5,
         right: 3,
         bottom: 6,
-        left: 2
-    }
+        left: 2,
+    };
 
     y = 360;
     height = 70;
@@ -21,7 +21,6 @@ export class Chicken extends MovableObject {
     isDying = false;
     deathTimer = 0;
     activationRange = 720;
-
 
     constructor(minX, maxX) {
         super().loadImage(this.IMAGES_WALKING[0]);
@@ -33,43 +32,47 @@ export class Chicken extends MovableObject {
     }
 
     animate() {
-        IntervalHub.startInterval(() => {
-            if(!this.isDying &&
-                this.world &&
-                Math.abs(this.world.character.x - this.x) < this.activationRange
-            ){
-                this.moveLeft();
-            }
-        }, 1000 / 60);
-
-        IntervalHub.startInterval(() => {
-            if(this.isDying){
-                this.playDeathAnimation();
-            } else {
-                this.playAnimation(this.IMAGES_WALKING);
-            }
-        }, 230);
+        IntervalHub.startInterval(this.moveTowardsCharacter, 1000 / 60);
+        IntervalHub.startInterval(this.updateWalkingAnimation, 230);
     }
 
-    playDeathAnimation(){
+    moveTowardsCharacter = () => {
+        if (
+            !this.isDying &&
+            this.world &&
+            Math.abs(this.world.character.x - this.x) < this.activationRange
+        ) {
+            this.moveLeft();
+        }
+    };
+
+    updateWalkingAnimation = () => {
+        if (this.isDying) {
+            this.playDeathAnimation();
+        } else {
+            this.playAnimation(this.IMAGES_WALKING);
+        }
+    };
+
+    playDeathAnimation() {
         this.playAnimationOnce(this.IMAGES_DEAD);
         let timePassed = new Date().getTime() - this.deathTimer;
-        if(timePassed > 1000){            
+        if (timePassed > 1000) {
             this.isFinished = true;
         }
     }
 
-    hit(){
+    hit() {
         this.health -= 10;
 
-        if(this.health <= 0){
+        if (this.health <= 0) {
             this.health = 0;
             this.die();
         }
     }
 
-    die(){
-        if(this.isDying) return;
+    die() {
+        if (this.isDying) return;
 
         this.isDying = true;
         this.offset.top = 50;
