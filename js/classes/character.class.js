@@ -17,8 +17,8 @@ export class Character extends MovableObject {
         top: 120,
         right: 25,
         bottom: 15,
-        left: 25
-    }
+        left: 25,
+    };
 
     dead = false;
     height = 280;
@@ -47,92 +47,96 @@ export class Character extends MovableObject {
     }
 
     animate() {
-        IntervalHub.startInterval(() => {
-            if (
-                this.world.keyboard.RIGHT &&
-                this.x < this.world.level.level_end_x
-            ) {
-                this.lastAction = new Date().getTime();
-                this.otherDirection = false;
-                this.moveRight();
-                this.stopSnoringSound();
-                this.startWalkingSound();
-            }
-
-            if (this.world.keyboard.LEFT && this.x > -300) {
-                this.lastAction = new Date().getTime();
-                this.otherDirection = true;
-                this.moveLeft();
-                this.stopSnoringSound();
-                this.startWalkingSound();
-            }
-
-            if((this.world.keyboard.UP || this.world.keyboard.SPACE) && !this.isAboveGround()){
-                this.lastAction = new Date().getTime();
-                this.jump();
-                this.stopSnoringSound();
-                SoundHub.playOne(SoundHub.CHARACTER.jump);
-            }
-
-            if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT) {
-                this.stopWalkingSound();
-            }
-
-            this.world.camera_x = -this.x + 100;
-        }, 1000 / 60);
-
-        IntervalHub.startInterval(() => {
-            if (this.dead){
-                this.playAnimationOnce(this.IMAGES_DEAD, () => {
-                    this.isFinished = true;
-                });
-            }
-            else if (this.isHurt()){
-                this.playAnimation(this.IMAGES_HURT);
-            }
-            else if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMPING);
-            }
-            else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                this.playAnimation(this.IMAGES_WALKING);
-            }
-            else if (this.isIdleLong()){
-                this.playAnimation(this.IMAGES_LONG_IDLE);
-                this.startSnoringSound();
-            }
-            else {
-                this.playAnimation(this.IMAGES_IDLE);
-            }
-        }, 90);
+        IntervalHub.startInterval(this.handleMovementInput, 1000 / 60);
+        IntervalHub.startInterval(this.updateAnimationState, 90);
     }
 
-    throwBottle(){
-        if (this.dead) return;
+    handleMovementInput = () => {
+        this.handleHorizontalMovement();
+        this.handleJumpInput();
+        if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT) {
+            this.stopWalkingSound();
+        }
+        this.world.camera_x = -this.x + 100;
+    };
 
+    handleHorizontalMovement() {
+        if (
+            this.world.keyboard.RIGHT &&
+            this.x < this.world.level.level_end_x
+        ) {
+            this.lastAction = new Date().getTime();
+            this.otherDirection = false;
+            this.moveRight();
+            this.stopSnoringSound();
+            this.startWalkingSound();
+        }
+
+        if (this.world.keyboard.LEFT && this.x > -300) {
+            this.lastAction = new Date().getTime();
+            this.otherDirection = true;
+            this.moveLeft();
+            this.stopSnoringSound();
+            this.startWalkingSound();
+        }
+    }
+
+    handleJumpInput() {
+        if (
+            (this.world.keyboard.UP || this.world.keyboard.SPACE) &&
+            !this.isAboveGround()
+        ) {
+            this.lastAction = new Date().getTime();
+            this.jump();
+            this.stopSnoringSound();
+            SoundHub.playOne(SoundHub.CHARACTER.jump);
+        }
+    }
+
+    updateAnimationState = () => {
+        if (this.dead) {
+            this.playAnimationOnce(this.IMAGES_DEAD, () => {
+                this.isFinished = true;
+            });
+        } else if (this.isHurt()) {
+            this.playAnimation(this.IMAGES_HURT);
+        } else if (this.isAboveGround()) {
+            this.playAnimation(this.IMAGES_JUMPING);
+        } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            this.playAnimation(this.IMAGES_WALKING);
+        } else if (this.isIdleLong()) {
+            this.playAnimation(this.IMAGES_LONG_IDLE);
+            this.startSnoringSound();
+        } else {
+            this.playAnimation(this.IMAGES_IDLE);
+        }
+    };
+
+    throwBottle() {
+        if (this.dead) return;
         const now = Date.now();
 
-        if(this.bottles <= 0 || now - this.lastThrow < this.throwCooldown)
+        if (this.bottles <= 0 || now - this.lastThrow < this.throwCooldown)
             return;
 
         this.lastThrow = now;
-
         const frame = this.getRealFrame();
 
         let bottle = new ThrowableObject(
             frame.x + frame.width - 125 / 2,
             frame.y + 25,
-            this.otherDirection
+            this.otherDirection,
         );
 
         this.world.throwableObjects.push(bottle);
         this.bottles--;
     }
 
-    isIdleLong(){
+    isIdleLong() {
         return new Date().getTime() - this.lastAction > 5000;
     }
-    
-    die(){
+
+    die() {
         if (this.dead) return;
 
         this.dead = true;
@@ -142,37 +146,35 @@ export class Character extends MovableObject {
         SoundHub.playOne(SoundHub.CHARACTER.dead);
     }
 
-    playHitSound(){
+    playHitSound() {
         SoundHub.playOne(SoundHub.CHARACTER.damage);
     }
 
-    startWalkingSound(){
+    startWalkingSound() {
         if (!this.isWalkingSound) {
             SoundHub.playLoop(SoundHub.CHARACTER.run);
             this.isWalkingSound = true;
         }
     }
 
-    stopWalkingSound(){
+    stopWalkingSound() {
         if (this.isWalkingSound) {
             SoundHub.stopLoop(SoundHub.CHARACTER.run);
             this.isWalkingSound = false;
         }
     }
 
-    startSnoringSound(){
-        if (!this.isSnoringSound) {
+    startSnoringSound() {
+        if (!this.isSnoring) {
             SoundHub.playLoop(SoundHub.CHARACTER.snoring);
-            this.isSnoringSound = true;
+            this.isSnoring = true;
         }
     }
 
-stopSnoringSound(){
-        if (this.isSnoringSound) {
+    stopSnoringSound() {
+        if (this.isSnoring) {
             SoundHub.stopLoop(SoundHub.CHARACTER.snoring);
-            this.isSnoringSound = false;
+            this.isSnoring = false;
         }
     }
-
-
 }

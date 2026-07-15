@@ -1,19 +1,18 @@
-import { Character } from "./character.class.js";
 import { ImageHelper } from "./img-helper.class.js";
 import { IntervalHub } from "./interval-hub.class.js";
 import { MovableObject } from "./movable-object.class.js";
 import { SoundHub } from "./sound-hub.class.js";
 
-export class ThrowableObject extends MovableObject{
+export class ThrowableObject extends MovableObject {
     IMAGES_ROTATION = ImageHelper.BOTTLE.rotation;
     IMAGES_SPLASH = ImageHelper.BOTTLE.splash;
 
-        offset = {
+    offset = {
         top: 10,
         right: 5,
         bottom: 10,
-        left: 5
-    }
+        left: 5,
+    };
 
     speedY = 30;
     height = 75;
@@ -23,9 +22,7 @@ export class ThrowableObject extends MovableObject{
     rotationImage = 0;
 
 
-    border = true;
-
-    constructor(x, y, otherDirection){
+    constructor(x, y, otherDirection) {
         super();
         this.otherDirection = otherDirection;
         this.loadImage(this.IMAGES_ROTATION[0]);
@@ -37,9 +34,9 @@ export class ThrowableObject extends MovableObject{
         this.animate();
     }
 
-    animate(){
+    animate() {
         IntervalHub.startInterval(() => {
-            if(this.isBroken){
+            if (this.isBroken) {
                 this.playSplashAnimation();
             } else {
                 this.playAnimation(this.IMAGES_ROTATION);
@@ -47,30 +44,30 @@ export class ThrowableObject extends MovableObject{
         }, 115);
     }
 
-    playSplashAnimation(){
+    playSplashAnimation() {
         this.playAnimationOnce(this.IMAGES_SPLASH);
-        if(this.currentImageOnce >= this.IMAGES_SPLASH.length){
+        if (this.currentImageOnce >= this.IMAGES_SPLASH.length) {
             this.isFinished = true;
         }
     }
-    
-    throw(){
+
+    throw() {
         this.applyGravity();
         IntervalHub.startInterval(this.bottleHorizontal, 25);
     }
 
     bottleHorizontal = () => {
-        if(!this.isBroken){
-            if(this.otherDirection){
+        if (!this.isBroken) {
+            if (this.otherDirection) {
                 this.x -= 8;
             } else {
                 this.x += 8;
             }
         }
-    }
+    };
 
-    break(){
-        if(this.isBroken) return;
+    break() {
+        if (this.isBroken) return;
 
         SoundHub.playOne(SoundHub.COLLECTIBLES.bottleBreak);
         this.isBroken = true;

@@ -32,7 +32,7 @@ export class Keyboard {
                 this.SPACE = true;
             }
 
-            if (e.code === "KeyE"){
+            if (e.code === "KeyE") {
                 this.E = true;
             }
         });
@@ -57,7 +57,7 @@ export class Keyboard {
             if (e.code === "Space") {
                 this.SPACE = false;
             }
-            if (e.code === "KeyE"){
+            if (e.code === "KeyE") {
                 this.E = false;
             }
         });

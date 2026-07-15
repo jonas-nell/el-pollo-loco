@@ -1,4 +1,4 @@
-export class Level{
+export class Level {
     enemies;
     clouds;
     backgroundObjects;
@@ -7,7 +7,17 @@ export class Level{
     spawnX;
     spawnY;
 
-    constructor(enemies, clouds, backgroundObjects, endboss, bottles, coins, level_end_x, spawnX, spawnY){        
+    constructor(
+        enemies,
+        clouds,
+        backgroundObjects,
+        endboss,
+        bottles,
+        coins,
+        level_end_x,
+        spawnX,
+        spawnY,
+    ) {
         this.enemies = enemies;
         this.clouds = clouds;
         this.backgroundObjects = backgroundObjects;
