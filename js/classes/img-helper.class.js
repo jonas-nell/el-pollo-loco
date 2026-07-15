@@ -17,7 +17,7 @@
  * This class only contains static data and does not need
  * to be instantiated.
  *
- * @class ImageHelper
+ * 
  */
 export class ImageHelper {
 

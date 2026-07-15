@@ -7,7 +7,7 @@ import { IntervalHub } from "./interval-hub.class.js";
  * Extends DrawableObject with movement, gravity, collision detection,
  * animations, health handling, and damage states.
  *
- * @class MovableObject
+ * 
  */
 export class MovableObject extends DrawableObject {
     /**

@@ -38,7 +38,7 @@ const GAME_STATES = {
  * It acts as the main coordinator between the user interface,
  * game world, player character, and audio systems.
  *
- * @class Game
+ * 
  */
 export class Game {
     /**

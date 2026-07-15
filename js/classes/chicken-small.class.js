@@ -12,7 +12,7 @@ import { ImageHelper } from "./img-helper.class.js";
  * The ChickenSmall class adds jumping behavior
  * to create a more dynamic enemy type.
  *
- * @class ChickenSmall
+ * 
  * @extends Chicken
  */
 export class ChickenSmall extends Chicken {

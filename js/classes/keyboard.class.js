@@ -12,7 +12,7 @@
  * - Space for jumping
  * - E for throwing bottles
  *
- * @class Keyboard
+ * 
  */
 export class Keyboard {
 

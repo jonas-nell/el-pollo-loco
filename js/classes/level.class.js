@@ -10,7 +10,7 @@
  * The Level class acts as a data container and does not
  * contain gameplay logic.
  *
- * @class Level
+ * 
  */
 export class Level {
 

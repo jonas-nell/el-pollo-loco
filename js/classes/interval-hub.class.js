@@ -5,7 +5,7 @@
  * or all at once. This prevents intervals from continuing to run after
  * restarting or ending the game.
  *
- * @class IntervalHub
+ * 
  */
 export class IntervalHub {
     /**

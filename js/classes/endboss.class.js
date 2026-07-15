@@ -14,7 +14,7 @@ import { SoundHub } from "./sound-hub.class.js";
  * The Endboss uses different animation states depending
  * on the current gameplay situation.
  *
- * @class Endboss
+ * 
  * @extends MovableObject
  */
 export class Endboss extends MovableObject {

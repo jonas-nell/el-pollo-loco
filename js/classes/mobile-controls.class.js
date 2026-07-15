@@ -7,7 +7,7 @@
  * to the existing Keyboard input system so the game can
  * use the same control logic on desktop and mobile.
  *
- * @class MobileControls
+ * 
  */
 export class MobileControls {
 

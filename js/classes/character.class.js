@@ -14,7 +14,7 @@ import { SoundHub } from "./sound-hub.class.js";
  * The Character class is responsible for handling all
  * player-related gameplay behavior.
  *
- * @class Character
+ * 
  * @extends MovableObject
  */
 export class Character extends MovableObject {
@@ -122,7 +122,7 @@ export class Character extends MovableObject {
      * Provides access to keyboard input,
      * level data, and throwable objects.
      *
-     * @type {import("./world.class.js").World}
+     * @type {World}
      */
     world;
 

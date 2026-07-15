@@ -11,7 +11,7 @@ import { DrawableObject } from "./drawable-object.class.js";
  * The displayed image changes depending on the current
  * percentage value.
  *
- * @class StatusBar
+ * 
  * @extends DrawableObject
  */
 export class StatusBar extends DrawableObject {

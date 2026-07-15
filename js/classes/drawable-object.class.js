@@ -4,7 +4,7 @@
  * Provides common functionality for loading images, storing image animations,
  * and rendering objects onto the canvas.
  *
- * @class DrawableObject
+ * 
  */
 export class DrawableObject {
     /**

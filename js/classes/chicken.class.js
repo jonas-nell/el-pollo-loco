@@ -13,7 +13,7 @@ import { SoundHub } from "./sound-hub.class.js";
  * Chickens become active when the player enters their
  * detection range and then move toward the character.
  *
- * @class Chicken
+ * 
  * @extends MovableObject
  */
 export class Chicken extends MovableObject {

@@ -10,7 +10,7 @@ import { MovableObject } from "./movable-object.class.js";
  * Coins remain static in the level and are collected when
  * the character touches them.
  *
- * @class Coin
+ * 
  * @extends MovableObject
  */
 export class Coin extends MovableObject {

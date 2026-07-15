@@ -15,7 +15,7 @@ import { SoundHub } from "./sound-hub.class.js";
  * the bottle switches into a broken state and
  * plays its splash animation before being removed.
  *
- * @class ThrowableObject
+ * 
  * @extends MovableObject
  */
 export class ThrowableObject extends MovableObject {

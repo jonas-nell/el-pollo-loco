@@ -9,7 +9,7 @@ import { MovableObject } from "./movable-object.class.js";
  * Background objects are placed next to each other to create
  * the scrolling game world.
  *
- * @class BackgroundObject
+ * 
  * @extends MovableObject
  */
 export class BackgroundObject extends MovableObject {

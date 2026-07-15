@@ -13,7 +13,7 @@ import { StatusBar } from "./status-bar.class.js";
  * It acts as the central connection point between the game manager,
  * character, enemies, collectibles, and the canvas.
  *
- * @class World
+ * 
  */
 export class World {
     /**
@@ -47,21 +47,21 @@ export class World {
     /**
      * Reference to the game manager.
      *
-     * @type {import("./game-manager.class.js").GameManager}
+     * @type {Game}
      */
     game;
 
     /**
      * Current level configuration.
      *
-     * @type {import("../levels/level.class.js").Level}
+     * @type {Level}
      */
     level;
 
     /**
      * Player-controlled character.
      *
-     * @type {import("./character.class.js").Character}
+     * @type {Character}
      */
     character;
 
@@ -82,7 +82,7 @@ export class World {
     /**
      * Keyboard input handler.
      *
-     * @type {import("./keyboard.class.js").Keyboard}
+     * @type {Keyboard}
      */
     keyboard;
 
@@ -126,7 +126,7 @@ export class World {
     /**
      * Currently active throwable objects.
      *
-     * @type {import("./throwable-object.class.js").ThrowableObject[]}
+     * @type {ThrowableObject[]}
      */
     throwableObjects = [];
 
@@ -138,10 +138,10 @@ export class World {
      * and starts the world update loop.
      *
      * @param {HTMLCanvasElement} canvas - Game canvas element.
-     * @param {import("./keyboard.class.js").Keyboard} keyboard - Keyboard input handler.
-     * @param {import("./game-manager.class.js").GameManager} game - Game manager instance.
+     * @param {Keyboard} keyboard - Keyboard input handler.
+     * @param {GameM} game - Game manager instance.
      * @param {Object} level - Current level data.
-     * @param {import("./character.class.js").Character} character - Player character.
+     * @param {Character} character - Player character.
      */
     constructor(canvas, keyboard, game, level, character) {
         this.ctx = canvas.getContext("2d");
@@ -391,7 +391,7 @@ export class World {
      *
      * Iterates through an array of drawable objects and renders each one.
      *
-     * @param {import("./drawable-object.class.js").DrawableObject[]} objects
+     * @param {DrawableObject[]} objects
      * - Objects that should be rendered.
      *
      * @returns {void}
@@ -408,7 +408,7 @@ export class World {
      *
      * Handles visibility checks and sprite flipping before drawing.
      *
-     * @param {import("./drawable-object.class.js").DrawableObject} mo
+     * @param {DrawableObject} mo
      * - Object that should be rendered.
      *
      * @returns {void}
@@ -433,7 +433,7 @@ export class World {
      *
      * Used for characters and enemies that need to face the opposite direction.
      *
-     * @param {import("./drawable-object.class.js").DrawableObject} mo
+     * @param {DrawableObject} mo
      * - Object that should be flipped.
      *
      * @returns {void}
@@ -449,7 +449,7 @@ export class World {
     /**
      * Restores the canvas state after a sprite flip.
      *
-     * @param {import("./drawable-object.class.js").DrawableObject} mo
+     * @param {DrawableObject} mo
      * - Object that was previously flipped.
      *
      * @returns {void}

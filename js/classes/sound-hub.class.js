@@ -12,7 +12,7 @@
  * Uses static methods and properties because only one
  * global audio controller is required.
  *
- * @class SoundHub
+ * 
  */
 export class SoundHub {
     /**

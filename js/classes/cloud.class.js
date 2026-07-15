@@ -11,7 +11,7 @@ import { MovableObject } from "./movable-object.class.js";
  * Clouds move continuously across the background to
  * create a parallax-like environment effect.
  *
- * @class Cloud
+ * 
  * @extends MovableObject
  */
 export class Cloud extends MovableObject {

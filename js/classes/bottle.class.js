@@ -12,7 +12,7 @@ import { MovableObject } from "./movable-object.class.js";
  * This class represents bottles before they are thrown.
  * The projectile behavior is handled by ThrowableObject.
  *
- * @class Bottle
+ * 
  * @extends MovableObject
  */
 export class Bottle extends MovableObject {
