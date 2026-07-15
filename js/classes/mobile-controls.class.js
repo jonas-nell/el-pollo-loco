@@ -1,5 +1,4 @@
-export class MobileControls{
-    
+export class MobileControls {
     constructor(keyboard) {
         this.keyboard = keyboard;
 
@@ -8,30 +7,22 @@ export class MobileControls{
         this.jump = document.getElementById("jumpBtn");
         this.throw = document.getElementById("throwBtn");
         if (!this.left || !this.right || !this.jump || !this.throw) {
-        return;
-    }
+            return;
+        }
         this.registerEvents();
     }
 
-    registerEvents(){
-        this.addButtonEvents(
-            this.left, "LEFT"
-        );
+    registerEvents() {
+        this.addButtonEvents(this.left, "LEFT");
 
-        this.addButtonEvents(
-            this.right, "RIGHT"
-        );
+        this.addButtonEvents(this.right, "RIGHT");
 
-        this.addButtonEvents(
-            this.jump, "UP"
-        );
+        this.addButtonEvents(this.jump, "UP");
 
-        this.addButtonEvents(
-            this.throw, "E"
-        );
+        this.addButtonEvents(this.throw, "E");
     }
 
-    addButtonEvents(button, key){
+    addButtonEvents(button, key) {
         button.addEventListener("touchstart", (e) => {
             e.preventDefault();
             this.keyboard[key] = true;
@@ -45,7 +36,7 @@ export class MobileControls{
             this.keyboard[key] = false;
         });
 
-        button.addEventListener("contextmenu", e => {
+        button.addEventListener("contextmenu", (e) => {
             e.preventDefault();
         });
     }
