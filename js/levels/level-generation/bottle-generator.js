@@ -27,7 +27,7 @@ export function generateBottles(segmentCount) {
     const SEGMENT_WIDTH = 719;
 
 
-    for (let i = 0; i < segmentCount; i++) {
+    for (let i = 0; i < segmentCount - 1; i++) {
         const segmentStart = i * SEGMENT_WIDTH;
 
         /*
