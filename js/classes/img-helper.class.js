@@ -1,5 +1,40 @@
+/**
+ * Central asset registry for all game images.
+ *
+ * Provides static references to image paths used throughout
+ * the game. Classes access these collections to load animations,
+ * backgrounds, UI elements and game objects.
+ *
+ * Asset categories include:
+ * - Player animations
+ * - Enemy animations
+ * - Boss animations
+ * - Background layers
+ * - Status bars
+ * - Collectibles
+ * - Game screens
+ *
+ * This class only contains static data and does not need
+ * to be instantiated.
+ *
+ * @class ImageHelper
+ */
 export class ImageHelper {
-    static PEPE = {
+
+/**
+ * Player character animation assets.
+ *
+ * Contains image sequences for:
+ * - idle animation
+ * - walking
+ * - jumping
+ * - taking damage
+ * - death animation
+ * - long idle animation
+ *
+ * @type {Object}
+ */
+static PEPE = {
         idle: [
             `assets/img/2_character_pepe/1_idle/idle/I-1.png`,
             `assets/img/2_character_pepe/1_idle/idle/I-2.png`,
@@ -58,7 +93,12 @@ export class ImageHelper {
             `assets/img/2_character_pepe/1_idle/long_idle/I-20.png`,
         ],
     };
-    static CHICKEN = {
+/**
+ * Normal chicken enemy animation assets.
+ *
+ * @type {Object}
+ */
+static CHICKEN = {
         walk: [
             `assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png`,
             `assets/img/3_enemies_chicken/chicken_normal/1_walk/2_w.png`,
@@ -66,8 +106,12 @@ export class ImageHelper {
         ],
         dead: [`assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png`],
     };
-
-    static CHICKEN_SMALL = {
+/**
+ * Small chicken enemy animation assets.
+ *
+ * @type {Object}
+ */
+static CHICKEN_SMALL = {
         walk: [
             `assets/img/3_enemies_chicken/chicken_small/1_walk/1_w.png`,
             `assets/img/3_enemies_chicken/chicken_small/1_walk/2_w.png`,
@@ -76,7 +120,14 @@ export class ImageHelper {
         dead: [`assets/img/3_enemies_chicken/chicken_small/2_dead/dead.png`],
     };
 
-    static BOSS = {
+/**
+ * Endboss animation assets.
+ *
+ * Contains walking, alert, hurt and death animations.
+ *
+ * @type {Object}
+ */
+static BOSS = {
         walk: [
             `assets/img/4_enemie_boss_chicken/1_walk/G1.png`,
             `assets/img/4_enemie_boss_chicken/1_walk/G2.png`,
@@ -104,8 +155,15 @@ export class ImageHelper {
             `assets/img/4_enemie_boss_chicken/5_dead/G26.png`,
         ],
     };
-
-    static BACKGROUND = {
+/**
+ * Background layer assets.
+ *
+ * Contains parallax layers and cloud images used
+ * to build the game environment.
+ *
+ * @type {Object}
+ */
+static BACKGROUND = {
         clouds: [
             `assets/img/5_background/layers/4_clouds/1.png`,
             `assets/img/5_background/layers/4_clouds/2.png`,
@@ -124,8 +182,18 @@ export class ImageHelper {
         ],
         heavenbg: [`assets/img/5_background/layers/air.png`],
     };
-
-    static STATUSBAR = {
+/**
+ * Status bar image assets.
+ *
+ * Contains visual states for:
+ * - health
+ * - bottles
+ * - boss health
+ * - coins
+ *
+ * @type {Object}
+ */
+static STATUSBAR = {
         health: [
             `assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/0.png`,
             `assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/20.png`,
@@ -158,9 +226,18 @@ export class ImageHelper {
             `assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/80.png`,
             `assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/100.png`,
         ],
-    };
-
-    static BOTTLE = {
+    }
+/**
+ * Bottle related image assets.
+ *
+ * Contains:
+ * - rotating bottle animation
+ * - bottle splash animation
+ * - bottle pickup image
+ *
+ * @type {Object}
+ */
+static BOTTLE = {
         rotation: [
             `assets/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png`,
             `assets/img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png`,
@@ -178,6 +255,11 @@ export class ImageHelper {
         onGround: [`assets/img/6_salsa_bottle/2_salsa_bottle_on_ground.png`],
     };
 
+/**
+ * Coin collectible image assets.
+ *
+ * @type {Object}
+ */
     static COIN = {
         coin: [`assets/img/8_coin/coin_2.png`],
     };
