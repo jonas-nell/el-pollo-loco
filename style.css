@@ -46,6 +46,7 @@ h1 {
 }
 
 canvas {
+    display: block;
     background-color: black;
     border-radius: 16px;
     border: 1px solid rgb(121, 34, 2);
@@ -64,6 +65,14 @@ canvas {
     align-items: center;
     justify-content: center;
 }
+
+#gameWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: min(720px, 100dvw, calc(100dvh * 1.5));
+}
+
 
 #startScreen {
     width: min(720px, 100dvw, calc(100dvh * 1.5));
@@ -138,7 +147,7 @@ canvas {
 
 #instructionsDialog {
     position: fixed;
-    top: 60%; /*50 in fullscreen */
+    top: 60%; 
     left: 50%;
     translate: -50% -50%;
 
@@ -215,6 +224,10 @@ canvas {
 :fullscreen canvas {
     width: min(100dvw, calc(100dvh * 1.5));
     height: auto;
+}
+
+:fullscreen #gameWrapper{
+    width: min(100dvw, calc(100dvh * 1.5));
 }
 
 :fullscreen #startScreen {
