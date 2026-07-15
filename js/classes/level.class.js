@@ -1,5 +1,3 @@
-
- 
 /**
  * Represents a game level configuration.
  *
@@ -117,12 +115,9 @@ export class Level {
         this.clouds = clouds;
         this.backgroundObjects = backgroundObjects;
         this.endboss = endboss;
-
         this.bottles = bottles;
         this.coins = coins;
-
         this.level_end_x = level_end_x;
-
         this.spawnX = spawnX;
         this.spawnY = spawnY;
     }

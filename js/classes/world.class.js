@@ -150,12 +150,9 @@ export class World {
         this.game = game;
         this.level = level;
         this.character = character;
-
         this.setWorld();
         this.draw();
-
         this.bossHealthBar.visible = false;
-
         this.worldInterval = IntervalHub.startInterval(this.run, 16);
     }
 
@@ -220,7 +217,6 @@ export class World {
         this.checkEndbossAlert();
         this.checkLevelCompleted();
         this.checkEndbossEscape();
-
         if (this.character.isFinished) {
             this.game.gameOver();
         }
@@ -267,7 +263,6 @@ export class World {
      */
     checkEndbossAlert() {
         const endboss = this.level.endboss;
-
         if (!endboss) return;
 
         const distance = Math.abs(this.character.x - endboss.x);
@@ -287,11 +282,9 @@ export class World {
      */
     setWorld() {
         this.character.world = this;
-
         this.level.enemies.forEach((enemy) => {
             enemy.world = this;
         });
-
         this.level.endboss.world = this;
     }
 
@@ -306,17 +299,10 @@ export class World {
     draw() {
         if (!this.running) return;
 
-        this.ctx.clearRect(
-            0,
-            0,
-            this.canvas.width,
-            this.canvas.height,
-        );
-
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.drawBackground();
         this.drawHUD();
         this.drawEntities();
-
         this.animationFrame = requestAnimationFrame(() => this.draw());
     }
 
@@ -328,10 +314,8 @@ export class World {
      */
     drawBackground() {
         this.ctx.translate(this.camera_x, 0);
-
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
-
         this.ctx.translate(-this.camera_x, 0);
     }
 
@@ -346,18 +330,14 @@ export class World {
     drawHUD() {
         this.healthBar.setPercentage(this.character.health);
         this.addToMap(this.healthBar);
-
         this.addToMap(this.bossHealthBar);
-
         this.bossHealthBar.setPercentage(
             (this.level.endboss.health / 30) * 100,
         );
-
         this.addToMap(this.bottleBar);
         this.bottleBar.setPercentage(
             (Math.min(this.character.bottles, 5) / 5) * 100,
         );
-
         this.addToMap(this.coinBar);
         this.coinBar.setPercentage(
             (this.character.coins / 10) * 100,
@@ -375,13 +355,11 @@ export class World {
      */
     drawEntities() {
         this.ctx.translate(this.camera_x, 0);
-
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.coins);
-
         this.ctx.translate(-this.camera_x, 0);
     }
 
@@ -415,13 +393,10 @@ export class World {
      */
     addToMap(mo) {
         if (mo.visible === false) return;
-
         if (mo.otherDirection) {
             this.flipImage(mo);
         }
-
         mo.draw(this.ctx);
-
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
@@ -528,10 +503,7 @@ export class World {
      */
     checkChickenJump() {
         this.level.enemies.forEach((enemy) => {
-            if (
-                this.character.speedY <= 0 &&
-                this.character.isColliding(enemy)
-            ) {
+            if (this.character.speedY <= 0 && this.character.isColliding(enemy)) {
                 const characterBottom =
                     this.character.getRealFrame().y +
                     this.character.getRealFrame().height;
@@ -540,12 +512,8 @@ export class World {
 
                 if (characterBottom - enemyTop <= 25) {
                     enemy.hit();
-
                     this.character.jump();
-
-                    SoundHub.playOne(
-                        SoundHub.CHARACTER.jump,
-                    );
+                    SoundHub.playOne(SoundHub.CHARACTER.jump);
                 }
             }
         });
@@ -563,11 +531,7 @@ export class World {
         this.level.bottles.forEach((bottle) => {
             if (this.character.isColliding(bottle)) {
                 this.character.bottles++;
-
-                SoundHub.playOne(
-                    SoundHub.COLLECTIBLES.bottle,
-                );
-
+                SoundHub.playOne(SoundHub.COLLECTIBLES.bottle);
                 bottle.isFinished = true;
             }
         });
@@ -596,12 +560,8 @@ export class World {
     checkCoinPickup() {
         this.level.coins.forEach((coin) => {
             if (this.character.isColliding(coin)) {
-                SoundHub.playOne(
-                    SoundHub.COLLECTIBLES.coin,
-                );
-
+                SoundHub.playOne(SoundHub.COLLECTIBLES.coin);
                 this.character.coins++;
-
                 coin.isFinished = true;
             }
         });
@@ -630,14 +590,8 @@ export class World {
      */
     stop() {
         this.running = false;
-
-        IntervalHub.stopInterval(
-            this.worldInterval,
-        );
-
-        cancelAnimationFrame(
-            this.animationFrame,
-        );
+        IntervalHub.stopInterval(this.worldInterval);
+        cancelAnimationFrame(this.animationFrame);
     }
 
 
@@ -672,9 +626,7 @@ export class World {
      */
     checkEndbossEscape() {
         const endboss = this.level.endboss;
-
         if (!endboss) return;
-
         if (endboss.x < 0) {
             this.game.gameOver();
         }

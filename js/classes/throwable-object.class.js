@@ -112,26 +112,13 @@ export class ThrowableObject extends MovableObject {
      */
     constructor(x, y, otherDirection) {
         super();
-
         this.otherDirection = otherDirection;
-
-        this.loadImage(
-            this.IMAGES_ROTATION[0],
-        );
-
-        this.loadImages(
-            this.IMAGES_ROTATION,
-        );
-
-        this.loadImages(
-            this.IMAGES_SPLASH,
-        );
-
+        this.loadImage(this.IMAGES_ROTATION[0]);
+        this.loadImages(this.IMAGES_ROTATION);
+        this.loadImages(this.IMAGES_SPLASH);
         this.x = x;
         this.y = y;
-
         this.throw();
-
         this.animate();
     }
 
@@ -146,16 +133,11 @@ export class ThrowableObject extends MovableObject {
      */
     animate() {
         IntervalHub.startInterval(() => {
-
             if (this.isBroken) {
                 this.playSplashAnimation();
-
             } else {
-                this.playAnimation(
-                    this.IMAGES_ROTATION,
-                );
+                this.playAnimation(this.IMAGES_ROTATION);
             }
-
         }, 115);
     }
 
@@ -169,14 +151,8 @@ export class ThrowableObject extends MovableObject {
      * @returns {void}
      */
     playSplashAnimation() {
-        this.playAnimationOnce(
-            this.IMAGES_SPLASH,
-        );
-
-        if (
-            this.currentImageOnce >=
-            this.IMAGES_SPLASH.length
-        ) {
+        this.playAnimationOnce(this.IMAGES_SPLASH);
+        if (this.currentImageOnce >= this.IMAGES_SPLASH.length) {
             this.isFinished = true;
         }
     }
@@ -192,11 +168,7 @@ export class ThrowableObject extends MovableObject {
      */
     throw() {
         this.applyGravity();
-
-        IntervalHub.startInterval(
-            this.bottleHorizontal,
-            25,
-        );
+        IntervalHub.startInterval(this.bottleHorizontal, 25);
     }
 
 
@@ -209,9 +181,7 @@ export class ThrowableObject extends MovableObject {
      * @returns {void}
      */
     bottleHorizontal = () => {
-
         if (!this.isBroken) {
-
             if (this.otherDirection) {
                 this.x -= 8;
             } else {
@@ -234,15 +204,9 @@ export class ThrowableObject extends MovableObject {
      */
     break() {
         if (this.isBroken) return;
-
-        SoundHub.playOne(
-            SoundHub.COLLECTIBLES.bottleBreak,
-        );
-
+        SoundHub.playOne(SoundHub.COLLECTIBLES.bottleBreak);
         this.isBroken = true;
-
         this.speedY = 0;
-
         this.currentImageOnce = 0;
     }
 }

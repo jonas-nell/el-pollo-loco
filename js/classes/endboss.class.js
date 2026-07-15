@@ -182,29 +182,12 @@ export class Endboss extends MovableObject {
      */
     constructor(x) {
         super();
-
-        this.loadImage(
-            this.IMAGES_WALKING[0],
-        );
-
-        this.loadImages(
-            this.IMAGES_WALKING,
-        );
-
-        this.loadImages(
-            this.IMAGES_HURT,
-        );
-
-        this.loadImages(
-            this.IMAGES_DEAD,
-        );
-
-        this.loadImages(
-            this.IMAGES_ALERT,
-        );
-
+        this.loadImage(this.IMAGES_WALKING[0]);
+        this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_DEAD);
+        this.loadImages(this.IMAGES_ALERT);
         this.x = x;
-
         this.animate();
         this.move();
     }
@@ -226,22 +209,15 @@ export class Endboss extends MovableObject {
      */
     animate() {
         IntervalHub.startInterval(() => {
-
             if (this.isDying) {
                 this.playDeathAnimation();
-
             } else if (this.isHurtState) {
                 this.playHurtAnimation();
-
             } else if (this.isAlerting) {
                 this.playAlertAnimation();
-
             } else {
-                this.playAnimation(
-                    this.IMAGES_WALKING,
-                );
+                this.playAnimation(this.IMAGES_WALKING);
             }
-
         }, 130);
     }
 
@@ -255,13 +231,8 @@ export class Endboss extends MovableObject {
      * @returns {void}
      */
     playDeathAnimation() {
-        this.playAnimationOnce(
-            this.IMAGES_DEAD,
-        );
-
-        const timePassed =
-            new Date().getTime() - this.deathTimer;
-
+        this.playAnimationOnce(this.IMAGES_DEAD);
+        const timePassed = new Date().getTime() - this.deathTimer;
         if (timePassed > 2000) {
             this.isFinished = true;
         }
@@ -277,22 +248,12 @@ export class Endboss extends MovableObject {
      * @returns {void}
      */
     playHurtAnimation() {
-        const timePassed =
-            new Date().getTime() - this.hurtFrameTimer;
-
+        const timePassed = new Date().getTime() - this.hurtFrameTimer;
         if (timePassed > 200) {
-            this.playAnimationOnce(
-                this.IMAGES_HURT,
-            );
-
-            this.hurtFrameTimer =
-                new Date().getTime();
+            this.playAnimationOnce(this.IMAGES_HURT);
+            this.hurtFrameTimer = new Date().getTime();
         }
-
-
-        const hurtDuration =
-            new Date().getTime() - this.hurtTimer;
-
+        const hurtDuration = new Date().getTime() - this.hurtTimer;
 
         if (hurtDuration > 800) {
             this.isHurtState = false;
@@ -311,10 +272,7 @@ export class Endboss extends MovableObject {
      * @returns {void}
      */
     playAlertAnimation() {
-        this.playAnimationOnce(
-            this.IMAGES_ALERT,
-        );
-
+        this.playAnimationOnce(this.IMAGES_ALERT);
         if (
             this.currentImageOnce >=
             this.IMAGES_ALERT.length
@@ -337,31 +295,16 @@ export class Endboss extends MovableObject {
      */
     hit() {
         this.health -= 10;
-
-
         if (this.health <= 0) {
             this.health = 0;
-
             this.die();
-
             return;
         }
-
-
         this.isHurtState = true;
-
-        this.hurtTimer =
-            new Date().getTime();
-
-        this.hurtFrameTimer =
-            new Date().getTime();
-
+        this.hurtTimer = new Date().getTime();
+        this.hurtFrameTimer = new Date().getTime();
         this.currentImageOnce = 0;
-
-        this.playAnimationOnce(
-            this.IMAGES_HURT,
-        );
-
+        this.playAnimationOnce(this.IMAGES_HURT);
         this.isRunning = true;
     }
 
@@ -380,17 +323,10 @@ export class Endboss extends MovableObject {
         if (this.isDying) return;
 
         this.isDying = true;
-
-        this.deathTimer =
-            new Date().getTime();
-
+        this.deathTimer = new Date().getTime();
         this.currentImageOnce = 0;
-
         this.speed = 0;
-
-        SoundHub.playOne(
-            SoundHub.CHICKEN.dead2,
-        );
+        SoundHub.playOne(SoundHub.CHICKEN.dead2);
     }
 
 
@@ -406,12 +342,8 @@ export class Endboss extends MovableObject {
 
         this.isAlerting = true;
         this.hasAlerted = true;
-
         this.currentImageOnce = 0;
-
-        SoundHub.playOne(
-            SoundHub.CHICKEN.bossApproach,
-        );
+        SoundHub.playOne(SoundHub.CHICKEN.bossApproach);
     }
 
 
@@ -425,11 +357,9 @@ export class Endboss extends MovableObject {
      */
     move() {
         IntervalHub.startInterval(() => {
-
             if (this.isRunning) {
                 this.moveLeft();
             }
-
         }, 1000 / 60);
     }
 }

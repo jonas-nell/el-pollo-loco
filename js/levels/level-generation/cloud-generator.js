@@ -16,23 +16,16 @@ import { Cloud } from "../../classes/cloud.class.js";
  * @returns {Cloud[]} Generated cloud objects.
  */
 export function generateClouds(segmentCount) {
-
     const clouds = [];
-
 
     /**
      * Creates and positions clouds based on
      * the level segment index.
      */
     for (let i = 0; i < segmentCount; i++) {
-
         const cloud = new Cloud();
-
         cloud.x += i * 719;
-
         clouds.push(cloud);
     }
-
-
     return clouds;
 }

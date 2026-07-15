@@ -21,6 +21,7 @@ const GAME_STATES = {
     MENU: "MENU",
     PLAYING: "PLAYING",
     GAME_OVER: "GAME_OVER",
+    VICTORY: "VICTORY"
 };
 
 /**
@@ -93,18 +94,12 @@ export class Game {
      */
     constructor() {
         this.canvas = document.getElementById("canvas");
-
         this.keyboard = new Keyboard();
-
         this.mobileControls = new MobileControls(this.keyboard);
-
         this.setMobileControlsVisibility(false);
-
         this.initUI();
-
         SoundHub.initVolumes();
         SoundHub.updateSounds();
-
         this.initAudioUnlock();
     }
 
@@ -123,6 +118,7 @@ export class Game {
         this.initFullscreenButton();
         this.initSoundbutton();
         this.initSoundDialog();
+        this.initImprintDialog();
     }
 
     /**
@@ -145,6 +141,7 @@ export class Game {
             this.start();
         });
     }
+
     /**
      * Initializes the instructions dialog and registers open/close button events.
      */
@@ -159,6 +156,23 @@ export class Game {
 
         closeButton.addEventListener("click", () => {
             dialog.close();
+        });
+    }
+
+    /**
+     * Initializes the imprint dialog and registers open/close button events.
+     */
+    initImprintDialog(){
+        const imprintDialog = document.getElementById("imprintDialog");
+        const imprintDialogButton = document.getElementById("imprint");
+        const closeImprintDialog = document.getElementById("closeImprintDialog");
+
+        imprintDialogButton.addEventListener("click", () => {
+            imprintDialog.showModal();
+        });
+
+        closeImprintDialog.addEventListener("click", () => {
+            imprintDialog.close();
         });
     }
 
@@ -213,7 +227,6 @@ export class Game {
             SoundHub.toggleMute();
             this.updateSoundIcon();
         });
-
         this.updateSoundIcon();
     }
 
@@ -227,7 +240,6 @@ export class Game {
      */
     start() {
         this.state = GAME_STATES.PLAYING;
-
         SoundHub.stopLoop(SoundHub.BGM.menuBgm);
         SoundHub.playLoop(SoundHub.BGM.levelBgm);
 
@@ -237,9 +249,8 @@ export class Game {
         this.showCanvas();
         this.showFullscreenButton();
         this.setMobileControlsVisibility(true);
-
         this.character = new Character();
-
+        this.showLevelAnnouncement(this.currentLevelIndex + 1);
         this.createWorld();
     }
 
@@ -258,15 +269,12 @@ export class Game {
         }
 
         this.world.stop();
-
         this.currentLevelIndex++;
-
         const nextLevel = this.levels[this.currentLevelIndex]();
-
         this.character.x = nextLevel.spawnX;
         this.character.y = nextLevel.spawnY;
-
         this.createWorld();
+        this.showLevelAnnouncement(this.currentLevelIndex + 1);
     }
 
     /**
@@ -283,7 +291,6 @@ export class Game {
 
         volumeSlider.addEventListener("input", (event) => {
             const volume = event.target.value / 100;
-
             SoundHub.setMasterVolume(volume);
         });
 
@@ -295,6 +302,25 @@ export class Game {
             soundDialog.close();
         });
     }
+
+
+/**
+ * Displays a temporary level announcement overlay on the screen.
+ *
+ * @param {number} levelNumber - The number of the level that is being started.
+ */
+    showLevelAnnouncement(levelNumber) {
+    const overlay = document.getElementById("level-overlay");
+
+    overlay.textContent = `Level ${levelNumber}`;
+    overlay.classList.remove("hidden");
+
+    setTimeout(() => {
+        overlay.classList.add("hidden");
+        overlay.textContent = ``;
+    }, 2000);
+}
+
 
     /**
      * Shows the victory screen after completing the game.
@@ -334,31 +360,23 @@ export class Game {
         if (this.world) {
             this.world.stop();
         }
-
         IntervalHub.stopAllIntervals();
-
         const ctx = this.canvas.getContext("2d");
-
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
         this.currentLevelIndex = 0;
         this.state = GAME_STATES.PLAYING;
-
         document.getElementById("gameOverDialog").close();
-
         document.getElementById("victoryDialog").close();
-
         SoundHub.pauseAll();
         SoundHub.playLoop(SoundHub.BGM.levelBgm);
-
         this.showCanvas();
         this.showFullscreenButton();
+        this.showSoundButton();
         this.setMobileControlsVisibility(true);
         this.showH1();
-
         this.character = new Character();
-
         this.createWorld();
+        this.showLevelAnnouncement(this.currentLevelIndex + 1);
     }
 
     /**
@@ -373,27 +391,19 @@ export class Game {
         if (this.world) {
             this.world.stop();
         }
-
         IntervalHub.stopAllIntervals();
-
         this.currentLevelIndex = 0;
         this.state = GAME_STATES.MENU;
-
         document.getElementById("gameOverDialog").close();
-
         document.getElementById("victoryDialog").close();
-
         SoundHub.pauseAll();
         SoundHub.playLoop(SoundHub.BGM.menuBgm);
-
         this.hideCanvas();
         this.showFullscreenButton();
         this.showSoundButton();
         this.setMobileControlsVisibility(false);
-
         this.showStartScreen();
         this.showH1();
-
         document.getElementById("startMenu").classList.add("visible");
     }
 
@@ -441,21 +451,15 @@ export class Game {
      */
     showEndScreen(state, dialogId, bgm) {
         this.state = state;
-
         this.world.stop();
-
         IntervalHub.stopAllIntervals();
-
         this.hideCanvas();
         this.hideFullscreenButton();
         this.hideSoundButton();
         this.setMobileControlsVisibility(false);
-
         this.hideH1();
-
         SoundHub.pauseAll();
         SoundHub.playLoop(bgm);
-
         document.getElementById(dialogId).showModal();
     }
 
@@ -608,10 +612,8 @@ export class Game {
             if (this.state === GAME_STATES.MENU) {
                 SoundHub.playLoop(SoundHub.BGM.menuBgm);
             }
-
             document.body.removeEventListener("click", unlockAudio);
         };
-
         document.body.addEventListener("click", unlockAudio);
     }
 }

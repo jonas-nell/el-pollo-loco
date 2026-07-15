@@ -226,7 +226,6 @@ export class MovableObject extends DrawableObject {
         if (this.isHurt()) {
             return;
         }
-
         this.lastHit = new Date().getTime();
         this.health -= 10;
         this.playHitSound();
@@ -257,7 +256,6 @@ export class MovableObject extends DrawableObject {
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000;
-
         return timepassed < 0.5;
     }
 

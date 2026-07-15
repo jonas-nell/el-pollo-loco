@@ -57,37 +57,20 @@ const COIN_TEMPLATES = [
  * @returns {Coin[]} Generated coin objects.
  */
 export function generateCoins(segmentCount) {
-
     const SEGMENT_WIDTH = 719;
-
     const coins = [];
-
 
     /*
      * The final segment is excluded to prevent collectibles
      * from spawning too close to the endboss area.
      */
     for (let i = 0; i < segmentCount - 1; i++) {
-
-        const template =
-            i === 0
-                ? COIN_TEMPLATES[0]
-                : getRandomCoinTemplate();
-
-
+        const template = i === 0 ? COIN_TEMPLATES[0] : getRandomCoinTemplate();
         template.forEach((coin) => {
-
-            coins.push(
-                new Coin(
-                    i * SEGMENT_WIDTH + coin.x,
-                    coin.y,
-                ),
+            coins.push(new Coin(i * SEGMENT_WIDTH + coin.x, coin.y,),
             );
-
         });
     }
-
-
     return coins;
 }
 
@@ -98,12 +81,8 @@ export function generateCoins(segmentCount) {
  * @returns {Object[]} A randomly selected coin pattern.
  */
 function getRandomCoinTemplate() {
-
     const randomIndex =
-        Math.floor(
-            Math.random() * COIN_TEMPLATES.length,
-        );
-
-
+        Math.floor(Math.random() * COIN_TEMPLATES.length);
+        
     return COIN_TEMPLATES[randomIndex];
 }

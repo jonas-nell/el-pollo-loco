@@ -60,11 +60,7 @@ export class Bottle extends MovableObject {
      */
     constructor(x, y) {
         super();
-
-        this.loadImage(
-            ImageHelper.BOTTLE.onGround,
-        );
-
+        this.loadImage(ImageHelper.BOTTLE.onGround,);
         this.x = x;
         this.y = y;
     }

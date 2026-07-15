@@ -59,11 +59,7 @@ export class Coin extends MovableObject {
      */
     constructor(x, y) {
         super();
-
-        this.loadImage(
-            ImageHelper.COIN.coin,
-        );
-
+        this.loadImage(ImageHelper.COIN.coin);
         this.x = x;
         this.y = y;
     }

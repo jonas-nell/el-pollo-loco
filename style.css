@@ -46,6 +46,7 @@ h1 {
 }
 
 canvas {
+    display: block;
     background-color: black;
     border-radius: 16px;
     border: 1px solid rgb(121, 34, 2);
@@ -64,6 +65,14 @@ canvas {
     align-items: center;
     justify-content: center;
 }
+
+#gameWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: min(720px, 100dvw, calc(100dvh * 1.5));
+}
+
 
 #startScreen {
     width: min(720px, 100dvw, calc(100dvh * 1.5));
@@ -138,7 +147,7 @@ canvas {
 
 #instructionsDialog {
     position: fixed;
-    top: 60%; /*50 in fullscreen */
+    top: 60%; 
     left: 50%;
     translate: -50% -50%;
 
@@ -148,6 +157,10 @@ canvas {
     width: 60%;
     max-width: 680px;
     padding: 24px;
+
+    p{
+        text-align: center;
+    }
 
     .controls-table {
         width: 100%;
@@ -195,6 +208,8 @@ canvas {
 
     img {
         height: 70dvh;
+        max-width: 90%;
+        object-fit: contain;
     }
 
     button {
@@ -211,6 +226,10 @@ canvas {
 :fullscreen canvas {
     width: min(100dvw, calc(100dvh * 1.5));
     height: auto;
+}
+
+:fullscreen #gameWrapper{
+    width: min(100dvw, calc(100dvh * 1.5));
 }
 
 :fullscreen #startScreen {
@@ -377,10 +396,61 @@ button:hover {
     }
 }
 
+@media (max-height: 599px) {
+    #fullscreenButton {
+        display: none;
+    }
+}
+
 #mobileControls button:active {
     transform: scale(0.9);
 }
 
 #mobileControls.hidden {
     display: none;
+}
+
+#level-overlay {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    font-size: 58px;
+    font-weight: bold;
+    color: black;
+
+    opacity: 1;
+    transition: opacity 1s ease;
+    z-index: 10;
+}
+
+#level-overlay.hidden {
+    opacity: 0;
+}
+
+#imprintDialog {
+    position: fixed;
+    top: 60%;
+    left: 50%;
+    translate: -50% -50%;
+
+    border: 1px solid black;
+    border-radius: 16px;
+    background-color: rgb(219, 181, 8);
+
+    width: 50%;
+    max-width: 680px;
+    padding: 24px;
+}
+
+#closeImprintDialog{
+    width: 220px;
+    padding: 8px;
+
+    border: 1px solid black;
+    border-radius: 32px;
+    background-color: rgb(219, 181, 8);
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.1);
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
