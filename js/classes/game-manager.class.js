@@ -299,6 +299,7 @@ export class Game {
     setTimeout(() => {
         overlay.classList.add("hidden");
     }, 2000);
+    overlay.textContent = ``;
 }
 
 
