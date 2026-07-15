@@ -12,10 +12,10 @@ const GAME_STATES = {
     MENU: "MENU",
     PLAYING: "PLAYING",
     GAME_OVER: "GAME_OVER",
-    VICTORY: "VICTORY"
+    VICTORY: "VICTORY",
 };
 
-export class Game{
+export class Game {
     character;
     world;
     keyboard;
@@ -24,22 +24,29 @@ export class Game{
     levels = this.createLevels();
     currentLevelIndex = 0;
 
-    constructor(){
+    constructor() {
+        this.canvas = document.getElementById("canvas");
         this.keyboard = new Keyboard();
         this.mobileControls = new MobileControls(this.keyboard);
         this.setMobileControlsVisibility(false);
+        this.initUI();
+        SoundHub.initVolumes();
+        SoundHub.updateSounds();
+        this.initAudioUnlock();
+    }
+
+    //#region UI Init
+
+    initUI() {
         this.initStartScreen();
         this.initInstructionsDialog();
         this.initDialogButtons();
         this.initFullscreenButton();
         this.initSoundbutton();
         this.initSoundDialog();
-        SoundHub.initVolumes();
-        SoundHub.updateSounds();
-        this.initAudioUnlock();
     }
 
-    initStartScreen(){
+    initStartScreen() {
         const startMenu = document.getElementById("startMenu");
         const playButton = document.getElementById("playButton");
 
@@ -52,174 +59,25 @@ export class Game{
         });
     }
 
-    start(){   
-        this.state = GAME_STATES.PLAYING;
-        SoundHub.stopLoop(SoundHub.BGM.menuBgm);
-        SoundHub.playLoop(SoundHub.BGM.levelBgm);
-        document.getElementById("startMenu").classList.remove("visible");
-        this.hideStartScreen();
-        this.showCanvas();
-        this.showFullscreenButton();
-        this.setMobileControlsVisibility(true);
-        const canvas = document.getElementById("canvas");
-        this.character = new Character();
-        this.world = new World(canvas, this.keyboard, this, this.levels[this.currentLevelIndex](), this.character);
-    }
-    
-    hideStartScreen(){
-        document.getElementById("startScreen").classList.add("d-none");
-    }
-
-    showCanvas(){
-        document.getElementById("canvas").classList.remove("d-none");
-    }
-
-    hideCanvas(){
-        document.getElementById("canvas").classList.add("d-none");
-    }
-
-    nextLevel(){
-        if (this.currentLevelIndex >= this.levels.length - 1){
-            this.winGame();
-            return;
-        }
-
-        this.world.stop();
-        this.currentLevelIndex++;
-
-        const nextLevel = this.levels[this.currentLevelIndex]();
-
-        this.character.x = nextLevel.spawnX;
-        this.character.y = nextLevel.spawnY;
-
-        this.world = new World(
-            document.getElementById("canvas"),
-            this.keyboard,
-            this,
-            this.levels[this.currentLevelIndex](),
-            this.character
-        );
-    }
-
-    winGame(){
-        const victoryDialog = document.getElementById("victoryDialog");
-
-        this.state = GAME_STATES.VICTORY;
-        this.world.stop();
-        IntervalHub.stopAllIntervals();
-        this.hideCanvas();
-        this.hideFullscreenButton();
-        this.hideSoundButton();
-        this.setMobileControlsVisibility(false);
-        this.hideH1();
-        SoundHub.pauseAll();
-        SoundHub.playLoop(SoundHub.BGM.victoryBgm);
-        victoryDialog.showModal();
-    }
-
-    gameOver(){
-        const gameOverDialog = document.getElementById("gameOverDialog");
-        this.state = GAME_STATES.GAME_OVER;
-        this.world.stop();
-        IntervalHub.stopAllIntervals();
-        this.hideCanvas();
-        this.hideFullscreenButton();
-        this.hideSoundButton();
-        this.setMobileControlsVisibility(false);
-        this.hideH1();
-        SoundHub.pauseAll();
-        SoundHub.playLoop(SoundHub.BGM.gameOverBgm);
-        gameOverDialog.showModal();
-    }
-
-    restartGame(){
-        if(this.world){
-            this.world.stop();
-        }
-        IntervalHub.stopAllIntervals();
-
-        const canvas = document.getElementById("canvas");
-        const ctx = canvas.getContext("2d");
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        this.currentLevelIndex = 0;
-        this.state = GAME_STATES.PLAYING;
-
-        document.getElementById("gameOverDialog").close();
-        document.getElementById("victoryDialog").close();
-        
-        SoundHub.pauseAll();
-        SoundHub.playLoop(SoundHub.BGM.levelBgm);
-
-        this.showCanvas();
-        this.showFullscreenButton();
-        this.setMobileControlsVisibility(true);
-        this.showH1();
-        this.character = new Character();
-        
-        this.world = new World(
-            canvas,
-            this.keyboard,
-            this,
-            this.levels[this.currentLevelIndex](),
-            this.character
-        );
-    }
-
-    backToMenu(){
-        if(this.world){
-            this.world.stop();
-        }
-        IntervalHub.stopAllIntervals();
-
-        this.currentLevelIndex = 0;
-        this.state = GAME_STATES.MENU;
-
-        document.getElementById("gameOverDialog").close();
-        document.getElementById("victoryDialog").close();
-        SoundHub.pauseAll();
-        SoundHub.playLoop(SoundHub.BGM.menuBgm);
-
-        this.hideCanvas();
-        this.showFullscreenButton();
-        this.showSoundButton();
-        this.setMobileControlsVisibility(false);
-        this.showStartScreen();
-        this.showH1();
-        
-        document.getElementById("startMenu").classList.add("visible");
-    }
-
-    initDialogButtons(){
+    initDialogButtons() {
         const playAgainButtons = document.querySelectorAll(
-            "#victoryDialog button:first-of-type, #gameOverDialog button:first-of-type"
+            "#victoryDialog button:first-of-type, #gameOverDialog button:first-of-type",
         );
         const menuButtons = document.querySelectorAll(
-            "#victoryDialog button:last-of-type, #gameOverDialog button:last-of-type"
+            "#victoryDialog button:last-of-type, #gameOverDialog button:last-of-type",
         );
 
-        playAgainButtons.forEach(button => {
+        playAgainButtons.forEach((button) => {
             button.addEventListener("click", () => {
                 this.restartGame();
             });
         });
 
-        menuButtons.forEach(button => {
+        menuButtons.forEach((button) => {
             button.addEventListener("click", () => {
                 this.backToMenu();
             });
         });
-    }
-
-    showStartScreen(){
-        document.getElementById("startScreen").classList.remove("d-none");
-    }
-
-    createLevels(){
-        return [
-            level1,
-            level2,
-            level3,
-        ];
     }
 
     initInstructionsDialog() {
@@ -244,40 +102,7 @@ export class Game{
         });
     }
 
-    toggleFullscreen() {
-        const gameContainer = document.getElementById("gameContainer");
-
-        if (!document.fullscreenElement) {
-            gameContainer.requestFullscreen();
-        } else {
-            document.exitFullscreen();
-        }
-    }
-    showFullscreenButton() {
-        document.getElementById("fullscreenButton").classList.remove("d-none");
-    }
-
-    hideFullscreenButton() {
-        document.getElementById("fullscreenButton").classList.add("d-none");
-    }
-
-    hideSoundButton() {
-        document.getElementById("soundBtn").classList.add("d-none");
-    }
-
-    showSoundButton(){
-        document.getElementById("soundBtn").classList.remove("d-none");
-    }
-
-    hideH1(){
-        document.getElementById("h1").classList.add("d-none");
-    }
-
-    showH1(){
-        document.getElementById("h1").classList.remove("d-none");
-    }
-
-    initSoundbutton(){
+    initSoundbutton() {
         this.soundButton = document.getElementById("soundBtn");
         this.soundIcon = this.soundButton.querySelector("img");
 
@@ -288,19 +113,7 @@ export class Game{
         this.updateSoundIcon();
     }
 
-    updateSoundIcon(){
-        this.soundIcon.src = SoundHub.isMuted ? "./assets/img/mute.png" : "./assets/img/sound.png";
-    }
-
-    initAudioUnlock(){
-        const unlockAudio = () => {
-            SoundHub.playLoop(SoundHub.BGM.menuBgm);
-            document.body.removeEventListener("click", unlockAudio);
-        }
-        document.body.addEventListener("click", unlockAudio);
-    }
-
-    initSoundDialog(){
+    initSoundDialog() {
         const soundDialog = document.getElementById("soundDialog");
         const closeSoundDialog = document.getElementById("closeSoundDialog");
         const volumeSlider = document.getElementById("volumeSlider");
@@ -314,27 +127,219 @@ export class Game{
             SoundHub.setMasterVolume(volume);
         });
 
-        soundSettings.addEventListener("click", () => {
+        soundSettingsButton.addEventListener("click", () => {
             soundDialog.showModal();
-        })
+        });
 
         closeSoundDialog.addEventListener("click", () => {
             soundDialog.close();
-        })
+        });
     }
 
-    setMobileControlsVisibility(show){
+    //#endregion
+
+    //#region Lifecycle
+    start() {
+        this.state = GAME_STATES.PLAYING;
+        SoundHub.stopLoop(SoundHub.BGM.menuBgm);
+        SoundHub.playLoop(SoundHub.BGM.levelBgm);
+        document.getElementById("startMenu").classList.remove("visible");
+        this.hideStartScreen();
+        this.showCanvas();
+        this.showFullscreenButton();
+        this.setMobileControlsVisibility(true);
+        this.character = new Character();
+        this.createWorld();
+    }
+
+    nextLevel() {
+        if (this.currentLevelIndex >= this.levels.length - 1) {
+            this.winGame();
+            return;
+        }
+
+        this.world.stop();
+        this.currentLevelIndex++;
+
+        const nextLevel = this.levels[this.currentLevelIndex]();
+
+        this.character.x = nextLevel.spawnX;
+        this.character.y = nextLevel.spawnY;
+
+        this.createWorld();
+    }
+
+    winGame() {
+        this.showEndScreen(
+            GAME_STATES.VICTORY,
+            "victoryDialog",
+            SoundHub.BGM.victoryBgm,
+        );
+    }
+
+    gameOver() {
+        this.showEndScreen(
+            GAME_STATES.GAME_OVER,
+            "gameOverDialog",
+            SoundHub.BGM.gameOverBgm,
+        );
+    }
+
+    restartGame() {
+        if (this.world) {
+            this.world.stop();
+        }
+        IntervalHub.stopAllIntervals();
+
+        const ctx = this.canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        this.currentLevelIndex = 0;
+        this.state = GAME_STATES.PLAYING;
+
+        document.getElementById("gameOverDialog").close();
+        document.getElementById("victoryDialog").close();
+
+        SoundHub.pauseAll();
+        SoundHub.playLoop(SoundHub.BGM.levelBgm);
+
+        this.showCanvas();
+        this.showFullscreenButton();
+        this.setMobileControlsVisibility(true);
+        this.showH1();
+        this.character = new Character();
+        this.createWorld();
+    }
+
+    backToMenu() {
+        if (this.world) {
+            this.world.stop();
+        }
+        IntervalHub.stopAllIntervals();
+
+        this.currentLevelIndex = 0;
+        this.state = GAME_STATES.MENU;
+
+        document.getElementById("gameOverDialog").close();
+        document.getElementById("victoryDialog").close();
+        SoundHub.pauseAll();
+        SoundHub.playLoop(SoundHub.BGM.menuBgm);
+
+        this.hideCanvas();
+        this.showFullscreenButton();
+        this.showSoundButton();
+        this.setMobileControlsVisibility(false);
+        this.showStartScreen();
+        this.showH1();
+
+        document.getElementById("startMenu").classList.add("visible");
+    }
+
+    createLevels() {
+        return [level1, level2, level3];
+    }
+
+    createWorld() {
+        this.world = new World(
+            this.canvas,
+            this.keyboard,
+            this,
+            this.levels[this.currentLevelIndex](),
+            this.character,
+        );
+    }
+
+    showEndScreen(state, dialogId, bgm) {
+        this.state = state;
+        this.world.stop();
+        IntervalHub.stopAllIntervals();
+        this.hideCanvas();
+        this.hideFullscreenButton();
+        this.hideSoundButton();
+        this.setMobileControlsVisibility(false);
+        this.hideH1();
+        SoundHub.pauseAll();
+        SoundHub.playLoop(bgm);
+        document.getElementById(dialogId).showModal();
+    }
+
+    //#endregion
+
+    //#region UI Helpers
+    hideStartScreen() {
+        document.getElementById("startScreen").classList.add("d-none");
+    }
+
+    showStartScreen() {
+        document.getElementById("startScreen").classList.remove("d-none");
+    }
+
+    showCanvas() {
+        document.getElementById("canvas").classList.remove("d-none");
+    }
+
+    hideCanvas() {
+        document.getElementById("canvas").classList.add("d-none");
+    }
+
+    toggleFullscreen() {
+        const gameContainer = document.getElementById("gameContainer");
+
+        if (!document.fullscreenElement) {
+            gameContainer.requestFullscreen();
+        } else {
+            document.exitFullscreen();
+        }
+    }
+
+    showFullscreenButton() {
+        document.getElementById("fullscreenButton").classList.remove("d-none");
+    }
+
+    hideFullscreenButton() {
+        document.getElementById("fullscreenButton").classList.add("d-none");
+    }
+
+    hideSoundButton() {
+        document.getElementById("soundBtn").classList.add("d-none");
+    }
+
+    showSoundButton() {
+        document.getElementById("soundBtn").classList.remove("d-none");
+    }
+
+    hideH1() {
+        document.getElementById("h1").classList.add("d-none");
+    }
+
+    showH1() {
+        document.getElementById("h1").classList.remove("d-none");
+    }
+
+    updateSoundIcon() {
+        this.soundIcon.src = SoundHub.isMuted
+            ? "./assets/img/mute.png"
+            : "./assets/img/sound.png";
+    }
+
+    setMobileControlsVisibility(show) {
         const mobileControls = document.getElementById("mobileControls");
 
         if (!mobileControls) return;
 
-        if (show){
+        if (show) {
             mobileControls.classList.remove("hidden");
         } else {
             mobileControls.classList.add("hidden");
         }
     }
+
+    //#endregion
+
+    initAudioUnlock() {
+        const unlockAudio = () => {
+            SoundHub.playLoop(SoundHub.BGM.menuBgm);
+            document.body.removeEventListener("click", unlockAudio);
+        };
+        document.body.addEventListener("click", unlockAudio);
+    }
 }
-
-
-// create createWorld helper
