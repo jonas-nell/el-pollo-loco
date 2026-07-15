@@ -159,7 +159,10 @@ export class SoundHub {
     static playOne(sound) {
         if (!this.isMuted) {
             sound.currentTime = 0;
-            sound.play();
+            const playPromise = sound.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(() => {});
+            }
         }
     }
 
@@ -201,7 +204,10 @@ export class SoundHub {
 
         if (sound.paused) {
             sound.currentTime = 0;
-            sound.play();
+            const playPromise = sound.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(() => {});
+            }
         }
     }
 
