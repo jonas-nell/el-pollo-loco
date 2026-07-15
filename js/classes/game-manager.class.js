@@ -118,6 +118,7 @@ export class Game {
         this.initFullscreenButton();
         this.initSoundbutton();
         this.initSoundDialog();
+        this.initImprintDialog();
     }
 
     /**
@@ -140,6 +141,7 @@ export class Game {
             this.start();
         });
     }
+
     /**
      * Initializes the instructions dialog and registers open/close button events.
      */
@@ -154,6 +156,23 @@ export class Game {
 
         closeButton.addEventListener("click", () => {
             dialog.close();
+        });
+    }
+
+    /**
+     * Initializes the imprint dialog and registers open/close button events.
+     */
+    initImprintDialog(){
+        const imprintDialog = document.getElementById("imprintDialog");
+        const imprintDialogButton = document.getElementById("imprint");
+        const closeImprintDialog = document.getElementById("closeImprintDialog");
+
+        imprintDialogButton.addEventListener("click", () => {
+            imprintDialog.showModal();
+        });
+
+        closeImprintDialog.addEventListener("click", () => {
+            imprintDialog.close();
         });
     }
 
