@@ -149,6 +149,10 @@ canvas {
     max-width: 680px;
     padding: 24px;
 
+    p{
+        text-align: center;
+    }
+
     .controls-table {
         width: 100%;
         border-spacing: 0 12px;
