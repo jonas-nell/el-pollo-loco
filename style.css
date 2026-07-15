@@ -21,12 +21,13 @@
     background: initial;
     border: initial;
     font-family: "Rye", serif;
-    }
+}
 
-html, body {
-        height: 100dvh;
-        font-size: 24px;
-    }
+html,
+body {
+    height: 100dvh;
+    font-size: 24px;
+}
 
 body {
     display: flex;
@@ -46,37 +47,37 @@ h1 {
 
 canvas {
     background-color: black;
-    border-radius:  16px;
+    border-radius: 16px;
     border: 1px solid rgb(121, 34, 2);
-    box-shadow: 14px 12px 40px -10px rgba(0,0,0,0.5);
+    box-shadow: 14px 12px 40px -10px rgba(0, 0, 0, 0.5);
 
     width: min(720px, 100dvw, calc(100dvh * 1.5));
     height: auto;
 }
 
-.d-none{
+.d-none {
     display: none;
 }
 
-#gameContainer{
+#gameContainer {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-#startScreen{
+#startScreen {
     width: min(720px, 100dvw, calc(100dvh * 1.5));
     aspect-ratio: 3 / 2;
     background-image: url("./assets/img/9_intro_outro_screens/start/startscreen_2.png");
     background-size: cover;
     background-position: 75% center;
     background-repeat: no-repeat;
-    border-radius:  16px;
+    border-radius: 16px;
     border: 1px solid rgb(121, 34, 2);
-    box-shadow: 16px 12px 60px -10px rgba(0,0,0,0.5);
+    box-shadow: 16px 12px 60px -10px rgba(0, 0, 0, 0.5);
 }
 
-#startMenu{
+#startMenu {
     position: absolute;
 
     top: 50%;
@@ -92,33 +93,33 @@ canvas {
     background-color: rgb(219, 181, 8);
     border-radius: 16px;
     border: 1px black solid;
-    
+
     height: 60%;
     width: 60%;
 }
 
-#startMenu.visible{
+#startMenu.visible {
     opacity: 1;
 }
 
-.menu-wrapper{
+.menu-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 16px;
 
-    button{
+    button {
         width: 240px;
         padding: 4px 6px;
         border: 1px solid black;
         border-radius: 32px;
-        box-shadow: 4px 4px 4px 4px rgba(0,0,0,0.1);
-        text-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+        box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.1);
+        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
     }
 }
 
-#fullscreenButton{
+#fullscreenButton {
     position: absolute;
     top: 16px;
     right: 16px;
@@ -128,19 +129,18 @@ canvas {
     }
 }
 
-.dialog-wrapper{
+.dialog-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 12px;
 }
 
-#instructionsDialog{
+#instructionsDialog {
     position: fixed;
     top: 60%; /*50 in fullscreen */
     left: 50%;
     translate: -50% -50%;
-
 
     border: 1px solid black;
     border-radius: 16px;
@@ -169,7 +169,7 @@ canvas {
         border: 1px solid black;
         border-radius: 8px;
         background: white;
-        box-shadow: 2px 2px 0 rgba(0,0,0,.2);
+        box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
     }
 }
 
@@ -180,11 +180,11 @@ canvas {
     border: 1px solid black;
     border-radius: 32px;
     background-color: rgb(219, 181, 8);
-    box-shadow: 4px 4px 4px 4px rgba(0,0,0,0.1);
-    text-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.1);
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
 
-.end-dialog{
+.end-dialog {
     position: fixed;
     top: 60%;
     left: 50%;
@@ -192,47 +192,47 @@ canvas {
 
     height: 100%;
     width: 100%;
-    
-    img{
+
+    img {
         height: 70dvh;
     }
 
-    button{
+    button {
         border: 1px solid black;
         border-radius: 32px;
         width: 220px;
         padding: 8px;
         background-color: rgb(219, 181, 8);
-        box-shadow: 4px 4px 4px 4px rgba(0,0,0,0.1);
-        text-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+        box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.1);
+        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
     }
 }
 
-:fullscreen canvas{
+:fullscreen canvas {
     width: min(100dvw, calc(100dvh * 1.5));
     height: auto;
 }
 
-:fullscreen #startScreen{
+:fullscreen #startScreen {
     width: 100dvw;
     aspect-ratio: 3 / 2;
 }
 
-:fullscreen #startMenu{
+:fullscreen #startMenu {
     max-width: 40%;
     max-height: 50%;
 }
 
-:fullscreen .end-dialog{
-    background-image: url('./assets/img/bg.jpg');
+:fullscreen .end-dialog {
+    background-image: url("./assets/img/bg.jpg");
     top: 50%;
 }
 
-:fullscreen #instructionsDialog{
+:fullscreen #instructionsDialog {
     top: 50%;
 }
 
-#soundBtn{
+#soundBtn {
     position: absolute;
     top: 56px;
     right: 16px;
@@ -242,7 +242,7 @@ canvas {
     }
 }
 
-button:hover{
+button:hover {
     cursor: pointer;
     transform: scale(1.1);
 }
@@ -254,16 +254,15 @@ button:hover{
     border: 1px solid black;
     border-radius: 32px;
     background-color: rgb(219, 181, 8);
-    box-shadow: 4px 4px 4px 4px rgba(0,0,0,0.1);
-    text-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.1);
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
 
-#soundDialog{
+#soundDialog {
     position: fixed;
     top: 60%;
     left: 50%;
     translate: -50% -50%;
-
 
     border: 1px solid black;
     border-radius: 16px;
@@ -273,11 +272,11 @@ button:hover{
     padding: 24px;
 }
 
-#rotateMessage{
+#rotateMessage {
     display: none;
 }
 
-#mobileControls{
+#mobileControls {
     display: none;
 }
 
@@ -291,7 +290,7 @@ button:hover{
         display: none;
     }
 
-    .end-dialog{
+    .end-dialog {
         gap: 12px;
         top: 50%;
 
@@ -299,16 +298,14 @@ button:hover{
             max-height: 55dvh;
         }
 
-        button{
+        button {
             padding: 6px;
             width: 150px;
         }
     }
-    
 }
 
-@media (orientation: portrait) and (max-width:900px){
-
+@media (orientation: portrait) and (max-width: 900px) {
     #gameContainer {
         display: none;
     }
@@ -328,11 +325,9 @@ button:hover{
         text-align: center;
         z-index: 999;
     }
-
 }
 
-@media (hover:none) and (pointer:coarse) {
-
+@media (hover: none) and (pointer: coarse) {
     #mobileControls {
         display: flex;
         position: absolute;
@@ -354,7 +349,7 @@ button:hover{
         border-radius: 50%;
         border: 2px solid black;
 
-        background: rgba(219,181,8,0.7);
+        background: rgba(219, 181, 8, 0.7);
 
         font-size: 32px;
 
@@ -362,17 +357,18 @@ button:hover{
         user-select: none;
     }
 
-    .movementButtons, .actionButtons {
+    .movementButtons,
+    .actionButtons {
         display: flex;
         gap: 12px;
         pointer-events: auto;
     }
 
-    .movementButtons{
+    .movementButtons {
         justify-content: flex-end;
     }
 
-    .actionButtons{
+    .actionButtons {
         justify-content: flex-end;
 
         img {
@@ -382,7 +378,7 @@ button:hover{
 }
 
 #mobileControls button:active {
-    transform:scale(0.9);
+    transform: scale(0.9);
 }
 
 #mobileControls.hidden {
