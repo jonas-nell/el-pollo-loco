@@ -388,3 +388,22 @@ button:hover {
 #mobileControls.hidden {
     display: none;
 }
+
+#level-overlay {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    font-size: 58px;
+    font-weight: bold;
+    color: black;
+
+    opacity: 1;
+    transition: opacity 1s ease;
+    z-index: 10;
+}
+
+#level-overlay.hidden {
+    opacity: 0;
+}

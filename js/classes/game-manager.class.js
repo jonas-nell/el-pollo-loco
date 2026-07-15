@@ -231,6 +231,7 @@ export class Game {
         this.showFullscreenButton();
         this.setMobileControlsVisibility(true);
         this.character = new Character();
+        this.showLevelAnnouncement(this.currentLevelIndex + 1);
         this.createWorld();
     }
 
@@ -254,6 +255,7 @@ export class Game {
         this.character.x = nextLevel.spawnX;
         this.character.y = nextLevel.spawnY;
         this.createWorld();
+        this.showLevelAnnouncement(this.currentLevelIndex + 1);
     }
 
     /**
@@ -281,6 +283,24 @@ export class Game {
             soundDialog.close();
         });
     }
+
+
+/**
+ * Displays a temporary level announcement overlay on the screen.
+ *
+ * @param {number} levelNumber - The number of the level that is being started.
+ */
+    showLevelAnnouncement(levelNumber) {
+    const overlay = document.getElementById("level-overlay");
+
+    overlay.textContent = `Level ${levelNumber}`;
+    overlay.classList.remove("hidden");
+
+    setTimeout(() => {
+        overlay.classList.add("hidden");
+    }, 2000);
+}
+
 
     /**
      * Shows the victory screen after completing the game.
@@ -336,6 +356,7 @@ export class Game {
         this.showH1();
         this.character = new Character();
         this.createWorld();
+        this.showLevelAnnouncement(this.currentLevelIndex + 1);
     }
 
     /**
