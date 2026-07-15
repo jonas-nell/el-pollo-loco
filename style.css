@@ -208,6 +208,8 @@ canvas {
 
     img {
         height: 70dvh;
+        max-width: 90%;
+        object-fit: contain;
     }
 
     button {
