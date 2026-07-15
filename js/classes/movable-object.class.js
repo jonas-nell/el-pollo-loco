@@ -116,4 +116,5 @@ export class MovableObject extends DrawableObject {
 
     playHitSound(){
     }
+
 }
