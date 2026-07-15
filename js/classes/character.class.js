@@ -241,7 +241,6 @@ export class Character extends MovableObject {
             !this.world.keyboard.LEFT) {
             this.stopWalkingSound();
         }
-
         this.world.camera_x = -this.x + 100;
     };
 
@@ -252,33 +251,52 @@ export class Character extends MovableObject {
      * @returns {void}
      */
     handleHorizontalMovement() {
+        this.handleRightInput();
+        this.handleLeftInput();        
+    }
+    
+    /**
+     * Handles right movement input.
+     *
+     * @returns {void}
+     */
+    handleRightInput(){
         if (
             this.world.keyboard.RIGHT &&
             this.x < this.world.level.level_end_x
         ) {
             this.lastAction = new Date().getTime();
             this.otherDirection = false;
-
+            
             this.moveRight();
-
+            
             this.stopSnoringSound();
             this.startWalkingSound();
-        }
-
-
+        }        
+    }
+    
+    /**
+     * Handles left movement input.
+     *
+     * @returns {void}
+     */    
+    handleLeftInput(){
         if (
             this.world.keyboard.LEFT &&
             this.x > -300
         ) {
             this.lastAction = new Date().getTime();
             this.otherDirection = true;
-
+            
             this.moveLeft();
-
+            
             this.stopSnoringSound();
             this.startWalkingSound();
         }
     }
+
+
+
 
 
     /**
@@ -319,23 +337,17 @@ export class Character extends MovableObject {
         if (this.dead) {
             this.playAnimationOnce(this.IMAGES_DEAD, () => {
                     this.isFinished = true;
-                },
-            );
-
+                });
         } else if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
-
         } else if (this.isAboveGround()) {
             this.playAnimation(this.IMAGES_JUMPING);
-
         } else if (
             this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
             this.playAnimation(this.IMAGES_WALKING);
-
         } else if (this.isIdleLong()) {
             this.playAnimation(this.IMAGES_LONG_IDLE);
             this.startSnoringSound();
-
         } else {
             this.playAnimation(this.IMAGES_IDLE);
         }
@@ -358,11 +370,7 @@ export class Character extends MovableObject {
         }
         this.lastThrow = now;
         const frame = this.getRealFrame();
-        const bottle = new ThrowableObject(
-            frame.x + frame.width - 125 / 2,
-            frame.y + 25,
-            this.otherDirection,
-        );
+        const bottle = new ThrowableObject(frame.x + frame.width - 125 / 2, frame.y + 25, this.otherDirection);
         this.world.throwableObjects.push(bottle);
         this.bottles--;
     }
