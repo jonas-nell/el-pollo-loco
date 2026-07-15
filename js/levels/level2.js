@@ -10,30 +10,42 @@ import { generateCoins } from "./level-generation/coin-generator.js";
 const segmentCount = 6;
 const SEGMENT_WIDTH = 719;
 
-export function level2(){
+export function level2() {
     const endboss = new Endboss((segmentCount - 1) * SEGMENT_WIDTH + 50);
 
     return new Level(
         [
             //first segment
-            new ChickenSmall(400, SEGMENT_WIDTH), new ChickenSmall(400, SEGMENT_WIDTH),
+            new ChickenSmall(400, SEGMENT_WIDTH),
+            new ChickenSmall(400, SEGMENT_WIDTH),
             //second segment
-            new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 2), new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 2), new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 2), new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 2),
+            new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 2),
+            new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 2),
+            new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 2),
+            new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 2),
             //third segment
-            new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 3), new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 3), new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 3),
+            new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 3),
+            new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 3),
+            new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 3),
             //fourth segment
-            new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 4), new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 4), new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 4), new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 4),
+            new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 4),
+            new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 4),
+            new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 4),
+            new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 4),
             // fifth segment
-            new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 5), new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 5), new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 5), new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 5),    
-            endboss
+            new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 5),
+            new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 5),
+            new Chicken(SEGMENT_WIDTH, SEGMENT_WIDTH * 5),
+            new ChickenSmall(SEGMENT_WIDTH, SEGMENT_WIDTH * 5),
+            endboss,
         ],
         generateClouds(segmentCount),
         generateBackground(segmentCount),
         endboss,
         generateBottles(segmentCount),
         generateCoins(segmentCount),
-        (segmentCount * 719) - 719,
+        segmentCount * 719 - 719,
         0,
-        80
+        80,
     );
 }
