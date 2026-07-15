@@ -1,15 +1,13 @@
 import { DrawableObject } from "./drawable-object.class.js";
 import { IntervalHub } from "./interval-hub.class.js";
-import { SoundHub } from "./sound-hub.class.js";
 
 export class MovableObject extends DrawableObject {
-
     offset = {
         top: 0,
         right: 0,
         bottom: 0,
-        left: 0
-    }
+        left: 0,
+    };
 
     speed = 0.15;
     otherDirection = false;
@@ -20,12 +18,12 @@ export class MovableObject extends DrawableObject {
     lastHit = 0;
     isFinished = false;
 
-    getRealFrame(){
+    getRealFrame() {
         return {
             x: this.x + this.offset.left,
             y: this.y + this.offset.top,
             width: this.width - this.offset.left - this.offset.right,
-            height: this.height - this.offset.top - this.offset.bottom
+            height: this.height - this.offset.top - this.offset.bottom,
         };
     }
 
@@ -36,13 +34,13 @@ export class MovableObject extends DrawableObject {
         this.currentImage++;
     }
 
-    playAnimationOnce(images, onFinished = null){
+    playAnimationOnce(images, onFinished = null) {
         let i = this.currentImageOnce;
-        if(i < images.length){
+        if (i < images.length) {
             this.img = this.imageCache[images[i]];
             this.currentImageOnce++;
 
-            if (this.currentImageOnce === images.length && onFinished){
+            if (this.currentImageOnce === images.length && onFinished) {
                 onFinished();
             }
         }
@@ -64,7 +62,7 @@ export class MovableObject extends DrawableObject {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
 
-                if (this.y > this.groundLevel){
+                if (this.y > this.groundLevel) {
                     this.y = this.groundLevel;
                     this.speedY = 0;
                 }
@@ -92,29 +90,27 @@ export class MovableObject extends DrawableObject {
         );
     }
 
-    hit(){
-        if (this.isHurt()){
+    hit() {
+        if (this.isHurt()) {
             return;
         }
         this.lastHit = new Date().getTime();
         this.health -= 10;
         this.playHitSound();
-        if(this.health < 0){
+        if (this.health < 0) {
             this.health = 0;
-        } 
+        }
     }
 
-    isDead(){
-        return this.health == 0 || this.dead;
+    isDead() {
+        return this.health === 0 || this.dead;
     }
 
-    isHurt(){
+    isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000;
         return timepassed < 0.5;
     }
 
-    playHitSound(){
-    }
-
+    playHitSound() {}
 }
