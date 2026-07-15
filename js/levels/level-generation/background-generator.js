@@ -39,56 +39,35 @@ export function generateBackground(segmentCount) {
      * during camera movement.
      */
     for (let i = -1; i < segmentCount; i++) {
-
-        const x =
-            i * BACKGROUND_WIDTH;
-
-
+        const x = i * BACKGROUND_WIDTH;
         background.push(
 
             /*
              * Sky layer
              */
-            new BackgroundObject(
-                ImageHelper.BACKGROUND.heavenbg[0],
-                x,
-            ),
+            new BackgroundObject(ImageHelper.BACKGROUND.heavenbg[0], x),
 
 
             /*
              * Orange background layer
              */
             new BackgroundObject(
-                ImageHelper.BACKGROUND.orangebg[
-                    i % 2 === 0 ? 0 : 1
-                ],
-                x,
-            ),
+                ImageHelper.BACKGROUND.orangebg[i % 2 === 0 ? 0 : 1], x),
 
 
             /*
              * Red background layer
              */
             new BackgroundObject(
-                ImageHelper.BACKGROUND.redbg[
-                    i % 2 === 0 ? 0 : 1
-                ],
-                x,
-            ),
+                ImageHelper.BACKGROUND.redbg[i % 2 === 0 ? 0 : 1], x),
 
 
             /*
              * Cactus background layer
              */
             new BackgroundObject(
-                ImageHelper.BACKGROUND.cactusbg[
-                    i % 2 === 0 ? 0 : 1
-                ],
-                x,
-            ),
+                ImageHelper.BACKGROUND.cactusbg[i % 2 === 0 ? 0 : 1], x),
         );
     }
-
-
     return background;
 }

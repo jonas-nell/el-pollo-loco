@@ -106,21 +106,10 @@ export class ChickenSmall extends Chicken {
      */
     constructor(minX, maxX) {
         super(minX, maxX);
-
-        this.loadImage(
-            this.IMAGES_WALKING[0],
-        );
-
-        this.loadImages(
-            this.IMAGES_WALKING,
-        );
-
-        this.loadImages(
-            this.IMAGES_DEAD,
-        );
-
+        this.loadImage(this.IMAGES_WALKING[0]);
+        this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_DEAD);
         this.startJumping();
-
         this.applyGravity();
     }
 
@@ -134,19 +123,12 @@ export class ChickenSmall extends Chicken {
      * @returns {void}
      */
     startJumping() {
-        const delay =
-            2000 + Math.random() * 2000;
-
-
+        const delay = 2000 + Math.random() * 2000;
         setTimeout(() => {
-
             if (!this.isDead()) {
-                this.speedY =
-                    20 + Math.random() * 9;
-
+                this.speedY = 20 + Math.random() * 9;
                 this.startJumping();
             }
-
         }, delay);
     }
 }

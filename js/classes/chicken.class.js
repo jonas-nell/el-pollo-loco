@@ -118,28 +118,11 @@ export class Chicken extends MovableObject {
      */
     constructor(minX, maxX) {
         super();
-
-        this.loadImage(
-            this.IMAGES_WALKING[0],
-        );
-
-        this.loadImages(
-            this.IMAGES_WALKING,
-        );
-
-        this.loadImages(
-            this.IMAGES_DEAD,
-        );
-
-
-        this.x =
-            minX + Math.random() * (maxX - minX);
-
-
-        this.speed =
-            0.15 + Math.random() * 0.4;
-
-
+        this.loadImage(this.IMAGES_WALKING[0]);
+        this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_DEAD);
+        this.x = minX + Math.random() * (maxX - minX);
+        this.speed = 0.15 + Math.random() * 0.4;
         this.animate();
     }
 
@@ -152,15 +135,8 @@ export class Chicken extends MovableObject {
      * @returns {void}
      */
     animate() {
-        IntervalHub.startInterval(
-            this.moveTowardsCharacter,
-            1000 / 60,
-        );
-
-        IntervalHub.startInterval(
-            this.updateWalkingAnimation,
-            230,
-        );
+        IntervalHub.startInterval(this.moveTowardsCharacter, 1000 / 60);
+        IntervalHub.startInterval(this.updateWalkingAnimation, 230);
     }
 
 
@@ -175,13 +151,7 @@ export class Chicken extends MovableObject {
      * @returns {void}
      */
     moveTowardsCharacter = () => {
-        if (
-            !this.isDying &&
-            this.world &&
-            Math.abs(
-                this.world.character.x - this.x,
-            ) < this.activationRange
-        ) {
+        if (!this.isDying && this.world && Math.abs(this.world.character.x - this.x) < this.activationRange) {
             this.moveLeft();
         }
     };
@@ -199,9 +169,7 @@ export class Chicken extends MovableObject {
         if (this.isDying) {
             this.playDeathAnimation();
         } else {
-            this.playAnimation(
-                this.IMAGES_WALKING,
-            );
+            this.playAnimation(this.IMAGES_WALKING);
         }
     };
 
@@ -216,14 +184,8 @@ export class Chicken extends MovableObject {
      * @returns {void}
      */
     playDeathAnimation() {
-        this.playAnimationOnce(
-            this.IMAGES_DEAD,
-        );
-
-        const timePassed =
-            new Date().getTime() - this.deathTimer;
-
-
+        this.playAnimationOnce(this.IMAGES_DEAD);
+        const timePassed = new Date().getTime() - this.deathTimer;
         if (timePassed > 1000) {
             this.isFinished = true;
         }
@@ -242,11 +204,8 @@ export class Chicken extends MovableObject {
      */
     hit() {
         this.health -= 10;
-
-
         if (this.health <= 0) {
             this.health = 0;
-
             this.die();
         }
     }
@@ -264,27 +223,15 @@ export class Chicken extends MovableObject {
      */
     die() {
         if (this.isDying) return;
-
-
         this.isDying = true;
-
 
         /*
          * Adjust collision box because the
          * sprite changes position during death.
          */
         this.offset.top = 50;
-
-
-        this.deathTimer =
-            new Date().getTime();
-
-
+        this.deathTimer = new Date().getTime();
         this.currentImageOnce = 0;
-
-
-        SoundHub.playOne(
-            SoundHub.CHICKEN.dead1,
-        );
+        SoundHub.playOne(SoundHub.CHICKEN.dead1);
     }
 }

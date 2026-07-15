@@ -57,13 +57,8 @@ export class Cloud extends MovableObject {
      */
     constructor() {
         super();
-
-        this.loadImage(
-            ImageHelper.BACKGROUND.clouds[0],
-        );
-
+        this.loadImage(ImageHelper.BACKGROUND.clouds[0]);
         this.x = Math.random() * 500;
-
         this.animate();
     }
 
@@ -77,9 +72,6 @@ export class Cloud extends MovableObject {
      * @returns {void}
      */
     animate() {
-        IntervalHub.startInterval(
-            () => this.moveLeft(),
-            1000 / 60,
-        );
+        IntervalHub.startInterval(() => this.moveLeft(), 1000 / 60);
     }
 }

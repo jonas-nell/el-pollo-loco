@@ -195,16 +195,13 @@ export class Character extends MovableObject {
      */
     constructor() {
         super();
-
         this.loadImage(ImageHelper.PEPE.idle[0]);
-
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_LONG_IDLE);
-
         this.animate();
         this.applyGravity();
     }
@@ -220,13 +217,11 @@ export class Character extends MovableObject {
     animate() {
         IntervalHub.startInterval(
             this.handleMovementInput,
-            1000 / 60,
-        );
+            1000 / 60);
 
         IntervalHub.startInterval(
             this.updateAnimationState,
-            90,
-        );
+            90);
     }
 
 
@@ -300,14 +295,9 @@ export class Character extends MovableObject {
             !this.isAboveGround()
         ) {
             this.lastAction = new Date().getTime();
-
             this.jump();
-
             this.stopSnoringSound();
-
-            SoundHub.playOne(
-                SoundHub.CHARACTER.jump,
-            );
+            SoundHub.playOne(SoundHub.CHARACTER.jump);
         }
     }
 
@@ -327,9 +317,7 @@ export class Character extends MovableObject {
      */
     updateAnimationState = () => {
         if (this.dead) {
-            this.playAnimationOnce(
-                this.IMAGES_DEAD,
-                () => {
+            this.playAnimationOnce(this.IMAGES_DEAD, () => {
                     this.isFinished = true;
                 },
             );
@@ -341,9 +329,7 @@ export class Character extends MovableObject {
             this.playAnimation(this.IMAGES_JUMPING);
 
         } else if (
-            this.world.keyboard.RIGHT ||
-            this.world.keyboard.LEFT
-        ) {
+            this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
             this.playAnimation(this.IMAGES_WALKING);
 
         } else if (this.isIdleLong()) {
@@ -366,28 +352,18 @@ export class Character extends MovableObject {
      */
     throwBottle() {
         if (this.dead) return;
-
         const now = Date.now();
-
-        if (
-            this.bottles <= 0 ||
-            now - this.lastThrow < this.throwCooldown
-        ) {
+        if (this.bottles <= 0 || now - this.lastThrow < this.throwCooldown) {
             return;
         }
-
         this.lastThrow = now;
-
         const frame = this.getRealFrame();
-
         const bottle = new ThrowableObject(
             frame.x + frame.width - 125 / 2,
             frame.y + 25,
             this.otherDirection,
         );
-
         this.world.throwableObjects.push(bottle);
-
         this.bottles--;
     }
 
@@ -399,9 +375,7 @@ export class Character extends MovableObject {
      * @returns {boolean}
      */
     isIdleLong() {
-        return (
-            new Date().getTime() - this.lastAction > 5000
-        );
+        return (new Date().getTime() - this.lastAction > 5000);
     }
 
 
@@ -418,15 +392,10 @@ export class Character extends MovableObject {
      */
     die() {
         if (this.dead) return;
-
         this.dead = true;
-
         this.speed = 0;
         this.speedY = 0;
-
-        SoundHub.playOne(
-            SoundHub.CHARACTER.dead,
-        );
+        SoundHub.playOne(SoundHub.CHARACTER.dead);
     }
 
 
@@ -438,9 +407,7 @@ export class Character extends MovableObject {
      * @returns {void}
      */
     playHitSound() {
-        SoundHub.playOne(
-            SoundHub.CHARACTER.damage,
-        );
+        SoundHub.playOne(SoundHub.CHARACTER.damage);
     }
 
 
@@ -454,10 +421,7 @@ export class Character extends MovableObject {
      */
     startWalkingSound() {
         if (!this.isWalkingSound) {
-            SoundHub.playLoop(
-                SoundHub.CHARACTER.run,
-            );
-
+            SoundHub.playLoop(SoundHub.CHARACTER.run);
             this.isWalkingSound = true;
         }
     }
@@ -470,10 +434,7 @@ export class Character extends MovableObject {
      */
     stopWalkingSound() {
         if (this.isWalkingSound) {
-            SoundHub.stopLoop(
-                SoundHub.CHARACTER.run,
-            );
-
+            SoundHub.stopLoop(SoundHub.CHARACTER.run);
             this.isWalkingSound = false;
         }
     }
@@ -488,10 +449,7 @@ export class Character extends MovableObject {
      */
     startSnoringSound() {
         if (!this.isSnoring) {
-            SoundHub.playLoop(
-                SoundHub.CHARACTER.snoring,
-            );
-
+            SoundHub.playLoop(SoundHub.CHARACTER.snoring);
             this.isSnoring = true;
         }
     }
@@ -504,10 +462,7 @@ export class Character extends MovableObject {
      */
     stopSnoringSound() {
         if (this.isSnoring) {
-            SoundHub.stopLoop(
-                SoundHub.CHARACTER.snoring,
-            );
-
+            SoundHub.stopLoop(SoundHub.CHARACTER.snoring);
             this.isSnoring = false;
         }
     }

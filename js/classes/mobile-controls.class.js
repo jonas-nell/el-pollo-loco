@@ -110,11 +110,8 @@ export class MobileControls {
         button.addEventListener(
             "touchstart",
             (e) => {
-
                 e.preventDefault();
-
                 this.keyboard[key] = true;
-
             },
         );
 
@@ -122,9 +119,7 @@ export class MobileControls {
         button.addEventListener(
             "touchend",
             () => {
-
                 this.keyboard[key] = false;
-
             },
         );
 
@@ -132,9 +127,7 @@ export class MobileControls {
         button.addEventListener(
             "touchcancel",
             () => {
-
                 this.keyboard[key] = false;
-
             },
         );
 
@@ -142,9 +135,7 @@ export class MobileControls {
         button.addEventListener(
             "contextmenu",
             (e) => {
-
                 e.preventDefault();
-
             },
         );
     }

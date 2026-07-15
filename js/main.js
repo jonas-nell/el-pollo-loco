@@ -23,7 +23,5 @@ let game;
  * - audio setup
  */
 window.onload = () => {
-
     game = new Game();
-
 };
