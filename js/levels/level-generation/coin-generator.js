@@ -1,5 +1,15 @@
+
 import { Coin } from "../../classes/coin.class.js";
 
+
+/**
+ * Predefined coin placement patterns.
+ *
+ * Each template contains relative positions inside
+ * one level segment.
+ *
+ * @type {Object[][]}
+ */
 const COIN_TEMPLATES = [
     [
         { x: 340, y: 290 },
@@ -31,22 +41,69 @@ const COIN_TEMPLATES = [
     ],
 ];
 
-export function generateCoins(segmentCount) {
-    const SEGMENT_WIDTH = 719;
-    let coins = [];
 
+/**
+ * Generates collectible coins for a level.
+ *
+ * Creates coins based on predefined placement templates.
+ * The first segment always uses a fixed template, while
+ * following segments receive randomly selected patterns.
+ *
+ * Template coordinates are converted from local segment
+ * positions into global world positions.
+ *
+ * @param {number} segmentCount - Number of level segments.
+ *
+ * @returns {Coin[]} Generated coin objects.
+ */
+export function generateCoins(segmentCount) {
+
+    const SEGMENT_WIDTH = 719;
+
+    const coins = [];
+
+
+    /*
+     * The final segment is excluded to prevent collectibles
+     * from spawning too close to the endboss area.
+     */
     for (let i = 0; i < segmentCount - 1; i++) {
-        let template = i === 0 ? COIN_TEMPLATES[0] : getRandomCoinTemplate();
+
+        const template =
+            i === 0
+                ? COIN_TEMPLATES[0]
+                : getRandomCoinTemplate();
+
+
         template.forEach((coin) => {
-            coins.push(new Coin(i * SEGMENT_WIDTH + coin.x, coin.y));
+
+            coins.push(
+                new Coin(
+                    i * SEGMENT_WIDTH + coin.x,
+                    coin.y,
+                ),
+            );
+
         });
     }
+
 
     return coins;
 }
 
+
+/**
+ * Selects a random coin placement template.
+ *
+ * @returns {Object[]} A randomly selected coin pattern.
+ */
 function getRandomCoinTemplate() {
-    let randomIndex = Math.floor(Math.random() * COIN_TEMPLATES.length);
+
+    const randomIndex =
+        Math.floor(
+            Math.random() * COIN_TEMPLATES.length,
+        );
+
 
     return COIN_TEMPLATES[randomIndex];
 }

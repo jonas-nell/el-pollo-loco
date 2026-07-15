@@ -1,0 +1,37 @@
+{
+    "source": {
+        "include": [
+            "js/classes/background-object.class.js",
+            "js/classes/bottle.class.js",
+            "js/classes/character.class.js",
+            "js/classes/chicken-small.class.js",
+            "js/classes/chicken.class.js",
+            "js/classes/cloud.class.js",
+            "js/classes/coin.class.js",
+            "js/classes/drawable-object.class.js",
+            "js/classes/endboss.class.js",
+            "js/classes/game-manager.class.js",
+            "js/classes/img-helper.class.js",
+            "js/classes/interval-hub.class.js",
+            "js/classes/keyboard.class.js",
+            "js/classes/level.class.js",
+            "js/classes/mobile-controls.class.js",
+            "js/classes/movable-object.class.js",
+            "js/classes/sound-hub.class.js",
+            "js/classes/status-bar.class.js",
+            "js/classes/throwable-object.class.js",
+            "js/classes/world.class.js",
+            "js/levels/level-generation/background-generator.js",
+            "js/levels/level-generation/bottle-generator.js",
+            "js/levels/level-generation/cloud-generator.js",
+            "js/levels/level-generation/coin-generator.js",
+            "js/levels/level1.js",
+            "js/levels/level2.js",
+            "js/levels/level3.js",
+            "js/main.js"
+        ]
+    },
+    "opts": {
+        "destination": "./out"
+    }
+}
