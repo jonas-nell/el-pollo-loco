@@ -208,7 +208,6 @@ export class Game {
             SoundHub.toggleMute();
             this.updateSoundIcon();
         });
-
         this.updateSoundIcon();
     }
 
@@ -222,7 +221,6 @@ export class Game {
      */
     start() {
         this.state = GAME_STATES.PLAYING;
-
         SoundHub.stopLoop(SoundHub.BGM.menuBgm);
         SoundHub.playLoop(SoundHub.BGM.levelBgm);
 
@@ -272,7 +270,6 @@ export class Game {
 
         volumeSlider.addEventListener("input", (event) => {
             const volume = event.target.value / 100;
-
             SoundHub.setMasterVolume(volume);
         });
 
@@ -334,6 +331,7 @@ export class Game {
         SoundHub.playLoop(SoundHub.BGM.levelBgm);
         this.showCanvas();
         this.showFullscreenButton();
+        this.showSoundButton();
         this.setMobileControlsVisibility(true);
         this.showH1();
         this.character = new Character();
