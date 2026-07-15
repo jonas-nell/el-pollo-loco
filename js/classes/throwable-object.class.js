@@ -3,10 +3,45 @@ import { IntervalHub } from "./interval-hub.class.js";
 import { MovableObject } from "./movable-object.class.js";
 import { SoundHub } from "./sound-hub.class.js";
 
+
+/**
+ * Represents a throwable bottle projectile.
+ *
+ * Extends MovableObject with throwing physics,
+ * rotation animation, collision effects,
+ * and splash animation handling.
+ *
+ * After hitting an enemy or the ground,
+ * the bottle switches into a broken state and
+ * plays its splash animation before being removed.
+ *
+ * @class ThrowableObject
+ * @extends MovableObject
+ */
 export class ThrowableObject extends MovableObject {
+
+
+    /**
+     * Bottle rotation animation frames.
+     *
+     * @type {string[]}
+     */
     IMAGES_ROTATION = ImageHelper.BOTTLE.rotation;
+
+
+    /**
+     * Bottle splash animation frames.
+     *
+     * @type {string[]}
+     */
     IMAGES_SPLASH = ImageHelper.BOTTLE.splash;
 
+
+    /**
+     * Collision box offset.
+     *
+     * @type {Object}
+     */
     offset = {
         top: 10,
         right: 5,
@@ -14,50 +49,169 @@ export class ThrowableObject extends MovableObject {
         left: 5,
     };
 
+
+    /**
+     * Initial throwing velocity.
+     *
+     * Controls the vertical movement after throwing.
+     *
+     * @type {number}
+     */
     speedY = 30;
+
+
+    /**
+     * Sprite height.
+     *
+     * @type {number}
+     */
     height = 75;
+
+
+    /**
+     * Sprite width.
+     *
+     * @type {number}
+     */
     width = 60;
+
+
+    /**
+     * Height at which the bottle hits the ground.
+     *
+     * @type {number}
+     */
     groundLevel = 360;
+
+
+    /**
+     * Indicates whether the bottle has broken.
+     *
+     * @type {boolean}
+     */
     isBroken = false;
+
+
+    /**
+     * Current rotation animation index.
+     *
+     * @type {number}
+     */
     rotationImage = 0;
 
 
+    /**
+     * Creates a throwable bottle.
+     *
+     * Loads animations, sets the initial position,
+     * and starts the throwing and animation logic.
+     *
+     * @param {number} x - Initial horizontal position.
+     * @param {number} y - Initial vertical position.
+     * @param {boolean} otherDirection - Determines throwing direction.
+     */
     constructor(x, y, otherDirection) {
         super();
+
         this.otherDirection = otherDirection;
-        this.loadImage(this.IMAGES_ROTATION[0]);
-        this.loadImages(this.IMAGES_ROTATION);
-        this.loadImages(this.IMAGES_SPLASH);
+
+        this.loadImage(
+            this.IMAGES_ROTATION[0],
+        );
+
+        this.loadImages(
+            this.IMAGES_ROTATION,
+        );
+
+        this.loadImages(
+            this.IMAGES_SPLASH,
+        );
+
         this.x = x;
         this.y = y;
+
         this.throw();
+
         this.animate();
     }
 
+
+    /**
+     * Starts the bottle animation loop.
+     *
+     * Displays rotation animation while flying
+     * and splash animation after breaking.
+     *
+     * @returns {void}
+     */
     animate() {
         IntervalHub.startInterval(() => {
+
             if (this.isBroken) {
                 this.playSplashAnimation();
+
             } else {
-                this.playAnimation(this.IMAGES_ROTATION);
+                this.playAnimation(
+                    this.IMAGES_ROTATION,
+                );
             }
+
         }, 115);
     }
 
+
+    /**
+     * Plays the bottle splash animation.
+     *
+     * Once the animation finishes, the bottle
+     * is marked as completed and can be removed.
+     *
+     * @returns {void}
+     */
     playSplashAnimation() {
-        this.playAnimationOnce(this.IMAGES_SPLASH);
-        if (this.currentImageOnce >= this.IMAGES_SPLASH.length) {
+        this.playAnimationOnce(
+            this.IMAGES_SPLASH,
+        );
+
+        if (
+            this.currentImageOnce >=
+            this.IMAGES_SPLASH.length
+        ) {
             this.isFinished = true;
         }
     }
 
+
+    /**
+     * Starts the throwing movement.
+     *
+     * Applies gravity to create the throwing arc
+     * and starts horizontal movement.
+     *
+     * @returns {void}
+     */
     throw() {
         this.applyGravity();
-        IntervalHub.startInterval(this.bottleHorizontal, 25);
+
+        IntervalHub.startInterval(
+            this.bottleHorizontal,
+            25,
+        );
     }
 
+
+    /**
+     * Moves the bottle horizontally while flying.
+     *
+     * Direction depends on the player's facing direction.
+     * Movement stops after the bottle breaks.
+     *
+     * @returns {void}
+     */
     bottleHorizontal = () => {
+
         if (!this.isBroken) {
+
             if (this.otherDirection) {
                 this.x -= 8;
             } else {
@@ -66,12 +220,29 @@ export class ThrowableObject extends MovableObject {
         }
     };
 
+
+    /**
+     * Breaks the bottle.
+     *
+     * Stops movement, triggers the splash animation,
+     * resets animation progress, and plays the breaking sound.
+     *
+     * This method is called when the bottle hits
+     * an enemy or reaches the ground.
+     *
+     * @returns {void}
+     */
     break() {
         if (this.isBroken) return;
 
-        SoundHub.playOne(SoundHub.COLLECTIBLES.bottleBreak);
+        SoundHub.playOne(
+            SoundHub.COLLECTIBLES.bottleBreak,
+        );
+
         this.isBroken = true;
+
         this.speedY = 0;
+
         this.currentImageOnce = 0;
     }
 }
