@@ -337,7 +337,9 @@ export class Game {
 
     initAudioUnlock() {
         const unlockAudio = () => {
-            SoundHub.playLoop(SoundHub.BGM.menuBgm);
+            if (this.state === GAME_STATES.MENU) {
+                SoundHub.playLoop(SoundHub.BGM.menuBgm);
+            }
             document.body.removeEventListener("click", unlockAudio);
         };
         document.body.addEventListener("click", unlockAudio);
