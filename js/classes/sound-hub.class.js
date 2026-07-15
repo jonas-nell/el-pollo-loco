@@ -54,7 +54,7 @@ export class SoundHub {
         this.initSound(this.BGM.menuBgm, 0.1);
         this.initSound(this.BGM.levelBgm, 0.2);
         this.initSound(this.BGM.victoryBgm, 0.25);
-        this.initSound(this.BGM.gameOverBgm, 0.6);+
+        this.initSound(this.BGM.gameOverBgm, 0.6);
         this.updateSounds();
     }
 
