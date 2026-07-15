@@ -8,7 +8,6 @@ import { MobileControls } from "./mobile-controls.class.js";
 import { SoundHub } from "./sound-hub.class.js";
 import { World } from "./world.class.js";
 
-
 /**
  * Represents the different states of the game.
  *
@@ -23,7 +22,6 @@ const GAME_STATES = {
     PLAYING: "PLAYING",
     GAME_OVER: "GAME_OVER",
 };
-
 
 /**
  * Controls the overall game lifecycle.
@@ -43,14 +41,12 @@ const GAME_STATES = {
  * @class Game
  */
 export class Game {
-
     /**
      * Current playable character.
      *
      * @type {Character}
      */
     character;
-
 
     /**
      * Currently active game world.
@@ -59,7 +55,6 @@ export class Game {
      */
     world;
 
-
     /**
      * Keyboard input handler.
      *
@@ -67,14 +62,12 @@ export class Game {
      */
     keyboard;
 
-
     /**
      * Current game state.
      *
      * @type {string}
      */
     state = GAME_STATES.MENU;
-
 
     /**
      * Available game levels.
@@ -85,14 +78,12 @@ export class Game {
      */
     levels = this.createLevels();
 
-
     /**
      * Index of the currently active level.
      *
      * @type {number}
      */
     currentLevelIndex = 0;
-
 
     /**
      * Creates a new game instance.
@@ -105,9 +96,7 @@ export class Game {
 
         this.keyboard = new Keyboard();
 
-        this.mobileControls = new MobileControls(
-            this.keyboard,
-        );
+        this.mobileControls = new MobileControls(this.keyboard);
 
         this.setMobileControlsVisibility(false);
 
@@ -118,7 +107,6 @@ export class Game {
 
         this.initAudioUnlock();
     }
-
 
     /**
      * Initializes all user interface systems.
@@ -136,7 +124,6 @@ export class Game {
         this.initSoundbutton();
         this.initSoundDialog();
     }
-
 
     /**
      * Initializes the start screen behavior.
@@ -158,7 +145,22 @@ export class Game {
             this.start();
         });
     }
+    /**
+     * Initializes the instructions dialog and registers open/close button events.
+     */
+    initInstructionsDialog() {
+        const dialog = document.getElementById("instructionsDialog");
+        const openButton = document.getElementById("instructionsButton");
+        const closeButton = document.getElementById("closeInstructions");
 
+        openButton.addEventListener("click", () => {
+            dialog.showModal();
+        });
+
+        closeButton.addEventListener("click", () => {
+            dialog.close();
+        });
+    }
 
     /**
      * Initializes restart and menu buttons
@@ -188,6 +190,32 @@ export class Game {
         });
     }
 
+    /**
+     * Initializes the fullscreen button and registers the fullscreen toggle event.
+     */
+    initFullscreenButton() {
+        const button = document.getElementById("fullscreenButton");
+
+        button.addEventListener("click", () => {
+            this.toggleFullscreen();
+        });
+    }
+
+    /**
+     * Initializes the sound toggle button and updates the displayed sound icon.
+     * Registers a click event to mute or unmute all game sounds.
+     */
+    initSoundbutton() {
+        this.soundButton = document.getElementById("soundBtn");
+        this.soundIcon = this.soundButton.querySelector("img");
+
+        this.soundButton.addEventListener("click", () => {
+            SoundHub.toggleMute();
+            this.updateSoundIcon();
+        });
+
+        this.updateSoundIcon();
+    }
 
     /**
      * Starts a new game session.
@@ -203,9 +231,7 @@ export class Game {
         SoundHub.stopLoop(SoundHub.BGM.menuBgm);
         SoundHub.playLoop(SoundHub.BGM.levelBgm);
 
-        document
-            .getElementById("startMenu")
-            .classList.remove("visible");
+        document.getElementById("startMenu").classList.remove("visible");
 
         this.hideStartScreen();
         this.showCanvas();
@@ -216,7 +242,6 @@ export class Game {
 
         this.createWorld();
     }
-
 
     /**
      * Advances to the next level.
@@ -236,13 +261,39 @@ export class Game {
 
         this.currentLevelIndex++;
 
-        const nextLevel =
-            this.levels[this.currentLevelIndex]();
+        const nextLevel = this.levels[this.currentLevelIndex]();
 
         this.character.x = nextLevel.spawnX;
         this.character.y = nextLevel.spawnY;
 
         this.createWorld();
+    }
+
+    /**
+     * Initializes the sound settings dialog.
+     * Registers events for opening and closing the dialog and updates the master volume.
+     */
+    initSoundDialog() {
+        const soundDialog = document.getElementById("soundDialog");
+        const closeSoundDialog = document.getElementById("closeSoundDialog");
+        const volumeSlider = document.getElementById("volumeSlider");
+        const soundSettingsButton = document.getElementById("soundSettings");
+
+        volumeSlider.value = SoundHub.masterVolume * 100;
+
+        volumeSlider.addEventListener("input", (event) => {
+            const volume = event.target.value / 100;
+
+            SoundHub.setMasterVolume(volume);
+        });
+
+        soundSettingsButton.addEventListener("click", () => {
+            soundDialog.showModal();
+        });
+
+        closeSoundDialog.addEventListener("click", () => {
+            soundDialog.close();
+        });
     }
 
     /**
@@ -258,7 +309,6 @@ export class Game {
         );
     }
 
-
     /**
      * Shows the game over screen after losing.
      *
@@ -271,7 +321,6 @@ export class Game {
             SoundHub.BGM.gameOverBgm,
         );
     }
-
 
     /**
      * Restarts the game from the beginning.
@@ -290,23 +339,14 @@ export class Game {
 
         const ctx = this.canvas.getContext("2d");
 
-        ctx.clearRect(
-            0,
-            0,
-            this.canvas.width,
-            this.canvas.height,
-        );
+        ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.currentLevelIndex = 0;
         this.state = GAME_STATES.PLAYING;
 
-        document
-            .getElementById("gameOverDialog")
-            .close();
+        document.getElementById("gameOverDialog").close();
 
-        document
-            .getElementById("victoryDialog")
-            .close();
+        document.getElementById("victoryDialog").close();
 
         SoundHub.pauseAll();
         SoundHub.playLoop(SoundHub.BGM.levelBgm);
@@ -320,7 +360,6 @@ export class Game {
 
         this.createWorld();
     }
-
 
     /**
      * Returns the player to the main menu.
@@ -340,13 +379,9 @@ export class Game {
         this.currentLevelIndex = 0;
         this.state = GAME_STATES.MENU;
 
-        document
-            .getElementById("gameOverDialog")
-            .close();
+        document.getElementById("gameOverDialog").close();
 
-        document
-            .getElementById("victoryDialog")
-            .close();
+        document.getElementById("victoryDialog").close();
 
         SoundHub.pauseAll();
         SoundHub.playLoop(SoundHub.BGM.menuBgm);
@@ -359,11 +394,8 @@ export class Game {
         this.showStartScreen();
         this.showH1();
 
-        document
-            .getElementById("startMenu")
-            .classList.add("visible");
+        document.getElementById("startMenu").classList.add("visible");
     }
-
 
     /**
      * Creates the available game level list.
@@ -374,13 +406,8 @@ export class Game {
      * @returns {Function[]}
      */
     createLevels() {
-        return [
-            level1,
-            level2,
-            level3,
-        ];
+        return [level1, level2, level3];
     }
-
 
     /**
      * Creates a new game world instance.
@@ -399,7 +426,6 @@ export class Game {
             this.character,
         );
     }
-
 
     /**
      * Handles transitions into victory or game over states.
@@ -430,11 +456,8 @@ export class Game {
         SoundHub.pauseAll();
         SoundHub.playLoop(bgm);
 
-        document
-            .getElementById(dialogId)
-            .showModal();
+        document.getElementById(dialogId).showModal();
     }
-
 
     /**
      * Hides the start screen from view.
@@ -442,11 +465,8 @@ export class Game {
      * @returns {void}
      */
     hideStartScreen() {
-        document
-            .getElementById("startScreen")
-            .classList.add("d-none");
+        document.getElementById("startScreen").classList.add("d-none");
     }
-
 
     /**
      * Shows the start screen.
@@ -454,11 +474,8 @@ export class Game {
      * @returns {void}
      */
     showStartScreen() {
-        document
-            .getElementById("startScreen")
-            .classList.remove("d-none");
+        document.getElementById("startScreen").classList.remove("d-none");
     }
-
 
     /**
      * Shows the game canvas.
@@ -466,11 +483,8 @@ export class Game {
      * @returns {void}
      */
     showCanvas() {
-        document
-            .getElementById("canvas")
-            .classList.remove("d-none");
+        document.getElementById("canvas").classList.remove("d-none");
     }
-
 
     /**
      * Hides the game canvas.
@@ -478,11 +492,8 @@ export class Game {
      * @returns {void}
      */
     hideCanvas() {
-        document
-            .getElementById("canvas")
-            .classList.add("d-none");
+        document.getElementById("canvas").classList.add("d-none");
     }
-
 
     /**
      * Toggles fullscreen mode for the game container.
@@ -490,8 +501,7 @@ export class Game {
      * @returns {void}
      */
     toggleFullscreen() {
-        const gameContainer =
-            document.getElementById("gameContainer");
+        const gameContainer = document.getElementById("gameContainer");
 
         if (!document.fullscreenElement) {
             gameContainer.requestFullscreen();
@@ -500,18 +510,14 @@ export class Game {
         }
     }
 
-
     /**
      * Shows the fullscreen button.
      *
      * @returns {void}
      */
     showFullscreenButton() {
-        document
-            .getElementById("fullscreenButton")
-            .classList.remove("d-none");
+        document.getElementById("fullscreenButton").classList.remove("d-none");
     }
-
 
     /**
      * Hides the fullscreen button.
@@ -519,11 +525,8 @@ export class Game {
      * @returns {void}
      */
     hideFullscreenButton() {
-        document
-            .getElementById("fullscreenButton")
-            .classList.add("d-none");
+        document.getElementById("fullscreenButton").classList.add("d-none");
     }
-
 
     /**
      * Hides the sound button.
@@ -531,11 +534,8 @@ export class Game {
      * @returns {void}
      */
     hideSoundButton() {
-        document
-            .getElementById("soundBtn")
-            .classList.add("d-none");
+        document.getElementById("soundBtn").classList.add("d-none");
     }
-
 
     /**
      * Shows the sound button.
@@ -543,11 +543,8 @@ export class Game {
      * @returns {void}
      */
     showSoundButton() {
-        document
-            .getElementById("soundBtn")
-            .classList.remove("d-none");
+        document.getElementById("soundBtn").classList.remove("d-none");
     }
-
 
     /**
      * Hides the page heading.
@@ -555,11 +552,8 @@ export class Game {
      * @returns {void}
      */
     hideH1() {
-        document
-            .getElementById("h1")
-            .classList.add("d-none");
+        document.getElementById("h1").classList.add("d-none");
     }
-
 
     /**
      * Shows the page heading.
@@ -567,11 +561,8 @@ export class Game {
      * @returns {void}
      */
     showH1() {
-        document
-            .getElementById("h1")
-            .classList.remove("d-none");
+        document.getElementById("h1").classList.remove("d-none");
     }
-
 
     /**
      * Updates the sound button icon based on mute state.
@@ -584,7 +575,6 @@ export class Game {
             : "./assets/img/sound.png";
     }
 
-
     /**
      * Shows or hides mobile control buttons.
      *
@@ -593,8 +583,7 @@ export class Game {
      * @returns {void}
      */
     setMobileControlsVisibility(show) {
-        const mobileControls =
-            document.getElementById("mobileControls");
+        const mobileControls = document.getElementById("mobileControls");
 
         if (!mobileControls) return;
 
@@ -604,7 +593,6 @@ export class Game {
             mobileControls.classList.add("hidden");
         }
     }
-
 
     /**
      * Unlocks browser audio playback after user interaction.
@@ -618,20 +606,12 @@ export class Game {
     initAudioUnlock() {
         const unlockAudio = () => {
             if (this.state === GAME_STATES.MENU) {
-                SoundHub.playLoop(
-                    SoundHub.BGM.menuBgm,
-                );
+                SoundHub.playLoop(SoundHub.BGM.menuBgm);
             }
 
-            document.body.removeEventListener(
-                "click",
-                unlockAudio,
-            );
+            document.body.removeEventListener("click", unlockAudio);
         };
 
-        document.body.addEventListener(
-            "click",
-            unlockAudio,
-        );
+        document.body.addEventListener("click", unlockAudio);
     }
 }
