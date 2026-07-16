@@ -135,7 +135,7 @@ export class Game {
 
         setTimeout(() => {
             startMenu.classList.add("visible");
-        }, 3000);
+        }, 1500);
 
         playButton.addEventListener("click", () => {
             this.start();
